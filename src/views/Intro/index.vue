@@ -6,7 +6,6 @@ const router = useRouter();
 const goToLocationPage = () => {
     router.push({ name: "location" });
 };
-
 </script>
 
 <template>
@@ -37,17 +36,11 @@ const goToLocationPage = () => {
             <a-button type="primary" size="large" @click="goToLocationPage">
                 <span class="gray-1">Get Started</span>
             </a-button>
-            <span class="intro__version b8 gray-6 my-2">
+            <span class="b8 gray-6 my-2 text-center">
                 Version 1.0.1
             </span>
         </a-flex>
     </a-flex>
 </template>
 
-<style lang="scss" scoped>
-.intro {
-    &__version {
-        text-align: center;
-    }
-}
-</style>
+<style lang="scss"></style>

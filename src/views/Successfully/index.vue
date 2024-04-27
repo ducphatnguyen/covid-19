@@ -5,8 +5,8 @@
 <template>
 
     <div>
-        <img src="../assets/logo.svg" alt="">
-        <img src="../assets/images/check-in.png" alt="">
+        <img src="/src/assets/logo.svg" alt="Logo" />
+        <img src="/src/assets/images/intro/check-in.svg" alt="Check-in-app" />
         <h4>Welcome and thanks for checking in with Silicon Stack!</h4>
         <p>In light of COVID-19 there is a mandatory Check-In System in place, to ensure maximum safety for everyone who
             comes on premise. This check-in system is required for both visitors and employees and you will be required
@@ -19,9 +19,4 @@
 
 </template>
 
-<style lang="scss" scoped>
-.container {
-    padding: 0 16px;
-}
-
-</style>
+<style lang="scss"></style>

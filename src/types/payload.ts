@@ -1,5 +1,5 @@
 export type Payload = {
-    checklistAnswers?: Record<number, boolean> | null;
+    checklistAnswers?: Record<string, boolean | null> | null;
     countryCode?: string | null;
     dialingCode?: string | null;
     facilityId?: number | null;
@@ -7,6 +7,7 @@ export type Payload = {
     isFailed?: boolean | null;
     isInfoConfirmed?: boolean | null;
     isPdfOpened?: boolean | null;
+    isStep2Navigated?: boolean | null;
     lastName?: string;
     phone?: string;
     statusCode?: string | null;

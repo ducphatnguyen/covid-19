@@ -1,61 +1,52 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
-import { AppFooter} from "@/components";
+import { AppFooter, Progress} from "@/components";
+import { usePayload } from "@/stores";
 
-const isClicked = ref<boolean>(false);
-const onClickPdf = () => {
-    isClicked.value = true;
+const payloadStore = usePayload();
+const canNext = computed(() => payloadStore.$state.isPdfOpened!);
+
+const progressProps = {
+    title: "1. Office-guidelines",
+    description: "Next: Health Checklist",
+    currentStep: 1,
+    totalSteps: 3
+};
+
+const footerRouteProps = {
+    backRouteName: "location",
+    nextRouteName: "health-checklist",
 }
-const canNext = computed(() => {
-    if(isClicked.value == true) {
-        return true;
-    }
-    return false;
-});
+
+const onClickPdf = () => {
+    payloadStore.$state.isPdfOpened = true;
+}
+
 </script>
 
 <template>
     <a-flex class="office-guidelines" vertical>
-
-        <a-flex justify="space-between" class="progress">
-            <a-flex vertical>
-                <span class="h5 primary-9">1. Office-guidelines</span>
-                <span class="b7 gray-8">Next: Health Checklist</span>
-            </a-flex>
-            <a-progress type="circle" :percent="100 / 3" size="small" :strokeWidth="9" :strokeColor="'#15B982'">
-                <template #format="percent">
-                    <span class="b8">1 of 3</span>
-                </template>
-            </a-progress>
-        </a-flex>
-
-        <a-flex align="center" class="pt-16 pb-23" vertical>
-
+        <Progress :="progressProps" />
+        <a-flex class="pt-16 pb-23" align="center" vertical>
             <div style="text-align:center" class="pb-4 b6 gray-9">
                 <span>Read and acknowledge<br> the Office Guidelines</span>
             </div>
             <a-flex
-                style="background: #ececec; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; flex-direction: column; border-radius: 50%;">
+                style="background: #f6f6fa; width: 220px; height: 220px; border-radius: 50%;" justify="center" align="center" vertical>
                 <a href="https://assets.kpmg/content/dam/kpmg/ie/pdf/2020/05/6232_COVID19_Return_to_Work_PDF_May_2020.pdf" target="_blank">
                     <a-space direction="vertical" align="center" @click="onClickPdf" >
                         <img src="../../assets/images/office-guidelines/pdf.png" alt="">
-                        <span style="margin-top: 10px" class="b6 gray-8">
+                        <span class="b6 gray-8 mt-2">
                             Tap to open PDF
                         </span>
                     </a-space>
                 </a>
             </a-flex>
         </a-flex>
-
-        <!-- Footer -->
-        <AppFooter :nextName="'office-guidelines'" :backName="'intro'"  :canNext="canNext"/> 
+        <AppFooter :="footerRouteProps" :isStep2Navigated="true" :canNext/> 
     </a-flex>
 
 </template>
 
-<style lang="scss" scoped>
-.progress {
-    padding: 0 16px;
-}
-</style>
+<style lang="scss"></style>

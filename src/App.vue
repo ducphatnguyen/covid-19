@@ -1,30 +1,39 @@
 <script setup lang="ts">
-import {ANT_CONFIGS} from "./constants";
+import { onMounted } from "vue"
 
+import { useCountryStore } from "@/stores";
+
+import { ANT_CONFIGS } from "./constants";
+
+const { getCountries } = useCountryStore()
+
+onMounted(async () => await getCountries())
 </script>
 
 <template>
-  <a-config-provider
-    :theme="ANT_CONFIGS"
-  >
+  <a-config-provider :theme="ANT_CONFIGS">
   </a-config-provider>
   <div class="container">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
-<style scoped lang="scss">
-* {
-  box-sizing: inherit;
-  margin: 0 auto;
-}
+<style lang="scss">
 body {
   box-sizing: border-box;
 }
+
 .container {
   max-width: 376px;
-  // height: 100vh;
-  // border: 1px solid black;
   background-color: #fff;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center
+}
+
+.text-right {
+  text-align: right;
 }
 </style>

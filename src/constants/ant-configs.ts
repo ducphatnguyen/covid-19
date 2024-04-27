@@ -1,5 +1,3 @@
-import { Button } from "ant-design-vue";
-
 export const ANT_CONFIGS = {
     token: {
         // Border
@@ -17,7 +15,6 @@ export const ANT_CONFIGS = {
 
         // Font
         fontFamily: '"Roboto", sans-serif',
-        // fontSize: 16,
         fontWeightStrong: 500,
     },
 
@@ -25,9 +22,6 @@ export const ANT_CONFIGS = {
         Button: {
             lineHeight: 1.5
         }
-
     }
-
-
 
 }

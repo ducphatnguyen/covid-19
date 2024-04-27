@@ -9,4 +9,4 @@ import { AppHeader } from '@/components';
     </a-flex>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>

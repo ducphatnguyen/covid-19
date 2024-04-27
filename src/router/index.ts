@@ -1,11 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 
-// Lzl
+// Lazy Loading
 const Intro = () => import('@/views/Intro/index.vue');
 
 // Layout
 const AppLayout = () => import('@/layouts/AppLayout.vue');
+
 // Children (Layout)
 const Location = () => import('@/views/Location/index.vue');
 const Checklist = () => import('@/views/HealthChecklist/index.vue');
