@@ -10,6 +10,34 @@ const STATUS = [
     { code: "employee", label: "Employee" },
 ];
 
+// Hàm xử lý payload
+const handlePayload = (payloadStore: any, countries: Country[]) => {
+    const payloadItem = localStorage.getItem('payload');
+    const payload = JSON.parse(payloadItem!);
+
+    if (payload != null && payload.isStep2Navigated) {
+        payloadStore.$patch(payload);
+    }
+    else {
+        payloadStore.handleChange('countryCode', countries?.[0]?.code);
+        payloadStore.handleChange('facilityId', countries[0]?.facilityList?.[0]?.id);
+        payloadStore.handleChange('statusCode', STATUS?.[0]?.code);
+
+        countries?.[0].questionList?.forEach((question: Question) => {
+            payloadStore.handleChange("checklistAnswers", { ...payloadStore.$state.checklistAnswers, [question.code]: null });
+        });
+
+        payloadStore.handleChange('isPdfOpened', false);
+        payloadStore.handleChange('isStep2Navigated', false);
+        payloadStore.handleChange('dialingCode', countries?.[0]?.dialingCode!);
+
+        payloadStore.handleChange('firstName', '');
+        payloadStore.handleChange('lastName', '');
+        payloadStore.handleChange('contactNumber', '');
+        payloadStore.handleChange('isInfoConfirmed', false);
+    }
+}
+
 export const useCountryStore = defineStore({
     id: 'countries',
     state: () => ({
@@ -34,16 +62,9 @@ export const useCountryStore = defineStore({
                     return dialingCode ? { ...country, ...dialingCode } : country
                 });
 
-                console.log(this.countries);
-                
-                // Initiate for the first country
-                payloadStore.onChange('countryCode', this.countries?.[0]?.code);
-                payloadStore.onChange('facilityId', this.countries[0]?.facilityList?.[0]?.id);
-                payloadStore.onChange('statusCode', STATUS?.[0]?.code);
-
-                this.countries?.[0].questionList?.forEach((question: Question) => {
-                    payloadStore.onChange("checklistAnswers", { ...payloadStore.$state.checklistAnswers, [question.code]: null });
-                });
+                // Initiate and Save when reload
+                handlePayload(payloadStore, this.countries);
+                console.log(payloadStore.$state);
             } catch (error) {
                 console.error('Error when getting location:', error);
             }

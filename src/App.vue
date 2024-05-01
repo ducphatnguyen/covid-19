@@ -28,12 +28,4 @@ body {
   background-color: #fff;
   margin: 0 auto;
 }
-
-.text-center {
-  text-align: center
-}
-
-.text-right {
-  text-align: right;
-}
 </style>

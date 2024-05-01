@@ -6,6 +6,7 @@ const router = useRouter();
 const goToLocationPage = () => {
     router.push({ name: "location" });
 };
+
 </script>
 
 <template>

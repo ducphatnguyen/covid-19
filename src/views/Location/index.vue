@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed} from 'vue';
 
 import { AppFooter } from "@/components";
 import { usePayload, useCountryStore } from "@/stores";
@@ -39,10 +39,10 @@ const getCountryFlagUrl = (countryCode: string) => {
 };
 
 const onChangeCountry = (countryCode: string) => {
-    payloadStore.onChange('countryCode', countryCode);
+    payloadStore.handleChange('countryCode', countryCode);
     const selectedFacility = facilitiesByCountry.value[0];
     if (selectedFacility) {
-        payloadStore.onChange('facilityId', selectedFacility.id);
+        payloadStore.handleChange('facilityId', selectedFacility.id);
     }
 }
 </script>
@@ -114,22 +114,18 @@ const onChangeCountry = (countryCode: string) => {
                     display: none;
                 }
             }
-
             &-item {
                 &:hover {
                     transform: scale(1.05);
                     transition: transform 0.3s ease;
                 }
-
                 &--active {
                     background-color: #0062ff;
                     color: #ffffff;
                 }
-
                 background-color: #F6F6FA;
                 border-radius: 4px;
                 cursor: pointer;
-
                 .country-item {
                     &__img {
                         width: 48px;
@@ -140,6 +136,7 @@ const onChangeCountry = (countryCode: string) => {
                 }
             }
         }
+
         // 2. Facility + Status
         &-facility,
         &-status {

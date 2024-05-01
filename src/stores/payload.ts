@@ -7,17 +7,17 @@ export const usePayload = defineStore({
     id: "payload",
 
     state: (): Payload => ({
-        isPdfOpened: false,
-        isStep2Navigated: false,
+        // isPdfOpened: false,
+        // isStep2Navigated: false,
     }),
 
     actions: {
-        onChange(
+        handleChange(
             key: string,
             value: string | number | boolean | Record<string, boolean | null>
         ) {
             this.$state = {... this.$state, [key]: value};
-            // localStorage.setItem(key, value.toString())
+            localStorage.setItem("payload", JSON.stringify(this.$state));
         }
     },
 });

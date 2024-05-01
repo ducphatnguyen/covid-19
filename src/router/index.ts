@@ -1,18 +1,29 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
+import { usePayload } from '@/stores';
+
+enum AppSteps {
+  Intro = "intro",
+  Location = "location",
+  OfficeGuidelines = "office-guidelines",
+  HealthChecklist = "health-checklist",
+  PersonalInformation = "personal-information",
+  Successfully = "successfully",
+  Review = "review",
+}
 
 // Lazy Loading
 const Intro = () => import('@/views/Intro/index.vue');
+const Location = () => import('@/views/Location/index.vue');
+const OfficeGuidelines = () => import('@/views/OfficeGuidelines/index.vue');
 
 // Layout
 const AppLayout = () => import('@/layouts/AppLayout.vue');
 
 // Children (Layout)
-const Location = () => import('@/views/Location/index.vue');
-const Checklist = () => import('@/views/HealthChecklist/index.vue');
-const OfficeGuidelines = () => import('@/views/OfficeGuidelines/index.vue');
+const HealthChecklist = () => import('@/views/HealthChecklist/index.vue');
 const PersonalInformation = () => import('@/views/PersonalInformation/index.vue');
 const Successfully = () => import('@/views/Successfully/index.vue');
-
+const Review = () => import('@/views/Review/index.vue');
 // Page Results
 const Error404 = () => import('@/views/404/index.vue');
 
@@ -20,9 +31,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'intro',
-    component: Intro
+    component: Intro,
+    meta: { step: AppSteps.Intro }
   },
-    // Layout 
+  // Layout 
   {
     path: '/',
     component: AppLayout,
@@ -30,28 +42,40 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/location',
         name: 'location',
-        component: Location
+        component: Location,
+        meta: { step: AppSteps.Location }
       },
       {
         path: '/office-guidelines',
         name: 'office-guidelines',
-        component: OfficeGuidelines
+        component: OfficeGuidelines,
+        meta: { step: AppSteps.OfficeGuidelines }
       },
       {
         path: '/health-checklist',
         name: 'health-checklist',
-        component: Checklist
+        component: HealthChecklist,
+        meta: { step: AppSteps.HealthChecklist }
       },
       {
         path: '/personal-information',
         name: 'personal-information',
-        component: PersonalInformation
+        component: PersonalInformation,
+        meta: { step: AppSteps.PersonalInformation }
       },
       {
         path: '/successfully',
         name: 'successfully',
-        component: Successfully
+        component: Successfully,
+        meta: { step: AppSteps.Successfully }
       },
+      {
+        path: '/review',
+        name: 'review',
+        component: Review,
+        meta: { step: AppSteps.Review }
+      },
+
     ]
   },
   {
@@ -59,12 +83,40 @@ const routes: Array<RouteRecordRaw> = [
     name: "notfound",
     component: Error404
   },
-
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-})
+});
 
-export default router
+
+router.beforeEach((to, from) => {
+  console.log(to.meta.step)
+  if (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines) {
+    const payloadStore = usePayload();
+    if (payloadStore.$state.isStep2Navigated === false) {
+      window.addEventListener("beforeunload", beforeUnloadHandler);
+    }
+  } else {
+    window.removeEventListener("beforeunload", beforeUnloadHandler);
+  }
+});
+
+router.afterEach((to, from) => {
+  console.log(from.meta.step)
+  console.log(to.meta.step)
+  if ( (from.meta.step == undefined) && (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines)) {
+    const payloadStore = usePayload();
+    if (payloadStore.$state.isStep2Navigated === false) {
+      router.push({ name: "intro" });
+    }
+  }
+});
+
+// Function to handle beforeunload event
+const beforeUnloadHandler = (e: BeforeUnloadEvent) => {
+  e.preventDefault();
+};
+
+export default router;

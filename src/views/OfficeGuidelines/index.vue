@@ -20,9 +20,8 @@ const footerRouteProps = {
 }
 
 const onClickPdf = () => {
-    payloadStore.$state.isPdfOpened = true;
+    payloadStore.handleChange('isPdfOpened', true);
 }
-
 </script>
 
 <template>
@@ -46,7 +45,6 @@ const onClickPdf = () => {
         </a-flex>
         <AppFooter :="footerRouteProps" :isStep2Navigated="true" :canNext/> 
     </a-flex>
-
 </template>
 
 <style lang="scss"></style>

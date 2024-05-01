@@ -1,3 +1,4 @@
+// 13 properties
 export type Payload = {
     checklistAnswers?: Record<string, boolean | null> | null;
     countryCode?: string | null;
@@ -9,7 +10,7 @@ export type Payload = {
     isPdfOpened?: boolean | null;
     isStep2Navigated?: boolean | null;
     lastName?: string;
-    phone?: string;
+    contactNumber?: string;
     statusCode?: string | null;
     visitorCode?: string | null;
 }

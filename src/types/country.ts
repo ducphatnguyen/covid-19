@@ -7,4 +7,6 @@ export type Country = {
     name: string;
     facilityList: Facility[];
     questionList: Question[];
+    // Mapping
+    dialingCode?: string;
 }
