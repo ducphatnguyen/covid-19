@@ -14,21 +14,7 @@ const ANSWER = [
 const payloadStore = usePayload();
 const countryStore = useCountryStore();
 
-console.log(payloadStore.$state);
-
 const { countryCode, checklistAnswers } = payloadStore.$state;
-
-const progressProps = {
-    title: "2. Health Checklist",
-    description: "Next: Personal Information",
-    currentStep: 2,
-    totalSteps: 3
-};
-
-const footerRouteProps = {
-    backRouteName: "office-guidelines",
-    nextRouteName: "personal-information",
-};
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);
@@ -41,11 +27,16 @@ const canNext = computed(() => {
     if (!checklistAnswers) return false;
     return Object.values(checklistAnswers).every(answer => answer !== null);
 });
+
+// Methods
+const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
+    payloadStore.handleChange('checklistAnswers', { ...checklistAnswers, [questionCode]: answer });
+};
 </script>
 
 <template>
     <a-flex class="office-guidelines" vertical>
-        <Progress :="progressProps" />
+        <Progress :title="'2. Health Checklist'" :description="'Next: Personal Information'" :currentStep="2" :total-steps="3" />
         <a-flex class="px-4 py-6" gap="middle" vertical>
             <a-flex class="b6 gray-9">
                 <span>Select your current health information:</span>
@@ -58,14 +49,14 @@ const canNext = computed(() => {
                 </span>
                 <a-radio-group v-model:value="checklistAnswers![question.code]">
                     <a-flex gap="middle" vertical>
-                        <a-radio v-for="ans in ANSWER" :value="ans.code" :key="ans.code" >
+                        <a-radio v-for="ans in ANSWER" :value="ans.code" :key="ans.code" @change="onChangeCheckListAnswers(question.code, ans.code)">
                             <span class="b6 gray-10 ps-2">{{ ans.label }}</span>
                         </a-radio>
                     </a-flex>
                 </a-radio-group>
             </a-flex>
         </a-flex>
-        <AppFooter :="footerRouteProps" :canNext="canNext" />
+        <AppFooter :backRouteName="'office-guidelines'" :nextRouteName="'personal-information'" :canNext="canNext" />
     </a-flex>
 </template>
 

@@ -1,8 +1,24 @@
 <script setup lang="ts">
+import { onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
+
+import { useCountryStore } from "@/stores";
+
+// Data
+const countryStore = useCountryStore();
 
 const router = useRouter();
 
+// Computed
+const countries = computed(() => countryStore.$state.countries);
+
+// Lifecycle
+onMounted(async () => {
+   await localStorage.removeItem('payload');
+   await countryStore.handlePayload(countries.value);
+});
+
+// Methods
 const goToLocationPage = () => {
     router.push({ name: "location" });
 };

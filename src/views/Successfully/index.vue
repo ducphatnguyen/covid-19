@@ -35,8 +35,6 @@ const compareResults = (checklistAnswers: any, questionList: any) => {
 }
 
 const goBackHome = async () => {
-    localStorage.removeItem('payload');
-    await countryStore.getCountries();
     router.push({ name: 'intro' });
 };
 
@@ -48,7 +46,6 @@ const goToReviewPage = () => {
 
 <template>
     <a-flex class="successfully" vertical>
-
         <a-flex v-if="type == 'success'" class="result px-15 pt-2" vertical>
             <a-flex class="pb-8" align="center" vertical>
                 <img class="pb-8 result__img--sucess" src="/src/assets/images/successfully/success.svg" alt="Result" />
@@ -85,7 +82,6 @@ const goToReviewPage = () => {
                 <span class="b6 gray-5">Review</span>
             </a-button>
         </a-flex>
-
     </a-flex>
 </template>
 

@@ -16,7 +16,7 @@ export const usePayload = defineStore({
             key: string,
             value: string | number | boolean | Record<string, boolean | null>
         ) {
-            this.$state = {... this.$state, [key]: value};
+            this.$patch({ [key]: value });
             localStorage.setItem("payload", JSON.stringify(this.$state));
         }
     },

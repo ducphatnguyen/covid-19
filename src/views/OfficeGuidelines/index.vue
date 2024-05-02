@@ -7,18 +7,6 @@ import { usePayload } from "@/stores";
 const payloadStore = usePayload();
 const canNext = computed(() => payloadStore.$state.isPdfOpened!);
 
-const progressProps = {
-    title: "1. Office-guidelines",
-    description: "Next: Health Checklist",
-    currentStep: 1,
-    totalSteps: 3
-};
-
-const footerRouteProps = {
-    backRouteName: "location",
-    nextRouteName: "health-checklist",
-}
-
 const onClickPdf = () => {
     payloadStore.handleChange('isPdfOpened', true);
 }
@@ -26,7 +14,7 @@ const onClickPdf = () => {
 
 <template>
     <a-flex class="office-guidelines" vertical>
-        <Progress :="progressProps" />
+        <Progress :title="'1. Office-guidelines'" :description="'Next: Health Checklist'" :currentStep="1" :total-steps="3" />
         <a-flex class="pt-16 pb-23" align="center" vertical>
             <div style="text-align:center" class="pb-4 b6 gray-9">
                 <span>Read and acknowledge<br> the Office Guidelines</span>
@@ -43,7 +31,7 @@ const onClickPdf = () => {
                 </a>
             </a-flex>
         </a-flex>
-        <AppFooter :="footerRouteProps" :isStep2Navigated="true" :canNext/> 
+        <AppFooter :backRouteName="'location'" :nextRouteName="'health-checklist'" :isStep2Navigated="true" :canNext/> 
     </a-flex>
 </template>
 

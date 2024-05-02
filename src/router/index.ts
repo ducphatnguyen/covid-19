@@ -95,7 +95,7 @@ router.beforeEach((to, from) => {
   console.log(to.meta.step)
   if (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines) {
     const payloadStore = usePayload();
-    if (payloadStore.$state.isStep2Navigated === false) {
+    if (!payloadStore.$state.isStep2Navigated) {
       window.addEventListener("beforeunload", beforeUnloadHandler);
     }
   } else {
@@ -108,7 +108,7 @@ router.afterEach((to, from) => {
   console.log(to.meta.step)
   if ( (from.meta.step == undefined) && (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines)) {
     const payloadStore = usePayload();
-    if (payloadStore.$state.isStep2Navigated === false) {
+    if (!payloadStore.$state.isStep2Navigated) {
       router.push({ name: "intro" });
     }
   }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed} from 'vue';
+import { computed, onMounted } from 'vue';
 
 import { AppFooter } from "@/components";
 import { usePayload, useCountryStore } from "@/stores";
@@ -13,11 +13,6 @@ const STATUS = [
 
 const countryStore = useCountryStore();
 const payloadStore = usePayload();
-
-const footerRouteProps = {
-    backRouteName: "intro",
-    nextRouteName: "office-guidelines",
-}
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);
@@ -33,6 +28,11 @@ const canNext = computed(() => {
     return !!countryCode && !!facilityId && !!statusCode;
 });
 
+// Life Cycle (?)
+// onMounted(() => {
+//     countryStore.handlePayload(countries.value);
+// });
+
 // Method
 const getCountryFlagUrl = (countryCode: string) => {
     return `/src/assets/images/location/${countryCode}.svg`;
@@ -44,7 +44,17 @@ const onChangeCountry = (countryCode: string) => {
     if (selectedFacility) {
         payloadStore.handleChange('facilityId', selectedFacility.id);
     }
+    payloadStore.handleChange('statusCode', STATUS[0].code);
 }
+
+const onChangeFacility = (facilityId: number) => {
+    payloadStore.handleChange('facilityId', facilityId);
+}
+
+const onChangeStatus = (statusCode: string) => {
+    payloadStore.handleChange('statusCode', statusCode);
+}
+
 </script>
 
 <template>
@@ -59,11 +69,14 @@ const onChangeCountry = (countryCode: string) => {
                 <template v-if="countries.length">
                     <span class="b6 gray-9">Select your country:</span>
                     <a-flex class="location__body-country-choice" gap="middle">
-                        <div class="location__body-country-item px-4 pt-4 pb-2" v-for="country in countries"
+                        <div v-for="country in countries" class="location__body-country-item px-4 pt-4 pb-2"
                             :key="country.id" @click="onChangeCountry(country.code)"
                             :class="{ 'location__body-country-item--active': country.code === payloadStore.$state.countryCode }">
-                            <img class="country-item__img" :src="getCountryFlagUrl(country.code)" alt="Country Flag">
-                            <div class="b8 pt-1 text-center">{{ country.name }}</div>
+                            <div class="country-item__wrap">
+                                <img class="country-item__img" :src="getCountryFlagUrl(country.code)"
+                                    alt="Country Flag">
+                                <div class="b8 pt-1 text-center">{{ country.name }}</div>
+                            </div>
                         </div>
                     </a-flex>
                 </template>
@@ -79,7 +92,7 @@ const onChangeCountry = (countryCode: string) => {
                     <a-radio-group class="location__body-facility-options"
                         v-model:value="payloadStore.$state.facilityId">
                         <a-flex gap="middle" vertical>
-                            <a-radio :value="facility.id" v-for="facility in facilitiesByCountry" :key="facility.id">
+                            <a-radio v-for="facility in facilitiesByCountry" :value="facility.id" :key="facility.id"  @click="onChangeFacility(facility.id)">
                                 <span class="location__body-facility-content b6 gray-10 ps-2">{{ facility.name }}</span>
                             </a-radio>
                         </a-flex>
@@ -90,7 +103,7 @@ const onChangeCountry = (countryCode: string) => {
                     <span class="b6 gray-9">Select the status:</span>
                     <a-radio-group class="location__body-status-options" v-model:value="payloadStore.$state.statusCode">
                         <a-flex gap="middle" vertical>
-                            <a-radio :value="status.code" v-for="status in STATUS" :key="status.code">
+                            <a-radio :value="status.code" v-for="status in STATUS" :key="status.code" @click="onChangeStatus(status.code)">
                                 <span class="location__body-facility-content b6 gray-10 ps-2">{{ status.label }}</span>
                             </a-radio>
                         </a-flex>
@@ -98,13 +111,14 @@ const onChangeCountry = (countryCode: string) => {
                 </a-flex>
             </template>
         </a-flex>
-        <AppFooter :="footerRouteProps" :canNext />
+        <AppFooter :backRouteName="'intro'" :nextRouteName="'office-guidelines'" :canNext />
     </a-flex>
 </template>
 
 <style lang="scss">
 .location {
     &__body {
+
         // 1. Country
         &-country {
             &-choice {
@@ -114,19 +128,22 @@ const onChangeCountry = (countryCode: string) => {
                     display: none;
                 }
             }
+
             &-item {
-                &:hover {
-                    transform: scale(1.05);
-                    transition: transform 0.3s ease;
-                }
+                background-color: #F6F6FA;
+                border-radius: 4px;
+                cursor: pointer;
                 &--active {
                     background-color: #0062ff;
                     color: #ffffff;
                 }
-                background-color: #F6F6FA;
-                border-radius: 4px;
-                cursor: pointer;
                 .country-item {
+                    &__wrap {
+                        &:hover {
+                            transform: scale(1.05);
+                            transition: transform 0.3s ease;
+                        }
+                    }
                     &__img {
                         width: 48px;
                         height: 30px;
