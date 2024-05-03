@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import { usePayload } from '@/stores';
-import { Modal } from 'ant-design-vue';
 
 enum AppSteps {
   Intro = "intro",
@@ -112,7 +111,6 @@ const routes: Array<RouteRecordRaw> = [
           }
         },
       },
-
     ]
   },
   {
