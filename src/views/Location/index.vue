@@ -69,8 +69,8 @@ const onChangeStatus = (statusCode: string) => {
                 <template v-if="countries.length">
                     <span class="b6 gray-9">Select your country:</span>
                     <a-flex class="location__body-country-choice" gap="middle">
-                        <div v-for="country in countries" class="location__body-country-item px-4 pt-4 pb-2"
-                            :key="country.id" @click="onChangeCountry(country.code)"
+                        <div v-for="country in countries" :key="country.id" class="location__body-country-item px-4 pt-4 pb-2"
+                            @click="onChangeCountry(country.code)"
                             :class="{ 'location__body-country-item--active': country.code === payloadStore.$state.countryCode }">
                             <div class="country-item__wrap">
                                 <img class="country-item__img" :src="getCountryFlagUrl(country.code)"
@@ -92,7 +92,7 @@ const onChangeStatus = (statusCode: string) => {
                     <a-radio-group class="location__body-facility-options"
                         v-model:value="payloadStore.$state.facilityId">
                         <a-flex gap="middle" vertical>
-                            <a-radio v-for="facility in facilitiesByCountry" :value="facility.id" :key="facility.id"  @click="onChangeFacility(facility.id)">
+                            <a-radio v-for="facility in facilitiesByCountry" :key="facility.id" :value="facility.id" @click="onChangeFacility(facility.id)">
                                 <span class="location__body-facility-content b6 gray-10 ps-2">{{ facility.name }}</span>
                             </a-radio>
                         </a-flex>
@@ -103,7 +103,7 @@ const onChangeStatus = (statusCode: string) => {
                     <span class="b6 gray-9">Select the status:</span>
                     <a-radio-group class="location__body-status-options" v-model:value="payloadStore.$state.statusCode">
                         <a-flex gap="middle" vertical>
-                            <a-radio :value="status.code" v-for="status in STATUS" :key="status.code" @click="onChangeStatus(status.code)">
+                            <a-radio v-for="status in STATUS" :key="status.code" :value="status.code" @click="onChangeStatus(status.code)">
                                 <span class="location__body-facility-content b6 gray-10 ps-2">{{ status.label }}</span>
                             </a-radio>
                         </a-flex>
@@ -118,7 +118,6 @@ const onChangeStatus = (statusCode: string) => {
 <style lang="scss">
 .location {
     &__body {
-
         // 1. Country
         &-country {
             &-choice {
@@ -128,7 +127,6 @@ const onChangeStatus = (statusCode: string) => {
                     display: none;
                 }
             }
-
             &-item {
                 background-color: #F6F6FA;
                 border-radius: 4px;
