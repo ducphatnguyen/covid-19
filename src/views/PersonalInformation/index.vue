@@ -145,7 +145,9 @@ const onSubmit = (values: any) => {
                                 </template>
 
                                 <a-row :gutter="6">
-                                    <a-col :span="6"><a-select v-model:value="payloadStore.$state.dialingCode"
+                                    <a-col :span="6">
+                                        
+                                        <a-select v-model:value="payloadStore.$state.dialingCode"
                                             @change="onChangeDialingCode(payloadStore.$state.dialingCode!)"
                                             :dropdown-match-select-width="false" :option-label-prop="'label'">
                                             <a-select-option v-for="country in countries" :value="country.dialingCode"
@@ -158,7 +160,11 @@ const onSubmit = (values: any) => {
                                                     <span>{{ country.name }}</span>
                                                 </a-flex>
                                             </a-select-option>
-                                        </a-select></a-col>
+                                        </a-select>
+                                    
+                                    
+                                    
+                                        </a-col>
                                     <a-col :span="18">
                                         <Field v-slot="{ field, value }" name="contactNumber" id="contactNumber"
                                             v-model="payloadStore.$state.contactNumber" @change="onChangeContactNumber">

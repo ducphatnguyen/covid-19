@@ -56,60 +56,24 @@ const routes: Array<RouteRecordRaw> = [
         name: 'health-checklist',
         component: HealthChecklist,
         meta: { step: AppSteps.HealthChecklist },
-        beforeEnter: (to, from, next) => {
-          const payloadStore = usePayload();
-          if (!payloadStore.$state.isStep2Navigated) {
-            router.push({ name: "intro" });
-          }
-          else {
-            next();
-          }
-        },
       },
       {
         path: '/personal-information',
         name: 'personal-information',
         component: PersonalInformation,
         meta: { step: AppSteps.PersonalInformation },
-        beforeEnter: (to, from, next) => {
-          const payloadStore = usePayload();
-          if (!payloadStore.$state.isStep2Navigated) {
-            router.push({ name: "intro" });
-          }
-          else {
-            next();
-          }
-        },
       },
       {
         path: '/successfully',
         name: 'successfully',
         component: Successfully,
         meta: { step: AppSteps.Successfully },
-        beforeEnter: (to, from, next) => {
-          const payloadStore = usePayload();
-          if (!payloadStore.$state.isStep2Navigated) {
-            router.push({ name: "intro" });
-          }
-          else {
-            next();
-          }
-        },
       },
       {
         path: '/review',
         name: 'review',
         component: Review,
         meta: { step: AppSteps.Review },
-        beforeEnter: (to, from, next) => {
-          const payloadStore = usePayload();
-          if (!payloadStore.$state.isStep2Navigated) {
-            router.push({ name: "intro" });
-          }
-          else {
-            next();
-          }
-        },
       },
     ]
   },
@@ -136,17 +100,25 @@ router.beforeEach((to, from) => {
     window.removeEventListener("beforeunload", beforeUnloadHandler);
   }
 });
-
 router.afterEach((to, from) => {
-  console.log(from.meta.step)
-  console.log(to.meta.step)
-  if ((from.meta.step === undefined) && (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines)) {
-    const payloadStore = usePayload();
+  // Check Reload
+  const checkReloadRoutes: AppSteps[] = [AppSteps.Location, AppSteps.OfficeGuidelines];
+  // Check Direct
+  const checkDirectRoutes: AppSteps[] = [AppSteps.HealthChecklist, AppSteps.PersonalInformation, AppSteps.Successfully, AppSteps.Review];
+  
+  const payloadStore = usePayload();
+  if (from.meta.step === undefined && checkReloadRoutes.includes(to.meta.step as AppSteps)) {
+    if (!payloadStore.$state.isStep2Navigated) {
+      router.push({ name: "intro" });
+    }
+  }
+  if (checkDirectRoutes.includes(to.meta.step as AppSteps)) {
     if (!payloadStore.$state.isStep2Navigated) {
       router.push({ name: "intro" });
     }
   }
 });
+
 
 // Function to handle beforeunload event
 const beforeUnloadHandler = (e: BeforeUnloadEvent) => {
