@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import { usePayload } from '@/stores';
+import { Modal } from 'ant-design-vue';
 
 enum AppSteps {
   Intro = "intro",
@@ -32,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'intro',
     component: Intro,
-    meta: { step: AppSteps.Intro }
+    meta: { step: AppSteps.Intro },
   },
   // Layout 
   {
@@ -61,6 +62,9 @@ const routes: Array<RouteRecordRaw> = [
           if (!payloadStore.$state.isStep2Navigated) {
             router.push({ name: "intro" });
           }
+          else {
+            next();
+          }
         },
       },
       {
@@ -72,6 +76,9 @@ const routes: Array<RouteRecordRaw> = [
           const payloadStore = usePayload();
           if (!payloadStore.$state.isStep2Navigated) {
             router.push({ name: "intro" });
+          }
+          else {
+            next();
           }
         },
       },
@@ -85,6 +92,9 @@ const routes: Array<RouteRecordRaw> = [
           if (!payloadStore.$state.isStep2Navigated) {
             router.push({ name: "intro" });
           }
+          else {
+            next();
+          }
         },
       },
       {
@@ -96,6 +106,9 @@ const routes: Array<RouteRecordRaw> = [
           const payloadStore = usePayload();
           if (!payloadStore.$state.isStep2Navigated) {
             router.push({ name: "intro" });
+          }
+          else {
+            next();
           }
         },
       },
@@ -116,7 +129,6 @@ const router = createRouter({
 
 
 router.beforeEach((to, from) => {
-  console.log(to.meta.step)
   if (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines) {
     const payloadStore = usePayload();
     if (!payloadStore.$state.isStep2Navigated) {
