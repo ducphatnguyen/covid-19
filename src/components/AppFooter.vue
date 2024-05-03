@@ -12,19 +12,12 @@ const props = defineProps<{
     type?: string;
 }>();
 
-const emits = defineEmits<{
-    "submit:contact": any
-}>()
-
 const router = useRouter();
 
 const payloadStore = usePayload();
 console.log(payloadStore.$state)
 
 // Method
-const onSubmitContact = () => {
-    emits("submit:contact");
-};
 
 const goBack = () => {
     router.push({ name: props.backRouteName });
@@ -52,7 +45,7 @@ const goNext = () => {
             </a-button>
         </a-col>
         <a-col :span="12" v-else>
-            <a-button style="width: 100%" :disabled="!canSubmit" type="primary" size="large" @click="onSubmitContact">
+            <a-button style="width: 100%" :disabled="!canSubmit" type="primary" size="large" html-type="submit">
                 <span :class="{'gray-6':!canSubmit}" class="b6 gray-1">Submit</span>
             </a-button>
         </a-col>

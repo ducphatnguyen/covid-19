@@ -55,25 +55,49 @@ const routes: Array<RouteRecordRaw> = [
         path: '/health-checklist',
         name: 'health-checklist',
         component: HealthChecklist,
-        meta: { step: AppSteps.HealthChecklist }
+        meta: { step: AppSteps.HealthChecklist },
+        beforeEnter: (to, from, next) => {
+          const payloadStore = usePayload();
+          if (!payloadStore.$state.isStep2Navigated) {
+            router.push({ name: "intro" });
+          }
+        },
       },
       {
         path: '/personal-information',
         name: 'personal-information',
         component: PersonalInformation,
-        meta: { step: AppSteps.PersonalInformation }
+        meta: { step: AppSteps.PersonalInformation },
+        beforeEnter: (to, from, next) => {
+          const payloadStore = usePayload();
+          if (!payloadStore.$state.isStep2Navigated) {
+            router.push({ name: "intro" });
+          }
+        },
       },
       {
         path: '/successfully',
         name: 'successfully',
         component: Successfully,
-        meta: { step: AppSteps.Successfully }
+        meta: { step: AppSteps.Successfully },
+        beforeEnter: (to, from, next) => {
+          const payloadStore = usePayload();
+          if (!payloadStore.$state.isStep2Navigated) {
+            router.push({ name: "intro" });
+          }
+        },
       },
       {
         path: '/review',
         name: 'review',
         component: Review,
-        meta: { step: AppSteps.Review }
+        meta: { step: AppSteps.Review },
+        beforeEnter: (to, from, next) => {
+          const payloadStore = usePayload();
+          if (!payloadStore.$state.isStep2Navigated) {
+            router.push({ name: "intro" });
+          }
+        },
       },
 
     ]
@@ -106,7 +130,7 @@ router.beforeEach((to, from) => {
 router.afterEach((to, from) => {
   console.log(from.meta.step)
   console.log(to.meta.step)
-  if ( (from.meta.step === undefined) && (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines)) {
+  if ((from.meta.step === undefined) && (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines)) {
     const payloadStore = usePayload();
     if (!payloadStore.$state.isStep2Navigated) {
       router.push({ name: "intro" });
