@@ -53,7 +53,7 @@ export const useCountryStore = defineStore({
                 payloadStore.handleChange('facilityId', countries[0]?.facilityList?.[0]?.id);
                 payloadStore.handleChange('statusCode', STATUS?.[0]?.code);
 
-                countries?.[0].questionList?.forEach((question: Question) => {
+                countries?.[0]?.questionList?.forEach((question: Question) => {
                     payloadStore.handleChange("checklistAnswers", { ...checklistAnswers, [question.code]: null });
                 });
 

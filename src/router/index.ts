@@ -106,7 +106,7 @@ router.beforeEach((to, from) => {
 router.afterEach((to, from) => {
   console.log(from.meta.step)
   console.log(to.meta.step)
-  if ( (from.meta.step == undefined) && (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines)) {
+  if ( (from.meta.step === undefined) && (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines)) {
     const payloadStore = usePayload();
     if (!payloadStore.$state.isStep2Navigated) {
       router.push({ name: "intro" });

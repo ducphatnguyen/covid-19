@@ -42,14 +42,13 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
                 <span>Select your current health information:</span>
             </a-flex>
 
-            <a-flex style="background: #f6f6fa;" class="p-4" gap="middle" vertical
-                v-for="(question, index) in questionsByCountry" :key="question.code">
+            <a-flex v-for="(question, index) in questionsByCountry" :key="question.code" style="background: #f6f6fa;" class="p-4" gap="middle" vertical>
                 <span class="h6 gray-10">
                     {{ index + 1 }}. {{ question.desc }}
                 </span>
                 <a-radio-group v-model:value="checklistAnswers![question.code]">
                     <a-flex gap="middle" vertical>
-                        <a-radio v-for="ans in ANSWER" :value="ans.code" :key="ans.code" @change="onChangeCheckListAnswers(question.code, ans.code)">
+                        <a-radio v-for="ans in ANSWER" :key="ans.code" :value="ans.code" @change="onChangeCheckListAnswers(question.code, ans.code)">
                             <span class="b6 gray-10 ps-2">{{ ans.label }}</span>
                         </a-radio>
                     </a-flex>
