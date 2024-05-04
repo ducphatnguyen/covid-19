@@ -28,6 +28,10 @@ const canNext = computed(() => {
     return Object.values(checklistAnswers).every(answer => answer !== null);
 });
 
+const showFooter = computed(() => {
+    return !payloadStore.$state.isReviewed;
+});
+
 // Methods
 const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
     payloadStore.handleChange('checklistAnswers', { ...checklistAnswers, [questionCode]: answer });
@@ -37,26 +41,39 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
 
 <template>
     <a-flex class="office-guidelines" vertical>
-        <Progress :title="'2. Health Checklist'" :description="'Next: Personal Information'" :currentStep="2" :total-steps="3" />
+        <Progress :title="'2. Health Checklist'" :description="'Next: Personal Information'" :currentStep="2"
+            :total-steps="3" />
         <a-flex class="px-4 py-6" gap="middle" vertical>
             <a-flex class="b6 gray-9">
                 <span>Select your current health information:</span>
             </a-flex>
 
-            <a-flex v-for="(question, index) in questionsByCountry" :key="question.code" style="background: #f6f6fa;" class="p-4" gap="middle" vertical>
+            <a-flex v-for="(question, index) in questionsByCountry" :key="question.code" style="background: #f6f6fa;"
+                class="p-4" gap="middle" vertical>
                 <span class="h6 gray-10">
                     {{ index + 1 }}. {{ question.desc }}
                 </span>
                 <a-radio-group v-model:value="checklistAnswers![question.code]">
-                    <a-flex gap="middle" vertical>
-                        <a-radio v-for="ans in ANSWER" :key="ans.code" :value="ans.code" @change="onChangeCheckListAnswers(question.code, ans.code)">
-                            <span class="b6 gray-10 ps-2">{{ ans.label }}</span>
-                        </a-radio>
-                    </a-flex>
+                    <template v-if="!payloadStore.$state.isReviewed">
+                        <a-flex gap="middle" vertical>
+                            <a-radio v-for="ans in ANSWER" :key="ans.code" :value="ans.code"
+                                @change="onChangeCheckListAnswers(question.code, ans.code)">
+                                <span class="b6 gray-10 ps-2">{{ ans.label }}</span>
+                            </a-radio>
+                        </a-flex>
+                    </template>
+                    <template v-else>
+                        <a-flex gap="middle" vertical>
+                            <a-radio v-for="ans in ANSWER" :key="ans.code" :value="ans.code" disabled>
+                                <span class="b6 gray-10 ps-2">{{ ans.label }}</span>
+                            </a-radio>
+                        </a-flex>
+                    </template>
                 </a-radio-group>
             </a-flex>
         </a-flex>
-        <AppFooter :backRouteName="'office-guidelines'" :nextRouteName="'personal-information'" :canNext="canNext" />
+        <AppFooter v-if="showFooter" :backRouteName="'office-guidelines'" :nextRouteName="'personal-information'"
+            :canNext="canNext" />
     </a-flex>
 </template>
 

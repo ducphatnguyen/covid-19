@@ -1,11 +1,13 @@
 <script setup>
-import { Location } from "@/views";
-
+import { Location, OfficeGuidelines, HealthChecklist, PersonalInformation, Successfully } from "@/views";
 </script>
 
 <template>
     <Location></Location>
-    hello world
+    <OfficeGuidelines></OfficeGuidelines>
+    <HealthChecklist></HealthChecklist>
+    <PersonalInformation></PersonalInformation>
+    <Successfully></Successfully>
 </template>
 
 <style lang="scss"></style>

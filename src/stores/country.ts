@@ -59,13 +59,13 @@ export const useCountryStore = defineStore({
 
                 payloadStore.handleChange('isPdfOpened', false);
                 payloadStore.handleChange('isStep2Navigated', false);
+                payloadStore.handleChange('isReviewed', false);
                 payloadStore.handleChange('dialingCode', countries?.[0]?.dialingCode!);
 
                 payloadStore.handleChange('firstName', '');
                 payloadStore.handleChange('lastName', '');
                 payloadStore.handleChange('contactNumber', '');
                 payloadStore.handleChange('isInfoConfirmed', false);
-                console.log(payloadStore.$state)
             }
         }
     },

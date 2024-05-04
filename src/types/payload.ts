@@ -9,8 +9,10 @@ export type Payload = {
     isInfoConfirmed?: boolean | null;
     isPdfOpened?: boolean | null;
     isStep2Navigated?: boolean | null;
+    isReviewed?: boolean | null;
     lastName?: string;
     contactNumber?: string;
     statusCode?: string | null;
     visitorCode?: string | null;
+    
 }

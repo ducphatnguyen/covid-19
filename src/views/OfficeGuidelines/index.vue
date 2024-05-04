@@ -4,9 +4,17 @@ import { computed } from 'vue';
 import { AppFooter, Progress} from "@/components";
 import { usePayload } from "@/stores";
 
+// Data
 const payloadStore = usePayload();
+
+// Computed
 const canNext = computed(() => payloadStore.$state.isPdfOpened!);
 
+const showFooter = computed(() => {
+    return !payloadStore.$state.isReviewed; 
+});
+
+// Methods
 const onClickPdf = () => {
     payloadStore.handleChange('isPdfOpened', true);
 }
@@ -31,7 +39,7 @@ const onClickPdf = () => {
                 </a>
             </a-flex>
         </a-flex>
-        <AppFooter :backRouteName="'location'" :nextRouteName="'health-checklist'" :isStep2Navigated="true" :canNext/> 
+        <AppFooter v-if="showFooter" :backRouteName="'location'" :nextRouteName="'health-checklist'" :isStep2Navigated="true" :canNext/> 
     </a-flex>
 </template>
 

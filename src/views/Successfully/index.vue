@@ -38,7 +38,8 @@ const goBackHome = async () => {
     router.push({ name: 'intro' });
 };
 
-const goToReviewPage = () => {
+const goToReviewPage = async () => {
+    await payloadStore.handleChange('isReviewed', true);
     router.push({ name: 'review' });
 };
 
@@ -78,10 +79,11 @@ const goToReviewPage = () => {
             <a-button style="width: 100%" size="large" @click="goBackHome">
                 <span class="b6 gray-8">Back Home</span>
             </a-button>
-            <a-button style="width: 100%" size="large" @click="goToReviewPage">
+            <a-button style="width: 100%" size="large" @click="goToReviewPage" v-if="!payloadStore.$state.isReviewed">
                 <span class="b6 gray-8">Review</span>
             </a-button>
         </a-flex>
+        
     </a-flex>
 </template>
 

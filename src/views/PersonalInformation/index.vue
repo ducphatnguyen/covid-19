@@ -63,6 +63,10 @@ const canSubmit = computed(() => {
     return !!firstName && !!lastName && !!dialingCode && !!contactNumber && !!isInfoConfirmed;
 });
 
+const showFooter = computed(() => {
+    return !payloadStore.$state.isReviewed;
+});
+
 // Method
 const onChangeFirstName = (event: Event) => {
     const newFirstName = (event.target as HTMLInputElement).value;
@@ -88,7 +92,6 @@ const onChangeIsInfoConfirmed = (isInfoConfirmed: boolean) => {
 }
 
 const onSubmit = async (values: any) => {
-    console.log(values);
     try {
         const { valid } = await validate();
         if (valid) {
@@ -116,34 +119,63 @@ const onSubmit = async (values: any) => {
 
                         <!-- General Information -->
                         <a-flex gap="middle" vertical>
+                            <template v-if="!payloadStore.$state.isReviewed">
+                                <Field v-slot="{ field, value }" name="firstName" id="firstName"
+                                    v-model="payloadStore.$state.firstName" @change="onChangeFirstName">
+                                    <a-form-item class="mb-0" has-feedback
+                                        :validate-status="errors.firstName ? 'error' : value ? 'success' : ''"
+                                        :help="errors.firstName">
+                                        <template #label>
+                                            <span class="b7 gray-9">
+                                                First Name
+                                            </span>
+                                        </template>
+                                        <a-input :="field" placeholder="First Name" autocomplete="off" />
+                                    </a-form-item>
+                                </Field>
+                            </template>
+                            <template v-else>
+                                <Field v-slot="{ field }" name="firstName" id="firstName"
+                                    v-model="payloadStore.$state.firstName">
+                                    <a-form-item class="mb-0">
+                                        <template #label>
+                                            <span class="b7 gray-9">
+                                                First Name
+                                            </span>
+                                        </template>
+                                        <a-input :="field" placeholder="First Name" autocomplete="off" disabled />
+                                    </a-form-item>
+                                </Field>
+                            </template>
 
-                            <Field v-slot="{ field, value }" name="firstName" id="firstName"
-                                v-model="payloadStore.$state.firstName" @change="onChangeFirstName">
-                                <a-form-item class="mb-0" has-feedback
-                                    :validate-status="errors.firstName ? 'error' : value ? 'success' : ''"
-                                    :help="errors.firstName">
-                                    <template #label>
-                                        <span class="b7 gray-9">
-                                            First Name
-                                        </span>
-                                    </template>
-                                    <a-input :="field" placeholder="First Name" autocomplete="off" />
-                                </a-form-item>
-                            </Field>
-
-                            <Field v-slot="{ field, value }" name="lastName" id="lastName"
-                                v-model="payloadStore.$state.lastName" @change="onChangeLastName">
-                                <a-form-item class="mb-0" has-feedback
-                                    :validate-status="errors.lastName ? 'error' : value ? 'success' : ''"
-                                    :help="errors.lastName">
-                                    <template #label style="height: unset;">
-                                        <span class="b7 gray-9 p-0">
-                                            Last Name
-                                        </span>
-                                    </template>
-                                    <a-input :="field" placeholder="Last Name" />
-                                </a-form-item>
-                            </Field>
+                            <template v-if="!payloadStore.$state.isReviewed">
+                                <Field v-slot="{ field, value }" name="lastName" id="lastName"
+                                    v-model="payloadStore.$state.lastName" @change="onChangeLastName">
+                                    <a-form-item class="mb-0" has-feedback
+                                        :validate-status="errors.lastName ? 'error' : value ? 'success' : ''"
+                                        :help="errors.lastName">
+                                        <template #label style="height: unset;">
+                                            <span class="b7 gray-9 p-0">
+                                                Last Name
+                                            </span>
+                                        </template>
+                                        <a-input :="field" placeholder="Last Name" />
+                                    </a-form-item>
+                                </Field>
+                            </template>
+                            <template v-else>
+                                <Field v-slot="{ field }" name="lastName" id="lastName"
+                                    v-model="payloadStore.$state.lastName">
+                                    <a-form-item class="mb-0">
+                                        <template #label style="height: unset;">
+                                            <span class="b7 gray-9 p-0">
+                                                Last Name
+                                            </span>
+                                        </template>
+                                        <a-input :="field" placeholder="Last Name" disabled />
+                                    </a-form-item>
+                                </Field>
+                            </template>
 
                             <a-form-item class="mb-0">
                                 <template #label>
@@ -153,36 +185,67 @@ const onSubmit = async (values: any) => {
                                 </template>
 
                                 <a-row :gutter="6">
+
                                     <a-col :span="6">
-
-                                        <Field v-slot="{ field }" name="dialingCode" id="dialingCode"
-                                            v-model="payloadStore.$state.dialingCode"
-                                            @change="onChangeDialingCode(payloadStore.$state.dialingCode!)">
-                                            <a-select :="field" :dropdown-match-select-width="false"
-                                                :option-label-prop="'label'">
-                                                <a-select-option v-for="country in countries"
-                                                    :value="country.dialingCode" :label="country.dialingCode">
-                                                    <a-flex class="py-4" align="center">
-                                                        <span> ({{ country.dialingCode }})</span>
-                                                        <img style="width: 38px; height: 24px; object-fit: cover"
-                                                            class="mx-2" :src="getCountryFlagUrl(country.code)"
-                                                            alt="Country Flag">
-                                                        <span>{{ country.name }}</span>
-                                                    </a-flex>
-                                                </a-select-option>
-                                            </a-select>
-                                        </Field>
-
+                                        <template v-if="!payloadStore.$state.isReviewed">
+                                            <Field v-slot="{ field }" name="dialingCode" id="dialingCode"
+                                                v-model="payloadStore.$state.dialingCode"
+                                                @change="onChangeDialingCode(payloadStore.$state.dialingCode!)">
+                                                <a-select :="field" :dropdown-match-select-width="false"
+                                                    :option-label-prop="'label'">
+                                                    <a-select-option v-for="country in countries"
+                                                        :value="country.dialingCode" :label="country.dialingCode">
+                                                        <a-flex class="py-4" align="center">
+                                                            <span> ({{ country.dialingCode }})</span>
+                                                            <img style="width: 38px; height: 24px; object-fit: cover"
+                                                                class="mx-2" :src="getCountryFlagUrl(country.code)"
+                                                                alt="Country Flag">
+                                                            <span>{{ country.name }}</span>
+                                                        </a-flex>
+                                                    </a-select-option>
+                                                </a-select>
+                                            </Field>
+                                        </template>
+                                        <template v-else>
+                                            <Field v-slot="{ field }" name="dialingCode" id="dialingCode"
+                                                v-model="payloadStore.$state.dialingCode">
+                                                <a-select :="field" :dropdown-match-select-width="false"
+                                                    :option-label-prop="'label'" disabled>
+                                                    <a-select-option v-for="country in countries"
+                                                        :value="country.dialingCode" :label="country.dialingCode">
+                                                        <a-flex class="py-4" align="center">
+                                                            <span> ({{ country.dialingCode }})</span>
+                                                            <img style="width: 38px; height: 24px; object-fit: cover"
+                                                                class="mx-2" :src="getCountryFlagUrl(country.code)"
+                                                                alt="Country Flag">
+                                                            <span>{{ country.name }}</span>
+                                                        </a-flex>
+                                                    </a-select-option>
+                                                </a-select>
+                                            </Field>
+                                        </template>
                                     </a-col>
+
                                     <a-col :span="18">
-                                        <Field v-slot="{ field, value }" name="contactNumber" id="contactNumber"
-                                            v-model="payloadStore.$state.contactNumber" @change="onChangeContactNumber">
-                                            <a-form-item class="mb-0" has-feedback
-                                                :validate-status="errors.contactNumber ? 'error' : value ? 'success' : ''"
-                                                :help="errors.contactNumber">
-                                                <a-input :="field" placeholder="Contact Number" />
-                                            </a-form-item>
-                                        </Field>
+                                        <template v-if="!payloadStore.$state.isReviewed">
+                                            <Field v-slot="{ field, value }" name="contactNumber" id="contactNumber"
+                                                v-model="payloadStore.$state.contactNumber"
+                                                @change="onChangeContactNumber">
+                                                <a-form-item class="mb-0" has-feedback
+                                                    :validate-status="errors.contactNumber ? 'error' : value ? 'success' : ''"
+                                                    :help="errors.contactNumber">
+                                                    <a-input :="field" placeholder="Contact Number" />
+                                                </a-form-item>
+                                            </Field>
+                                        </template>
+                                        <template v-else>
+                                            <Field v-slot="{ field }" name="contactNumber" id="contactNumber"
+                                                v-model="payloadStore.$state.contactNumber">
+                                                <a-form-item class="mb-0">
+                                                    <a-input :="field" placeholder="Contact Number" disabled />
+                                                </a-form-item>
+                                            </Field>
+                                        </template>
                                     </a-col>
                                 </a-row>
                             </a-form-item>
@@ -190,11 +253,10 @@ const onSubmit = async (values: any) => {
 
                         <!-- Regulations -->
                         <a-flex vertical>
-
-                            <Field v-slot="{ field }" name="isInfoConfirmed" id="isInfoConfirmed"
-                                @change="onChangeIsInfoConfirmed(payloadStore.$state.isInfoConfirmed!)">
-                                <a-form-item class="pt-6 mb-0">
-                                    <a-form-item name="remember" no-style>
+                            <template v-if="!payloadStore.$state.isReviewed">
+                                <Field v-slot="{ field }" name="isInfoConfirmed" id="isInfoConfirmed"
+                                    @change="onChangeIsInfoConfirmed(payloadStore.$state.isInfoConfirmed!)">
+                                    <a-form-item class="pt-6 mb-0" name="remember">
                                         <a-flex>
                                             <a-checkbox :="field" v-model:checked="payloadStore.$state.isInfoConfirmed"
                                                 :size="[24, 24]">
@@ -210,15 +272,35 @@ const onSubmit = async (values: any) => {
                                             </a-checkbox>
                                         </a-flex>
                                     </a-form-item>
-                                </a-form-item>
-                            </Field>
+                                </Field>
+                            </template>
+                            <template v-else>
+                                <Field v-slot="{ field }" name="isInfoConfirmed" id="isInfoConfirmed">
+                                    <a-form-item class="pt-6 mb-0" name="remember">
+                                        <a-flex>
+                                            <a-checkbox :="field" v-model:checked="payloadStore.$state.isInfoConfirmed"
+                                                :size="[24, 24]" disabled>
+                                                <span class="b7 gray-8">
+                                                    I confirm that the above information is
+                                                    accurate and I have
+                                                    read and understood the requirements and expectations of entering
+                                                    the
+                                                    Silicon
+                                                    Stack
+                                                    premises. {{ Object.keys(errors).length }}
+                                                </span>
+                                            </a-checkbox>
+                                        </a-flex>
+                                    </a-form-item>
+                                </Field>
+                            </template>
+
                         </a-flex>
                     </a-form>
                 </a-flex>
 
-                <AppFooter :backRouteName="'health-checklist'" :type="'submit'"
+                <AppFooter v-if="showFooter" :backRouteName="'health-checklist'" :type="'submit'"
                     :canSubmit="canSubmit && Object.keys(errors).length === 0" />
-
             </a-form>
         </Form>
     </a-flex>
