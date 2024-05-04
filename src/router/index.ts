@@ -119,7 +119,6 @@ router.afterEach((to, from) => {
   }
 });
 
-
 // Function to handle beforeunload event
 const beforeUnloadHandler = (e: BeforeUnloadEvent) => {
   e.preventDefault();

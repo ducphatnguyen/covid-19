@@ -32,6 +32,7 @@ const canNext = computed(() => {
 const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
     payloadStore.handleChange('checklistAnswers', { ...checklistAnswers, [questionCode]: answer });
 };
+
 </script>
 
 <template>

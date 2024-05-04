@@ -80,7 +80,6 @@ const onChangeStatus = (statusCode: string) => {
                         </div>
                     </a-flex>
                 </template>
-
                 <a-empty v-else description="No countries found!" />
             </a-flex>
 

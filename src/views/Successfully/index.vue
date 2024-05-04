@@ -76,10 +76,10 @@ const goToReviewPage = () => {
 
         <a-flex gap="small" class="mb-24" :class="type === 'success' ? 'px-15' : 'px-9'">
             <a-button style="width: 100%" size="large" @click="goBackHome">
-                <span class="b6 gray-5">Back Home</span>
+                <span class="b6 gray-8">Back Home</span>
             </a-button>
             <a-button style="width: 100%" size="large" @click="goToReviewPage">
-                <span class="b6 gray-5">Review</span>
+                <span class="b6 gray-8">Review</span>
             </a-button>
         </a-flex>
     </a-flex>
