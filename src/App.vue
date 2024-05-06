@@ -5,10 +5,13 @@ import { useCountryStore } from "@/stores";
 
 import { ANT_CONFIGS } from "./constants";
 
+// Data
 const countryStore = useCountryStore();
 
+// Computed
 const countries = computed(() => countryStore.$state.countries);
 
+// Lifecycle
 onMounted(async () => {
   countryStore.handlePayload(countries.value);
 });
