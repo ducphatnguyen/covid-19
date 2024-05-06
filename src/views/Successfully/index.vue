@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted} from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from "vue-router";
 
 import { usePayload, useCountryStore } from "@/stores";
@@ -30,7 +30,7 @@ onMounted(() => {
 // Methods
 const compareResults = (checklistAnswers: any, questionList: any) => {
     return questionList.some((question: { code: string | number; answer: any; }) => {
-        return  checklistAnswers[question.code] !== question.answer;
+        return checklistAnswers[question.code] !== question.answer;
     });
 }
 
@@ -50,7 +50,7 @@ const goToReviewPage = async () => {
         <a-flex v-if="type == 'success'" class="result px-15 pt-2" vertical>
             <a-flex class="pb-8" align="center" vertical>
                 <img class="pb-8 result__img--sucess" src="/src/assets/images/successfully/success.svg" alt="Result" />
-                <span class="h5 gray-10 pb-4">
+                <span class="h5 gray-10 pb-4 text-center">
                     Check-In Successful!
                 </span>
                 <span class="b6 gray-8 text-center">
@@ -62,7 +62,7 @@ const goToReviewPage = async () => {
         <a-flex v-else class="result px-9" vertical>
             <a-flex class="pb-5" align="center" vertical>
                 <img class="pb-8 result__img--fail" src="/src/assets/images/successfully/fail.svg" alt="Result" />
-                <span class="h5 gray-10 pb-1">
+                <span class="h5 gray-10 pb-1 text-center">
                     Check-In Failed!
                 </span>
                 <span class="b6 gray-8 text-center">
@@ -75,15 +75,16 @@ const goToReviewPage = async () => {
             </a-flex>
         </a-flex>
 
-        <a-flex gap="small" class="mb-24" :class="type === 'success' ? 'px-15' : 'px-9'">
-            <a-button style="width: 100%" size="large" @click="goBackHome">
-                <span class="b6 gray-8">Back Home</span>
+        <a-flex wrap="wrap" align="center" justify="center" gap="small" class="mb-24" :class="type === 'success' ? 'px-15' : 'px-9'">
+            <a-button style="min-width: 120px;" size="large" @click="goBackHome">
+                <span class="b6 gray-8" style="width:1">Back Home</span>
             </a-button>
-            <a-button style="width: 100%" size="large" @click="goToReviewPage" v-if="!payloadStore.$state.isReviewed">
+            <a-button style="min-width: 120px;" size="large" @click="goToReviewPage"
+                v-if="!payloadStore.$state.isReviewed">
                 <span class="b6 gray-8">Review</span>
             </a-button>
         </a-flex>
-        
+
     </a-flex>
 </template>
 
@@ -93,6 +94,7 @@ const goToReviewPage = async () => {
         &--sucess {
             width: 270px;
         }
+
         &--fail {
             width: 120px;
         }

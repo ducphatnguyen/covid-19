@@ -184,9 +184,8 @@ const onSubmit = async (values: any) => {
                                     </span>
                                 </template>
 
-                                <a-row :gutter="6">
-
-                                    <a-col :span="6">
+                                <a-row :gutter="[6,4]" >
+                                    <a-col>
                                         <template v-if="!payloadStore.$state.isReviewed">
                                             <Field v-slot="{ field }" name="dialingCode" id="dialingCode"
                                                 v-model="payloadStore.$state.dialingCode"
@@ -226,7 +225,7 @@ const onSubmit = async (values: any) => {
                                         </template>
                                     </a-col>
 
-                                    <a-col :span="18">
+                                    <a-col flex="1 1 150px">
                                         <template v-if="!payloadStore.$state.isReviewed">
                                             <Field v-slot="{ field, value }" name="contactNumber" id="contactNumber"
                                                 v-model="payloadStore.$state.contactNumber"
@@ -248,6 +247,7 @@ const onSubmit = async (values: any) => {
                                         </template>
                                     </a-col>
                                 </a-row>
+
                             </a-form-item>
                         </a-flex>
 
