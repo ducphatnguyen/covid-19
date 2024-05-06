@@ -12,7 +12,7 @@ const countryStore = useCountryStore();
 const countries = computed(() => countryStore.$state.countries);
 
 // Lifecycle
-onMounted(async () => {
+onMounted(() => {
   countryStore.handlePayload(countries.value);
 });
 </script>
