@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { onMounted, computed } from "vue";
 
 import { useCountryStore } from "@/stores";
 
 import { ANT_CONFIGS } from "./constants";
 
-const { getCountries } = useCountryStore()
+const countryStore = useCountryStore();
 
-onMounted(async () => await getCountries())
+const countries = computed(() => countryStore.$state.countries);
+
+onMounted(async () => {
+  await countryStore.handlePayload(countries.value);
+});
 </script>
 
 <template>
-  <a-config-provider :theme="ANT_CONFIGS">
-  </a-config-provider>
+  <a-config-provider :theme="ANT_CONFIGS"> </a-config-provider>
+
   <div class="container">
     <router-view />
   </div>

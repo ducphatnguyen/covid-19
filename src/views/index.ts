@@ -6,4 +6,3 @@ export { default as OfficeGuidelines } from "./OfficeGuidelines/index.vue";
 export { default as PersonalInformation } from "./PersonalInformation/index.vue";
 export { default as Review } from "./Review/index.vue";
 export { default as Successfully } from "./Successfully/index.vue";
-

@@ -1,5 +1,9 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
-import { usePayload } from '@/stores';
+import {
+  createRouter,
+  createWebHistory,
+  type RouteRecordRaw,
+} from "vue-router";
+import { usePayload } from "@/stores";
 
 enum AppSteps {
   Intro = "intro",
@@ -12,86 +16,90 @@ enum AppSteps {
 }
 
 // Lazy Loading
-const Intro = () => import('@/views/Intro/index.vue');
-const Location = () => import('@/views/Location/index.vue');
-const OfficeGuidelines = () => import('@/views/OfficeGuidelines/index.vue');
+const Intro = () => import("@/views/Intro/index.vue");
+const Location = () => import("@/views/Location/index.vue");
+const OfficeGuidelines = () => import("@/views/OfficeGuidelines/index.vue");
 
 // Layout
-const AppLayout = () => import('@/layouts/AppLayout.vue');
+const AppLayout = () => import("@/layouts/AppLayout.vue");
 
 // Children (Layout)
-const HealthChecklist = () => import('@/views/HealthChecklist/index.vue');
-const PersonalInformation = () => import('@/views/PersonalInformation/index.vue');
-const Successfully = () => import('@/views/Successfully/index.vue');
-const Review = () => import('@/views/Review/index.vue');
+const HealthChecklist = () => import("@/views/HealthChecklist/index.vue");
+const PersonalInformation = () =>
+  import("@/views/PersonalInformation/index.vue");
+const Successfully = () => import("@/views/Successfully/index.vue");
+const Review = () => import("@/views/Review/index.vue");
+
 // Page Results
-const Error404 = () => import('@/views/404/index.vue');
+const Error404 = () => import("@/views/404/index.vue");
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'intro',
+    path: "/",
+    name: "intro",
     component: Intro,
     meta: { step: AppSteps.Intro },
   },
-  // Layout 
+  // Layout
   {
-    path: '/',
+    path: "/",
     component: AppLayout,
     children: [
       {
-        path: '/location',
-        name: 'location',
+        path: "/location",
+        name: "location",
         component: Location,
-        meta: { step: AppSteps.Location }
+        meta: { step: AppSteps.Location },
       },
       {
-        path: '/office-guidelines',
-        name: 'office-guidelines',
+        path: "/office-guidelines",
+        name: "office-guidelines",
         component: OfficeGuidelines,
-        meta: { step: AppSteps.OfficeGuidelines }
+        meta: { step: AppSteps.OfficeGuidelines },
       },
       {
-        path: '/health-checklist',
-        name: 'health-checklist',
+        path: "/health-checklist",
+        name: "health-checklist",
         component: HealthChecklist,
         meta: { step: AppSteps.HealthChecklist },
       },
       {
-        path: '/personal-information',
-        name: 'personal-information',
+        path: "/personal-information",
+        name: "personal-information",
         component: PersonalInformation,
         meta: { step: AppSteps.PersonalInformation },
       },
       {
-        path: '/successfully',
-        name: 'successfully',
+        path: "/successfully",
+        name: "successfully",
         component: Successfully,
         meta: { step: AppSteps.Successfully },
       },
       {
-        path: '/review',
-        name: 'review',
+        path: "/review",
+        name: "review",
         component: Review,
         meta: { step: AppSteps.Review },
       },
-    ]
+    ],
   },
   {
     path: "/:pathMatch(.*)*",
     name: "notfound",
-    component: Error404
+    component: Error404,
   },
-]
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 
-
 router.beforeEach((to, from) => {
-  if (to.meta.step === AppSteps.Location || to.meta.step === AppSteps.OfficeGuidelines) {
+  if (
+    to.meta.step === AppSteps.Location ||
+    to.meta.step === AppSteps.OfficeGuidelines
+  ) {
     const payloadStore = usePayload();
     if (!payloadStore.$state.isStep2Navigated) {
       window.addEventListener("beforeunload", beforeUnloadHandler);
@@ -102,16 +110,28 @@ router.beforeEach((to, from) => {
 });
 router.afterEach((to, from) => {
   // Check Reload
-  const checkReloadRoutes: AppSteps[] = [AppSteps.Location, AppSteps.OfficeGuidelines];
+  const checkReloadRoutes: AppSteps[] = [
+    AppSteps.Location,
+    AppSteps.OfficeGuidelines,
+  ];
   // Check Direct
-  const checkDirectRoutes: AppSteps[] = [AppSteps.HealthChecklist, AppSteps.PersonalInformation, AppSteps.Successfully, AppSteps.Review];
-  
+  const checkDirectRoutes: AppSteps[] = [
+    AppSteps.HealthChecklist,
+    AppSteps.PersonalInformation,
+    AppSteps.Successfully,
+    AppSteps.Review,
+  ];
+
   const payloadStore = usePayload();
-  if (from.meta.step === undefined && checkReloadRoutes.includes(to.meta.step as AppSteps)) {
+  if (
+    from.meta.step === undefined &&
+    checkReloadRoutes.includes(to.meta.step as AppSteps)
+  ) {
     if (!payloadStore.$state.isStep2Navigated) {
       router.push({ name: "intro" });
     }
   }
+
   if (checkDirectRoutes.includes(to.meta.step as AppSteps)) {
     if (!payloadStore.$state.isStep2Navigated) {
       router.push({ name: "intro" });
