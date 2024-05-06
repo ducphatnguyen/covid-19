@@ -10,7 +10,7 @@ const countryStore = useCountryStore();
 const countries = computed(() => countryStore.$state.countries);
 
 onMounted(async () => {
-  await countryStore.handlePayload(countries.value);
+  countryStore.handlePayload(countries.value);
 });
 </script>
 

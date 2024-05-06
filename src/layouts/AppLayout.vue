@@ -14,10 +14,7 @@ onMounted(async () => await getCountries());
   <a-spin tip="Loading..." :spinning="spinningStore.$state.isSpinning">
     <a-flex vertical gap="large">
       <app-header />
-      <!-- <router-view /> -->
-      <router-view v-slot="{ Component }">
-        <component :is="Component" />
-      </router-view>
+      <router-view />
     </a-flex>
   </a-spin>
 </template>
