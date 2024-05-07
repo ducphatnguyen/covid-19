@@ -5,10 +5,6 @@ import { useRouter } from "vue-router";
 import { usePayload, useCountryStore } from "@/stores";
 import { type Country } from "@/types";
 
-import { Modal } from "ant-design-vue";
-import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
-import { createVNode } from "vue";
-
 // Data
 const router = useRouter();
 
@@ -50,16 +46,7 @@ const compareResults = (checklistAnswers: any, questionList: any) => {
 };
 
 const goBackHome = async () => {
-  Modal.confirm({
-    title: "Confirmation",
-    icon: createVNode(ExclamationCircleOutlined),
-    content: "The data will be cleared. Are you sure you want to back?",
-    onOk: () => {
-      router.push({ name: "intro" });
-    },
-    onCancel: () => {},
-    width: 300,
-  });
+  router.push({ name: "intro" });
 };
 
 const goToReviewPage = () => {

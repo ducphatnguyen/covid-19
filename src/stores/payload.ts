@@ -2,9 +2,7 @@ import { defineStore } from "pinia";
 
 import { type Payload } from "@/types";
 
-export const usePayload = defineStore({
-  id: "payload",
-
+export const usePayload = defineStore('payload', {
   state: (): Payload => ({
     // isPdfOpened: false,
     // isStep2Navigated: false,
