@@ -1,13 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted } from "vue";
 
-import {
-  Location,
-  OfficeGuidelines,
-  HealthChecklist,
-  PersonalInformation,
-  Successfully,
-} from "@/views";
+import { Location, OfficeGuidelines, HealthChecklist, PersonalInformation, Successfully } from "@/views";
 import { usePayload } from "@/stores";
 
 // Data
@@ -20,11 +14,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <Location></Location>
-  <OfficeGuidelines></OfficeGuidelines>
-  <HealthChecklist></HealthChecklist>
-  <PersonalInformation></PersonalInformation>
-  <Successfully></Successfully>
+  <Location />
+  <OfficeGuidelines />
+  <HealthChecklist />
+  <PersonalInformation />
+  <Successfully />
 </template>
 
 <style lang="scss"></style>

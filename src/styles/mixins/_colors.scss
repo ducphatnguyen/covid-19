@@ -1,16 +1,15 @@
 @mixin create-colors($colors) {
-    @each $key, $color in $colors {
-        .#{$key} {
-            color: $color;
-        }
+  @each $key, $color in $colors {
+    .#{$key} {
+      color: $color;
     }
+  }
 }
 
 @mixin create-backgroundColors($backgroundColors) {
-    @each $key, $backgroundColor in $backgroundColors {
-        .bg-#{$key} {
-            color: $backgroundColor;
-        }
+  @each $key, $backgroundColor in $backgroundColors {
+    .bg-#{$key} {
+      color: $backgroundColor;
     }
+  }
 }
-

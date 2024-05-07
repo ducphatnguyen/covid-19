@@ -1,18 +1,11 @@
 import { defineStore } from "pinia";
 
-import { type Payload } from "@/types";
+import type { Payload } from "@/types";
 
-export const usePayload = defineStore('payload', {
-  state: (): Payload => ({
-    // isPdfOpened: false,
-    // isStep2Navigated: false,
-  }),
-
+export const usePayload = defineStore("payload", {
+  state: (): Payload => ({}),
   actions: {
-    handleChange(
-      key: string,
-      value: string | number | boolean | Record<string, boolean | null>,
-    ) {
+    handleChange(key: keyof Payload, value: string | number | boolean | Record<string, boolean | null>) {
       this.$patch({ [key]: value });
       localStorage.setItem("payload", JSON.stringify(this.$state));
     },

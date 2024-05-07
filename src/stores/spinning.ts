@@ -1,14 +1,13 @@
 import { defineStore } from "pinia";
 
-import { type Spinning } from "@/types";
+import type { Spinning } from "@/types";
 
-export const useSpinning = defineStore({
-  id: "spinning",
+export const useSpinning = defineStore("spinning", {
   state: (): Spinning => ({
     isSpinning: false,
   }),
   actions: {
-    handleChange(key: string, value: boolean) {
+    handleChange(key: keyof Spinning, value: boolean) {
       this.$patch({ [key]: value });
     },
   },

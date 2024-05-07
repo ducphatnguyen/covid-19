@@ -1,17 +1,16 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-import { type Country, type Question } from "@/types";
 import { API_URLs } from "@/constants";
 import { usePayload, useSpinning } from "@/stores";
+import type { Country, Question } from "@/types";
 
 const STATUS = [
   { code: "visitor", label: "Visitor" },
   { code: "employee", label: "Employee" },
 ];
 
-export const useCountryStore = defineStore({
-  id: "countries",
+export const useCountryStore = defineStore("countries", {
   state: () => ({
     countries: [] as Country[],
     dialingCodes: [
@@ -29,9 +28,7 @@ export const useCountryStore = defineStore({
         this.countries = (await axios.get<Country[]>(API_URLs.countries)).data;
         // Map dialing codes into countries
         this.countries = this.countries.map((country) => {
-          const dialingCode = this.dialingCodes.find(
-            (dc) => dc.countryCode === country.code,
-          );
+          const dialingCode = this.dialingCodes.find((dc) => dc.countryCode === country.code);
           return dialingCode ? { ...country, ...dialingCode } : country;
         });
 
@@ -54,10 +51,7 @@ export const useCountryStore = defineStore({
       } else {
         const { checklistAnswers } = payloadStore.$state;
         payloadStore.handleChange("countryCode", countries?.[0]?.code);
-        payloadStore.handleChange(
-          "facilityId",
-          countries[0]?.facilityList?.[0]?.id,
-        );
+        payloadStore.handleChange("facilityId", countries[0]?.facilityList?.[0]?.id);
         payloadStore.handleChange("statusCode", STATUS?.[0]?.code);
 
         countries?.[0]?.questionList?.forEach((question: Question) => {

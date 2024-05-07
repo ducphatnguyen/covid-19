@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { createVNode } from "vue";
 import { useRouter } from "vue-router";
+import { Modal } from "ant-design-vue";
 
+import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 import { usePayload } from "@/stores";
 
-import { Modal } from "ant-design-vue";
-import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
-import { createVNode } from "vue";
 // Data
 const props = defineProps<{
   backRouteName: string;
@@ -17,11 +17,9 @@ const props = defineProps<{
 }>();
 
 const router = useRouter();
-
 const payloadStore = usePayload();
 
-// Method
-
+// Methods
 const goBack = () => {
   if (props.backRouteName === "intro") {
     Modal.confirm({
@@ -48,32 +46,20 @@ const goNext = () => {
 </script>
 
 <template>
-  <a-row :gutter="[16]" class="footer p-4" style="margin: 0">
+  <a-row style="margin: 0" class="footer p-4" :gutter="[16]">
     <a-col :span="12">
       <a-button style="width: 100%" @click="goBack" size="large">
         <span class="b6 gray-8">Back</span>
       </a-button>
     </a-col>
-    <a-col :span="12" v-if="props.type != 'submit'">
-      <a-button
-        style="width: 100%"
-        :disabled="!canNext"
-        type="primary"
-        @click="goNext"
-        size="large"
-      >
-        <span :class="{ 'gray-6': !canNext }" class="b6 gray-1">Next</span>
+    <a-col v-if="props.type != 'submit'" :span="12">
+      <a-button style="width: 100%" :disabled="!canNext" type="primary" @click="goNext" size="large">
+        <span class="b6 gray-1" :class="{ 'gray-6': !canNext }">Next</span>
       </a-button>
     </a-col>
-    <a-col :span="12" v-else>
-      <a-button
-        style="width: 100%"
-        :disabled="!canSubmit"
-        type="primary"
-        size="large"
-        html-type="submit"
-      >
-        <span :class="{ 'gray-6': !canSubmit }" class="b6 gray-1">Submit</span>
+    <a-col v-else :span="12">
+      <a-button style="width: 100%" type="primary" size="large" html-type="submit" :disabled="!canSubmit">
+        <span class="b6 gray-1" :class="{ 'gray-6': !canSubmit }">Submit</span>
       </a-button>
     </a-col>
   </a-row>

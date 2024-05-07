@@ -1,4 +1,4 @@
-// 13 properties
+// 15 properties
 export type Payload = {
   checklistAnswers?: Record<string, boolean | null> | null;
   countryCode?: string | null;

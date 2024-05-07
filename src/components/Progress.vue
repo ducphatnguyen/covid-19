@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { usePayload } from "@/stores";
 
 // Data
@@ -22,19 +21,9 @@ const percent = (100 * props.currentStep) / props.totalSteps;
       <span class="b7 gray-8">{{ props.description }}</span>
     </a-flex>
 
-    <a-progress
-      v-if="!payloadStore.$state.isReviewed"
-      type="circle"
-      :percent="percent"
-      size="small"
-      :strokeWidth="9"
-      :strokeColor="'#15B982'"
-    >
-
+    <a-progress v-if="!payloadStore.$state.isReviewed" type="circle" size="small" :percent="percent" :stroke-width="9">
       <template #format="percent">
-        <span class="b8"
-          >{{ props.currentStep }} of {{ props.totalSteps }}</span
-        >
+        <span class="b8">{{ props.currentStep }} of {{ props.totalSteps }}</span>
       </template>
     </a-progress>
   </a-flex>

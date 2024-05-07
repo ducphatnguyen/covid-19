@@ -1,8 +1,4 @@
-import {
-  createRouter,
-  createWebHistory,
-  type RouteRecordRaw,
-} from "vue-router";
+import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import { usePayload } from "@/stores";
 
 enum AppSteps {
@@ -25,8 +21,7 @@ const AppLayout = () => import("@/layouts/AppLayout.vue");
 
 // Children (Layout)
 const HealthChecklist = () => import("@/views/HealthChecklist/index.vue");
-const PersonalInformation = () =>
-  import("@/views/PersonalInformation/index.vue");
+const PersonalInformation = () => import("@/views/PersonalInformation/index.vue");
 const Successfully = () => import("@/views/Successfully/index.vue");
 const Review = () => import("@/views/Review/index.vue");
 
@@ -95,25 +90,34 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from) => {
-  if (
-    to.meta.step === AppSteps.Location ||
-    to.meta.step === AppSteps.OfficeGuidelines
-  ) {
-    const payloadStore = usePayload();
+router.beforeEach((to, from, next) => {
+  const payloadStore = usePayload();
+  const currentStep = to.meta.step as AppSteps;
+  const previousStep = localStorage.getItem("savedCurrentStep") as AppSteps;
+  const appStepValues = Object.values(AppSteps);
+  // Check Reload
+  const checkReloadRoutes: AppSteps[] = [AppSteps.Location, AppSteps.OfficeGuidelines];
+  if (checkReloadRoutes.includes(currentStep)) {
     if (!payloadStore.$state.isStep2Navigated) {
       window.addEventListener("beforeunload", beforeUnloadHandler);
     }
   } else {
     window.removeEventListener("beforeunload", beforeUnloadHandler);
   }
+
+  // Check direction to the pages that never reach
+  const previousStepIndex = appStepValues.indexOf(previousStep);
+  const currentStepIndex = appStepValues.indexOf(currentStep);
+  if (previousStepIndex < currentStepIndex && from.meta.step === undefined) next(false);
+
+  next();
 });
+
 router.afterEach((to, from) => {
+  const payloadStore = usePayload();
+
   // Check Reload
-  const checkReloadRoutes: AppSteps[] = [
-    AppSteps.Location,
-    AppSteps.OfficeGuidelines,
-  ];
+  const checkReloadRoutes: AppSteps[] = [AppSteps.Location, AppSteps.OfficeGuidelines];
   // Check Direct
   const checkDirectRoutes: AppSteps[] = [
     AppSteps.HealthChecklist,
@@ -122,21 +126,17 @@ router.afterEach((to, from) => {
     AppSteps.Review,
   ];
 
-  const payloadStore = usePayload();
-  if (
-    from.meta.step === undefined &&
-    checkReloadRoutes.includes(to.meta.step as AppSteps)
-  ) {
-    if (!payloadStore.$state.isStep2Navigated) {
-      router.push({ name: "intro" });
-    }
-  }
+  const currentStep = to.meta.step as AppSteps;
+  const previousStep = from.meta.step as AppSteps;
+  const isStep2Navigated = payloadStore.$state.isStep2Navigated;
 
-  if (checkDirectRoutes.includes(to.meta.step as AppSteps)) {
-    if (!payloadStore.$state.isStep2Navigated) {
-      router.push({ name: "intro" });
-    }
-  }
+  if (previousStep === undefined && checkReloadRoutes.includes(currentStep) && !isStep2Navigated)
+    router.push({ name: "intro" });
+
+  if (checkDirectRoutes.includes(currentStep) && !isStep2Navigated) router.push({ name: "intro" });
+
+  // Save current page
+  if (to.name !== "notfound") localStorage.setItem("savedCurrentStep", currentStep);
 });
 
 // Function to handle beforeunload event

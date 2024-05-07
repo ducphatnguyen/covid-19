@@ -41,12 +41,7 @@ const onClickPdf = () => {
         >
       </div>
       <a-flex
-        style="
-          background: #f6f6fa;
-          width: 220px;
-          height: 220px;
-          border-radius: 50%;
-        "
+        style="background: #f6f6fa; width: 220px; height: 220px; border-radius: 50%"
         justify="center"
         align="center"
         vertical

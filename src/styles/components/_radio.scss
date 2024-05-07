@@ -1,0 +1,22 @@
+.ant-col-24.ant-form-item-label {
+  padding: 0;
+}
+
+.ant-form-item .ant-form-item-label > label {
+  height: unset;
+}
+
+.ant-checkbox {
+  align-self: start;
+  & + span {
+    padding-inline-start: 16px;
+  }
+}
+
+.ant-checkbox .ant-checkbox-inner {
+  width: 24px;
+  height: 24px;
+  &:after {
+    inset-inline-start: 32.5%;
+  }
+}

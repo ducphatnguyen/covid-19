@@ -22,5 +22,8 @@ export const ANT_CONFIGS = {
     Button: {
       lineHeight: 1.5,
     },
+    Progress: {
+      colorInfo: "#15B982",
+    },
   },
 };

@@ -3,10 +3,10 @@ import { computed } from "vue";
 
 import { AppFooter, Progress } from "@/components";
 import { usePayload, useCountryStore } from "@/stores";
-import { type Country } from "@/types";
+import type { Country } from "@/types";
 
 // Data
-const ANSWER = [
+const ANSWERS = [
   { code: true, label: "YES" },
   { code: false, label: "NO" },
 ];
@@ -20,9 +20,7 @@ const { countryCode, checklistAnswers } = payloadStore.$state;
 const countries = computed(() => countryStore.$state.countries);
 
 const questionsByCountry = computed(() => {
-  return countries.value.find(
-    (country: Country) => country.code === countryCode,
-  )?.questionList;
+  return countries.value.find((country: Country) => country.code === countryCode)?.questionList;
 });
 
 const canNext = computed(() => {
@@ -69,24 +67,19 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
           <template v-if="!payloadStore.$state.isReviewed">
             <a-flex gap="middle" vertical>
               <a-radio
-                v-for="ans in ANSWER"
-                :key="ans.code"
-                :value="ans.code"
-                @change="onChangeCheckListAnswers(question.code, ans.code)"
+                v-for="answer in ANSWERS"
+                :key="answer.code"
+                :value="answer.code"
+                @change="onChangeCheckListAnswers(question.code, answer.code)"
               >
-                <span class="b6 gray-10 ps-2">{{ ans.label }}</span>
+                <span class="b6 gray-10 ps-2">{{ answer.label }}</span>
               </a-radio>
             </a-flex>
           </template>
           <template v-else>
             <a-flex gap="middle" vertical>
-              <a-radio
-                v-for="ans in ANSWER"
-                :key="ans.code"
-                :value="ans.code"
-                disabled
-              >
-                <span class="b6 gray-10 ps-2">{{ ans.label }}</span>
+              <a-radio v-for="answer in ANSWERS" :key="answer.code" :value="answer.code" disabled>
+                <span class="b6 gray-10 ps-2">{{ answer.label }}</span>
               </a-radio>
             </a-flex>
           </template>

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 
-import { usePayload, useCountryStore } from "@/stores";
+import { useCountryStore, usePayload } from "@/stores";
 import { convertDateTime } from "@/utils";
 
-const payloadStore = usePayload();
+// Data
 const countryStore = useCountryStore();
+const payloadStore = usePayload();
 
 const currentDateTime = ref<string>("");
 const intervalId = ref<number>(0);
@@ -23,18 +24,15 @@ onBeforeUnmount(() => {
   clearInterval(intervalId.value);
 });
 
-const findFacilityName = (countryCode: string, facilityId: number) => {
-  if (!countryCode || !facilityId) return "";
-  const country = countries.value.find((c) => c.code === countryCode);
-  if (country) {
-    const facility = country.facilityList.find((f) => f.id === facilityId);
-    return facility ? facility.name : "";
-  }
-  return "";
-};
-
+// Methods
 const getConvertDateTime = () => {
   currentDateTime.value = convertDateTime(new Date());
+};
+
+const getFacilityName = (countryCode: string, facilityId: number) => {
+  const country = countries.value.find((c) => c.code === countryCode);
+  const facility = country?.facilityList.find((f) => f.id === facilityId);
+  return facility?.name || "";
 };
 </script>
 
@@ -44,12 +42,7 @@ const getConvertDateTime = () => {
     <a-flex class="text-right" justify="center" vertical>
       <span class="b8"
         >{{ payloadStore.$state.countryCode }} -
-        {{
-          findFacilityName(
-            payloadStore.$state.countryCode!,
-            payloadStore.$state.facilityId!,
-          )
-        }}
+        {{ getFacilityName(payloadStore.$state.countryCode!, payloadStore.$state.facilityId!) }}
       </span>
       <span class="b8">{{ currentDateTime }}</span>
     </a-flex>
