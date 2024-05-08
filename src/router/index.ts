@@ -90,12 +90,15 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
   const payloadStore = usePayload();
+
   const currentStep = to.meta.step as AppSteps;
   const previousStep = localStorage.getItem("savedCurrentStep") as AppSteps;
+  const lastedReachableStep = localStorage.getItem("lastedReachableStep") as AppSteps;
   const appStepValues = Object.values(AppSteps);
-  // Check Reload
+
+  // Listen when reloading
   const checkReloadRoutes: AppSteps[] = [AppSteps.Location, AppSteps.OfficeGuidelines];
   if (checkReloadRoutes.includes(currentStep)) {
     if (!payloadStore.$state.isStep2Navigated) {
@@ -108,17 +111,25 @@ router.beforeEach((to, from, next) => {
   // Check direction to the pages that never reach
   const previousStepIndex = appStepValues.indexOf(previousStep);
   const currentStepIndex = appStepValues.indexOf(currentStep);
-  if (previousStepIndex < currentStepIndex && from.meta.step === undefined) next(false);
+  const lastedReachableStepIndex = appStepValues.indexOf(lastedReachableStep);
 
-  next();
+  if (
+    previousStepIndex < currentStepIndex &&
+    from.meta.step === undefined &&
+    currentStepIndex > lastedReachableStepIndex
+  )
+    router.go(-1);
 });
 
 router.afterEach((to, from) => {
   const payloadStore = usePayload();
 
-  // Check Reload
+  const currentStep = to.meta.step as AppSteps;
+  const previousStep = from.meta.step as AppSteps;
+  const isStep2Navigated = payloadStore.$state.isStep2Navigated;
+  const appStepValues = Object.values(AppSteps);
+
   const checkReloadRoutes: AppSteps[] = [AppSteps.Location, AppSteps.OfficeGuidelines];
-  // Check Direct
   const checkDirectRoutes: AppSteps[] = [
     AppSteps.HealthChecklist,
     AppSteps.PersonalInformation,
@@ -126,17 +137,23 @@ router.afterEach((to, from) => {
     AppSteps.Review,
   ];
 
-  const currentStep = to.meta.step as AppSteps;
-  const previousStep = from.meta.step as AppSteps;
-  const isStep2Navigated = payloadStore.$state.isStep2Navigated;
-
+  // Check Reload
   if (previousStep === undefined && checkReloadRoutes.includes(currentStep) && !isStep2Navigated)
     router.push({ name: "intro" });
 
+  // Check Direct
   if (checkDirectRoutes.includes(currentStep) && !isStep2Navigated) router.push({ name: "intro" });
 
-  // Save current page
-  if (to.name !== "notfound") localStorage.setItem("savedCurrentStep", currentStep);
+  // Save current step and lasted reachable step
+  if (to.name !== "notfound") {
+    if (
+      appStepValues.indexOf(localStorage.getItem("savedCurrentStep") as AppSteps) < appStepValues.indexOf(currentStep)
+    ) {
+      const lastedReachableStep = currentStep;
+      localStorage.setItem("lastedReachableStep", lastedReachableStep!);
+    }
+  }
+  localStorage.setItem("savedCurrentStep", currentStep);
 });
 
 // Function to handle beforeunload event

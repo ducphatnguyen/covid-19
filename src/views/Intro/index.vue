@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { onMounted, computed, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 
 import { useCountryStore } from "@/stores";
@@ -12,6 +12,11 @@ const countryStore = useCountryStore();
 const countries = computed(() => countryStore.$state.countries);
 
 // Lifecycle
+onMounted(() => {
+  localStorage.removeItem("savedCurrentStep");
+  localStorage.removeItem("lastedReachableStep");
+});
+
 onMounted(() => {
   localStorage.removeItem("payload");
   countryStore.handlePayload(countries.value);
