@@ -5,9 +5,8 @@ import { useRouter } from "vue-router";
 import { useCountryStore } from "@/stores";
 
 // Data
-const countryStore = useCountryStore();
-
 const router = useRouter();
+const countryStore = useCountryStore();
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);

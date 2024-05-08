@@ -2,8 +2,7 @@
 import { onMounted, computed } from "vue";
 
 import { useCountryStore } from "@/stores";
-
-import { ANT_CONFIGS } from "./constants";
+import { ANT_CONFIGS } from "@/constants";
 
 // Data
 const countryStore = useCountryStore();

@@ -13,13 +13,13 @@ const ANSWERS = [
 
 const payloadStore = usePayload();
 const countryStore = useCountryStore();
-
-const { countryCode, checklistAnswers } = payloadStore.$state;
+const { checklistAnswers } = payloadStore.$state;
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);
 
 const questionsByCountry = computed(() => {
+  const { countryCode } = payloadStore.$state;
   return countries.value.find((country: Country) => country.code === countryCode)?.questionList;
 });
 

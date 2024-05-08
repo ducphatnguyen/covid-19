@@ -9,3 +9,4 @@ export const validatePhoneNumber = (value: string, dialingCode?: string | null) 
   const regexes = regexMap[dialingCode];
   return !regexes || !regexes.some((regex) => regex.test(value)) ? "Invalid contact number" : true;
 };
+

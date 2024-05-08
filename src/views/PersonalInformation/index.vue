@@ -1,49 +1,16 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { Form, Field, defineRule, useForm } from "vee-validate";
+import { Form, Field, useForm } from "vee-validate";
 
 import { AppFooter, Progress } from "@/components";
 import { usePayload, useCountryStore } from "@/stores";
-import { getCountryFlagUrl, validatePhoneNumber } from "@/utils";
-
-// Define rules
-defineRule("required", (value: string) => {
-  if (!value || !value.length) {
-    return "This field is required";
-  }
-  return true;
-});
-
-defineRule("minMaxLength", (value: string, [min, max]: [number, number]) => {
-  if (value.length < min) {
-    return `This field must be at least ${min} characters long`;
-  }
-  if (value.length > max) {
-    return `This field must be at most ${max} characters long`;
-  }
-  return true;
-});
-
-defineRule("validName", (value: string) => {
-  if (/\d/.test(value)) {
-    return "First name cannot contain numbers";
-  }
-  return true;
-});
-
-defineRule("contactNumber", (value: string) => {
-  const dialingCode = payloadStore.$state.dialingCode;
-  const validation = validatePhoneNumber(value, dialingCode);
-  if (validation !== true) {
-    return validation;
-  }
-  return true;
-});
+import { getCountryFlagUrl } from "@/utils";
 
 const contactFormSchema = {
-  firstName: "required|validName|minMaxLength:2,20",
-  lastName: "required|validName|minMaxLength:2,20",
+  firstName: "required|noSpecialCharacters|min:2|max:20",
+  lastName: "required|noSpecialCharacters|min:2|max:20",
+  dialingCode: "required",
   contactNumber: "required|contactNumber",
 };
 
@@ -71,7 +38,7 @@ onMounted(() => {
   payloadStore.handleChange("isReviewed", false);
 });
 
-// Method
+// Methods
 const onChangeFirstName = (event: Event) => {
   const newFirstName = (event.target as HTMLInputElement).value;
   payloadStore.handleChange("firstName", newFirstName);
@@ -97,7 +64,6 @@ const onChangeIsInfoConfirmed = (isInfoConfirmed: boolean) => {
 
 const onSubmit = async (values: any) => {
   try {
-    console.log(values);
     const { valid } = await validate();
     if (valid) {
       router.push({ name: "successfully" });
@@ -125,6 +91,7 @@ const onSubmit = async (values: any) => {
               <template v-if="!payloadStore.$state.isReviewed">
                 <Field
                   v-slot="{ field, value }"
+                  label="First Name"
                   name="firstName"
                   id="firstName"
                   v-model="payloadStore.$state.firstName"
@@ -144,7 +111,13 @@ const onSubmit = async (values: any) => {
                 </Field>
               </template>
               <template v-else>
-                <Field v-slot="{ field }" name="firstName" id="firstName" v-model="payloadStore.$state.firstName">
+                <Field
+                  v-slot="{ field }"
+                  label="First Name"
+                  name="firstName"
+                  id="firstName"
+                  v-model="payloadStore.$state.firstName"
+                >
                   <a-form-item class="mb-0">
                     <template #label>
                       <span class="b7 gray-9"> First Name </span>
@@ -157,6 +130,7 @@ const onSubmit = async (values: any) => {
               <template v-if="!payloadStore.$state.isReviewed">
                 <Field
                   v-slot="{ field, value }"
+                  label="Last Name"
                   name="lastName"
                   id="lastName"
                   v-model="payloadStore.$state.lastName"
@@ -176,7 +150,13 @@ const onSubmit = async (values: any) => {
                 </Field>
               </template>
               <template v-else>
-                <Field v-slot="{ field }" name="lastName" id="lastName" v-model="payloadStore.$state.lastName">
+                <Field
+                  v-slot="{ field }"
+                  label="Last Name"
+                  name="lastName"
+                  id="lastName"
+                  v-model="payloadStore.$state.lastName"
+                >
                   <a-form-item class="mb-0">
                     <template #label style="height: unset">
                       <span class="b7 gray-9 p-0"> Last Name </span>
@@ -195,13 +175,21 @@ const onSubmit = async (values: any) => {
                   <a-col>
                     <template v-if="!payloadStore.$state.isReviewed">
                       <Field
-                        v-slot="{ field }"
+                        v-slot="{ field, value }"
+                        label="Dialing Code"
                         name="dialingCode"
                         id="dialingCode"
                         v-model="payloadStore.$state.dialingCode"
                         @change="onChangeDialingCode(payloadStore.$state.dialingCode!)"
                       >
-                        <a-select :="field" :dropdown-match-select-width="false" :option-label-prop="'label'">
+                        <a-select
+                          :="field"
+                          :dropdown-match-select-width="false"
+                          :option-label-prop="'label'"
+                          has-feedback
+                          :validate-status="errors.dialingCode ? 'error' : value ? 'success' : ''"
+                          :help="errors.dialingCode"
+                        >
                           <a-select-option
                             v-for="country in countries"
                             :value="country.dialingCode"
@@ -224,6 +212,7 @@ const onSubmit = async (values: any) => {
                     <template v-else>
                       <Field
                         v-slot="{ field }"
+                        label="Dialing Code"
                         name="dialingCode"
                         id="dialingCode"
                         v-model="payloadStore.$state.dialingCode"
@@ -254,6 +243,7 @@ const onSubmit = async (values: any) => {
                     <template v-if="!payloadStore.$state.isReviewed">
                       <Field
                         v-slot="{ field, value }"
+                        label="Contact Number"
                         name="contactNumber"
                         id="contactNumber"
                         v-model="payloadStore.$state.contactNumber"
@@ -272,6 +262,7 @@ const onSubmit = async (values: any) => {
                     <template v-else>
                       <Field
                         v-slot="{ field }"
+                        label="Contact Number"
                         name="contactNumber"
                         id="contactNumber"
                         v-model="payloadStore.$state.contactNumber"
@@ -291,6 +282,7 @@ const onSubmit = async (values: any) => {
               <template v-if="!payloadStore.$state.isReviewed">
                 <Field
                   v-slot="{ field }"
+                  label="Inforconfirm"
                   name="isInfoConfirmed"
                   id="isInfoConfirmed"
                   @change="onChangeIsInfoConfirmed(payloadStore.$state.isInfoConfirmed!)"
@@ -301,7 +293,6 @@ const onSubmit = async (values: any) => {
                         <span class="b7 gray-8">
                           I confirm that the above information is accurate and I have read and understood the
                           requirements and expectations of entering the Silicon Stack premises.
-                          {{ Object.keys(errors).length }}
                         </span>
                       </a-checkbox>
                     </a-flex>
@@ -309,7 +300,7 @@ const onSubmit = async (values: any) => {
                 </Field>
               </template>
               <template v-else>
-                <Field v-slot="{ field }" name="isInfoConfirmed" id="isInfoConfirmed">
+                <Field v-slot="{ field }" label="Inforconfirm" name="isInfoConfirmed" id="isInfoConfirmed">
                   <a-form-item class="pt-6 mb-0" name="remember">
                     <a-flex>
                       <a-checkbox
@@ -321,7 +312,6 @@ const onSubmit = async (values: any) => {
                         <span class="b7 gray-8">
                           I confirm that the above information is accurate and I have read and understood the
                           requirements and expectations of entering the Silicon Stack premises.
-                          {{ Object.keys(errors).length }}
                         </span>
                       </a-checkbox>
                     </a-flex>
