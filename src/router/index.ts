@@ -1,4 +1,8 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  type RouteRecordRaw,
+} from "vue-router";
 import { usePayload } from "@/stores";
 
 enum AppSteps {
@@ -16,16 +20,14 @@ const Intro = () => import("@/views/Intro/index.vue");
 const Location = () => import("@/views/Location/index.vue");
 const OfficeGuidelines = () => import("@/views/OfficeGuidelines/index.vue");
 
-// Layout
 const AppLayout = () => import("@/layouts/AppLayout.vue");
 
-// Children (Layout)
 const HealthChecklist = () => import("@/views/HealthChecklist/index.vue");
-const PersonalInformation = () => import("@/views/PersonalInformation/index.vue");
+const PersonalInformation = () =>
+  import("@/views/PersonalInformation/index.vue");
 const Successfully = () => import("@/views/Successfully/index.vue");
 const Review = () => import("@/views/Review/index.vue");
 
-// Page Results
 const Error404 = () => import("@/views/404/index.vue");
 
 const routes: Array<RouteRecordRaw> = [
@@ -35,7 +37,6 @@ const routes: Array<RouteRecordRaw> = [
     component: Intro,
     meta: { step: AppSteps.Intro },
   },
-  // Layout
   {
     path: "/",
     component: AppLayout,
@@ -95,11 +96,16 @@ router.beforeEach((to, from) => {
 
   const currentStep = to.meta.step as AppSteps;
   const previousStep = localStorage.getItem("savedCurrentStep") as AppSteps;
-  const lastedReachableStep = localStorage.getItem("lastedReachableStep") as AppSteps;
+  const lastedReachableStep = localStorage.getItem(
+    "lastedReachableStep",
+  ) as AppSteps;
   const appStepValues = Object.values(AppSteps);
 
   // Listen when reloading
-  const checkReloadRoutes: AppSteps[] = [AppSteps.Location, AppSteps.OfficeGuidelines];
+  const checkReloadRoutes: AppSteps[] = [
+    AppSteps.Location,
+    AppSteps.OfficeGuidelines,
+  ];
   if (checkReloadRoutes.includes(currentStep)) {
     if (!payloadStore.$state.isStep2Navigated) {
       window.addEventListener("beforeunload", beforeUnloadHandler);
@@ -129,7 +135,10 @@ router.afterEach((to, from) => {
   const isStep2Navigated = payloadStore.$state.isStep2Navigated;
   const appStepValues = Object.values(AppSteps);
 
-  const checkReloadRoutes: AppSteps[] = [AppSteps.Location, AppSteps.OfficeGuidelines];
+  const checkReloadRoutes: AppSteps[] = [
+    AppSteps.Location,
+    AppSteps.OfficeGuidelines,
+  ];
   const checkDirectRoutes: AppSteps[] = [
     AppSteps.HealthChecklist,
     AppSteps.PersonalInformation,
@@ -137,17 +146,24 @@ router.afterEach((to, from) => {
     AppSteps.Review,
   ];
 
-  // Check Reload
-  if (previousStep === undefined && checkReloadRoutes.includes(currentStep) && !isStep2Navigated)
+  // Check reload
+  if (
+    previousStep === undefined &&
+    checkReloadRoutes.includes(currentStep) &&
+    !isStep2Navigated
+  )
     router.push({ name: "intro" });
 
-  // Check Direct
-  if (checkDirectRoutes.includes(currentStep) && !isStep2Navigated) router.push({ name: "intro" });
+  // Check direction
+  if (checkDirectRoutes.includes(currentStep) && !isStep2Navigated)
+    router.push({ name: "intro" });
 
   // Save current step and lasted reachable step
   if (to.name !== "notfound") {
     if (
-      appStepValues.indexOf(localStorage.getItem("savedCurrentStep") as AppSteps) < appStepValues.indexOf(currentStep)
+      appStepValues.indexOf(
+        localStorage.getItem("savedCurrentStep") as AppSteps,
+      ) < appStepValues.indexOf(currentStep)
     ) {
       const lastedReachableStep = currentStep;
       localStorage.setItem("lastedReachableStep", lastedReachableStep!);

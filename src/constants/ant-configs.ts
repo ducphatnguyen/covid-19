@@ -1,9 +1,7 @@
 export const ANT_CONFIGS = {
   token: {
-    // Border
     borderRadius: 2,
 
-    // Color
     colorBorder: "#BEC6D0",
     colorError: "#F5222D",
     colorPrimary: "#0062FF",
@@ -13,7 +11,6 @@ export const ANT_CONFIGS = {
     colorTextHeading: "#272D35",
     colorTextDisabled: "#AFB9C5",
 
-    // Font
     fontFamily: '"Roboto", sans-serif',
     fontWeightStrong: 500,
   },

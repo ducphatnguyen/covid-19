@@ -1,6 +1,7 @@
+/* eslint @typescript-eslint/no-explicit-any: "off" */
+import * as AllRules from "@vee-validate/rules";
 import { defineRule, configure } from "vee-validate";
 
-import * as AllRules from "@vee-validate/rules";
 import { usePayload } from "@/stores";
 import { validatePhoneNumber } from "@/utils";
 
@@ -11,13 +12,14 @@ Object.entries(rules).forEach(([key, value]) => {
 
 configure({
   validateOnInput: true,
-  generateMessage: (context) => {  
+  generateMessage: (context) => {
     const messages: Record<string, string> = {
-      min: `${context.field} must be at least ${context.rule?.params } characters.`,
-      max: `${context.field} must be at most ${context.rule?.params } characters.`,
+      min: `${context.field} must be at least ${context.rule?.params} characters.`,
+      max: `${context.field} must be at most ${context.rule?.params} characters.`,
       required: `${context.field} is required.`,
     };
-    const message = messages[context.rule!.name] || `${context.field} is not valid.`;
+    const message =
+      messages[context.rule!.name] || `${context.field} is not valid.`;
     return message;
   },
 });

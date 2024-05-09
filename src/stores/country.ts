@@ -1,5 +1,5 @@
-import { defineStore } from "pinia";
 import axios from "axios";
+import { defineStore } from "pinia";
 
 import { API_URLs } from "@/constants";
 import { usePayload, useSpinning } from "@/stores";
@@ -28,7 +28,9 @@ export const useCountryStore = defineStore("countries", {
         this.countries = (await axios.get<Country[]>(API_URLs.countries)).data;
         // Map dialing codes into countries
         this.countries = this.countries.map((country) => {
-          const dialingCode = this.dialingCodes.find((dc) => dc.countryCode === country.code);
+          const dialingCode = this.dialingCodes.find(
+            (dc) => dc.countryCode === country.code,
+          );
           return dialingCode ? { ...country, ...dialingCode } : country;
         });
 
@@ -51,7 +53,10 @@ export const useCountryStore = defineStore("countries", {
       } else {
         const { checklistAnswers } = payloadStore.$state;
         payloadStore.handleChange("countryCode", countries?.[0]?.code);
-        payloadStore.handleChange("facilityId", countries[0]?.facilityList?.[0]?.id);
+        payloadStore.handleChange(
+          "facilityId",
+          countries?.[0]?.facilityList?.[0]?.id,
+        );
         payloadStore.handleChange("statusCode", STATUS?.[0]?.code);
 
         countries?.[0]?.questionList?.forEach((question: Question) => {
@@ -64,7 +69,7 @@ export const useCountryStore = defineStore("countries", {
         payloadStore.handleChange("isPdfOpened", false);
         payloadStore.handleChange("isStep2Navigated", false);
         payloadStore.handleChange("isReviewed", false);
-        payloadStore.handleChange("dialingCode", countries?.[0]?.dialingCode!);
+        payloadStore.handleChange("dialingCode", countries?.[0]?.dialingCode);
 
         payloadStore.handleChange("firstName", "");
         payloadStore.handleChange("lastName", "");

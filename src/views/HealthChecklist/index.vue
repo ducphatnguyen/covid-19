@@ -20,7 +20,9 @@ const countries = computed(() => countryStore.$state.countries);
 
 const questionsByCountry = computed(() => {
   const { countryCode } = payloadStore.$state;
-  return countries.value.find((country: Country) => country.code === countryCode)?.questionList;
+  return countries.value.find(
+    (country: Country) => country.code === countryCode,
+  )?.questionList;
 });
 
 const canNext = computed(() => {
@@ -78,7 +80,12 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
           </template>
           <template v-else>
             <a-flex gap="middle" vertical>
-              <a-radio v-for="answer in ANSWERS" :key="answer.code" :value="answer.code" disabled>
+              <a-radio
+                v-for="answer in ANSWERS"
+                :key="answer.code"
+                :value="answer.code"
+                disabled
+              >
                 <span class="b6 gray-10 ps-2">{{ answer.label }}</span>
               </a-radio>
             </a-flex>

@@ -8,5 +8,5 @@ export type Country = {
   facilityList: Facility[];
   questionList: Question[];
   // Mapping
-  dialingCode?: string;
+  dialingCode: string;
 };

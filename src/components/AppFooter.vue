@@ -53,12 +53,24 @@ const goNext = () => {
       </a-button>
     </a-col>
     <a-col v-if="props.type != 'submit'" :span="12">
-      <a-button style="width: 100%" :disabled="!canNext" type="primary" @click="goNext" size="large">
+      <a-button
+        style="width: 100%"
+        :disabled="!canNext"
+        type="primary"
+        @click="goNext"
+        size="large"
+      >
         <span class="b6 gray-1" :class="{ 'gray-6': !canNext }">Next</span>
       </a-button>
     </a-col>
     <a-col v-else :span="12">
-      <a-button style="width: 100%" type="primary" size="large" html-type="submit" :disabled="!canSubmit">
+      <a-button
+        style="width: 100%"
+        type="primary"
+        size="large"
+        html-type="submit"
+        :disabled="!canSubmit"
+      >
         <span class="b6 gray-1" :class="{ 'gray-6': !canSubmit }">Submit</span>
       </a-button>
     </a-col>

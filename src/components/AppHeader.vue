@@ -42,7 +42,12 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
     <a-flex class="text-right" justify="center" vertical>
       <span class="b8"
         >{{ payloadStore.$state.countryCode }} -
-        {{ getFacilityName(payloadStore.$state.countryCode!, payloadStore.$state.facilityId!) }}
+        {{
+          getFacilityName(
+            payloadStore.$state.countryCode!,
+            payloadStore.$state.facilityId!,
+          )
+        }}
       </span>
       <span class="b8">{{ currentDateTime }}</span>
     </a-flex>

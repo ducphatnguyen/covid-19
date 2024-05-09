@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-import { Location, OfficeGuidelines, HealthChecklist, PersonalInformation, Successfully } from "@/views";
+import {
+  Location,
+  OfficeGuidelines,
+  HealthChecklist,
+  PersonalInformation,
+  Successfully,
+} from "@/views";
 import { usePayload } from "@/stores";
 
 // Data
