@@ -3,17 +3,9 @@ import {
   createWebHistory,
   type RouteRecordRaw,
 } from "vue-router";
-import { usePayload } from "@/stores";
 
-enum AppSteps {
-  Intro = "intro",
-  Location = "location",
-  OfficeGuidelines = "office-guidelines",
-  HealthChecklist = "health-checklist",
-  PersonalInformation = "personal-information",
-  Successfully = "successfully",
-  Review = "review",
-}
+import { APP_STEPS, LOCAL_STORAGE } from "@/constants";
+import { usePayload } from "@/stores";
 
 // Lazy Loading
 const Intro = () => import("@/views/Intro/index.vue");
@@ -35,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "intro",
     component: Intro,
-    meta: { step: AppSteps.Intro },
+    meta: { step: APP_STEPS.Intro },
   },
   {
     path: "/",
@@ -45,37 +37,37 @@ const routes: Array<RouteRecordRaw> = [
         path: "/location",
         name: "location",
         component: Location,
-        meta: { step: AppSteps.Location },
+        meta: { step: APP_STEPS.Location },
       },
       {
         path: "/office-guidelines",
         name: "office-guidelines",
         component: OfficeGuidelines,
-        meta: { step: AppSteps.OfficeGuidelines },
+        meta: { step: APP_STEPS.OfficeGuidelines },
       },
       {
         path: "/health-checklist",
         name: "health-checklist",
         component: HealthChecklist,
-        meta: { step: AppSteps.HealthChecklist },
+        meta: { step: APP_STEPS.HealthChecklist },
       },
       {
         path: "/personal-information",
         name: "personal-information",
         component: PersonalInformation,
-        meta: { step: AppSteps.PersonalInformation },
+        meta: { step: APP_STEPS.PersonalInformation },
       },
       {
         path: "/successfully",
         name: "successfully",
         component: Successfully,
-        meta: { step: AppSteps.Successfully },
+        meta: { step: APP_STEPS.Successfully },
       },
       {
         path: "/review",
         name: "review",
         component: Review,
-        meta: { step: AppSteps.Review },
+        meta: { step: APP_STEPS.Review },
       },
     ],
   },
@@ -94,22 +86,25 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   const payloadStore = usePayload();
 
-  const currentStep = to.meta.step as AppSteps;
-  const previousStep = localStorage.getItem("savedCurrentStep") as AppSteps;
+  const currentStep = to.meta.step as APP_STEPS;
+  const previousStep = localStorage.getItem(
+    LOCAL_STORAGE.SavedCurrentStep,
+  ) as APP_STEPS;
   const lastedReachableStep = localStorage.getItem(
-    "lastedReachableStep",
-  ) as AppSteps;
-  const appStepValues = Object.values(AppSteps);
+    LOCAL_STORAGE.LastedReachableStep,
+  ) as APP_STEPS;
+  const appStepValues = Object.values(APP_STEPS);
 
   // Listen when reloading
-  const checkReloadRoutes: AppSteps[] = [
-    AppSteps.Location,
-    AppSteps.OfficeGuidelines,
+  const checkReloadRoutes: APP_STEPS[] = [
+    APP_STEPS.Location,
+    APP_STEPS.OfficeGuidelines,
   ];
-  if (checkReloadRoutes.includes(currentStep)) {
-    if (!payloadStore.$state.isStep2Navigated) {
-      window.addEventListener("beforeunload", beforeUnloadHandler);
-    }
+  if (
+    checkReloadRoutes.includes(currentStep) &&
+    !payloadStore.$state.isStep2Navigated
+  ) {
+    window.addEventListener("beforeunload", beforeUnloadHandler);
   } else {
     window.removeEventListener("beforeunload", beforeUnloadHandler);
   }
@@ -130,20 +125,20 @@ router.beforeEach((to, from) => {
 router.afterEach((to, from) => {
   const payloadStore = usePayload();
 
-  const currentStep = to.meta.step as AppSteps;
-  const previousStep = from.meta.step as AppSteps;
+  const currentStep = to.meta.step as APP_STEPS;
+  const previousStep = from.meta.step as APP_STEPS;
   const isStep2Navigated = payloadStore.$state.isStep2Navigated;
-  const appStepValues = Object.values(AppSteps);
+  const appStepValues = Object.values(APP_STEPS);
 
-  const checkReloadRoutes: AppSteps[] = [
-    AppSteps.Location,
-    AppSteps.OfficeGuidelines,
+  const checkReloadRoutes: APP_STEPS[] = [
+    APP_STEPS.Location,
+    APP_STEPS.OfficeGuidelines,
   ];
-  const checkDirectRoutes: AppSteps[] = [
-    AppSteps.HealthChecklist,
-    AppSteps.PersonalInformation,
-    AppSteps.Successfully,
-    AppSteps.Review,
+  const checkDirectRoutes: APP_STEPS[] = [
+    APP_STEPS.HealthChecklist,
+    APP_STEPS.PersonalInformation,
+    APP_STEPS.Successfully,
+    APP_STEPS.Review,
   ];
 
   // Check reload
@@ -159,17 +154,19 @@ router.afterEach((to, from) => {
     router.push({ name: "intro" });
 
   // Save current step and lasted reachable step
-  if (to.name !== "notfound") {
-    if (
-      appStepValues.indexOf(
-        localStorage.getItem("savedCurrentStep") as AppSteps,
-      ) < appStepValues.indexOf(currentStep)
-    ) {
-      const lastedReachableStep = currentStep;
-      localStorage.setItem("lastedReachableStep", lastedReachableStep!);
-    }
+  if (
+    to.name !== "notfound" &&
+    appStepValues.indexOf(
+      localStorage.getItem(LOCAL_STORAGE.SavedCurrentStep) as APP_STEPS,
+    ) < appStepValues.indexOf(currentStep)
+  ) {
+    const lastedReachableStep = currentStep;
+    localStorage.setItem(
+      LOCAL_STORAGE.LastedReachableStep,
+      lastedReachableStep!,
+    );
   }
-  localStorage.setItem("savedCurrentStep", currentStep);
+  localStorage.setItem(LOCAL_STORAGE.SavedCurrentStep, currentStep);
 });
 
 // Function to handle beforeunload event

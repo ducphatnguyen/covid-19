@@ -3,4 +3,4 @@ README.md
 .prettierignore
 *.json
 .*
-vite.config.ts
+node_modules

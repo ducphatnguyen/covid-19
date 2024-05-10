@@ -42,16 +42,12 @@ const compareResults = (
   checklistAnswers: Payload["checklistAnswers"],
   questionList: Question[],
 ) => {
-  for (const question of questionList) {
-    if (
+  return questionList.some(
+    (question) =>
       checklistAnswers &&
       question.code in checklistAnswers &&
-      checklistAnswers[question.code] !== question.answer
-    ) {
-      return true;
-    }
-  }
-  return false;
+      checklistAnswers[question.code] !== question.answer,
+  );
 };
 
 const goBackHome = async () => {
@@ -72,7 +68,7 @@ const goToReviewPage = () => {
           src="/src/assets/images/successfully/success.svg"
           alt="Result"
         />
-        <span class="h5 gray-10 pb-4 text-center"> Check-In Successful! </span>
+        <span class="h5 gray-10 pb-4 text-center">Check-In Successful!</span>
         <span class="b6 gray-8 text-center">
           Thank you for completing. You can now safely enter the office. Please
           be sure to check-in on each office visit. Have a great day!
@@ -86,7 +82,7 @@ const goToReviewPage = () => {
           src="/src/assets/images/successfully/fail.svg"
           alt="Result"
         />
-        <span class="h5 gray-10 pb-1 text-center"> Check-In Failed! </span>
+        <span class="h5 gray-10 pb-1 text-center">Check-In Failed!</span>
         <span class="b6 gray-8 text-center">
           To prevent the possible spread of COVID and ensure the safety of you
           and your colleagues, you’re not eligible to enter our Silicon Stack

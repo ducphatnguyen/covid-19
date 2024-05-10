@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 
+import { LOCAL_STORAGE } from "@/constants";
 import type { Payload } from "@/types";
 
 export const usePayload = defineStore("payload", {
@@ -10,7 +11,7 @@ export const usePayload = defineStore("payload", {
       value: string | number | boolean | Record<string, boolean | null>,
     ) {
       this.$patch({ [key]: value });
-      localStorage.setItem("payload", JSON.stringify(this.$state));
+      localStorage.setItem(LOCAL_STORAGE.Payload, JSON.stringify(this.$state));
     },
   },
 });

@@ -64,7 +64,7 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
         gap="middle"
         vertical
       >
-        <span class="h6 gray-10"> {{ index + 1 }}. {{ question.desc }} </span>
+        <span class="h6 gray-10">{{ index + 1 }}. {{ question.desc }}</span>
         <a-radio-group v-model:value="checklistAnswers![question.code]">
           <template v-if="!payloadStore.$state.isReviewed">
             <a-flex gap="middle" vertical>

@@ -34,11 +34,12 @@ const onClickPdf = () => {
       :total-steps="3"
     />
     <a-flex class="pt-16 pb-23" align="center" vertical>
-      <div style="text-align: center" class="pb-4 b6 gray-9">
-        <span
-          >Read and acknowledge<br />
-          the Office Guidelines</span
-        >
+      <div class="pb-4 b6 gray-9 text-center">
+        <span>
+          Read and acknowledge
+          <br />
+          the Office Guidelines
+        </span>
       </div>
       <a-flex
         style="
@@ -57,7 +58,7 @@ const onClickPdf = () => {
         >
           <a-space direction="vertical" align="center" @click="onClickPdf">
             <img src="../../assets/images/office-guidelines/pdf.png" alt="" />
-            <span class="b6 gray-8 mt-2"> Tap to open PDF </span>
+            <span class="b6 gray-8 mt-2">Tap to open PDF</span>
           </a-space>
         </a>
       </a-flex>

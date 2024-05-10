@@ -1,8 +1,8 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 
-import { API_URLs } from "@/constants";
-import { usePayload, useSpinning } from "@/stores";
+import { API_URLS } from "@/constants";
+import { usePayload } from "@/stores";
 import type { Country, Question } from "@/types";
 
 const STATUS = [
@@ -18,14 +18,13 @@ export const useCountryStore = defineStore("countries", {
       { countryCode: "AUS", dialingCode: "+61" },
       { countryCode: "VNM", dialingCode: "+84" },
     ],
+    spinning: true,
   }),
   actions: {
     async getCountries() {
-      const spinningStore = useSpinning();
       try {
-        spinningStore.handleChange("isSpinning", true);
-
-        this.countries = (await axios.get<Country[]>(API_URLs.countries)).data;
+        this.$patch({ spinning: true });
+        this.countries = (await axios.get<Country[]>(API_URLS.countries)).data;
         // Map dialing codes into countries
         this.countries = this.countries.map((country) => {
           const dialingCode = this.dialingCodes.find(
@@ -39,7 +38,7 @@ export const useCountryStore = defineStore("countries", {
       } catch (error) {
         console.error("Error when getting location:", error);
       } finally {
-        spinningStore.handleChange("isSpinning", false);
+        this.$patch({ spinning: false });
       }
     },
 

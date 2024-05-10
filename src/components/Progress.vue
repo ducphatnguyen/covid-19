@@ -27,11 +27,12 @@ const percent = (100 * props.currentStep) / props.totalSteps;
       size="small"
       :percent="percent"
       :stroke-width="9"
+      status="success"
     >
       <template #format>
-        <span class="b8"
-          >{{ props.currentStep }} of {{ props.totalSteps }}</span
-        >
+        <span class="b8">
+          {{ props.currentStep }} of {{ props.totalSteps }}
+        </span>
       </template>
     </a-progress>
   </a-flex>

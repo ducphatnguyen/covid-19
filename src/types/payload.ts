@@ -13,5 +13,4 @@ export type Payload = {
   lastName?: string;
   contactNumber?: string;
   statusCode?: string | null;
-  visitorCode?: string | null;
 };

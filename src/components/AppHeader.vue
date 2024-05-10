@@ -40,8 +40,8 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
   <a-flex class="header p-4" gap="small" justify="space-between" align="center">
     <img class="header__img" src="/src/assets/logo.svg" alt="Logo" />
     <a-flex class="text-right" justify="center" vertical>
-      <span class="b8"
-        >{{ payloadStore.$state.countryCode }} -
+      <span class="b8">
+        {{ payloadStore.$state.countryCode }} -
         {{
           getFacilityName(
             payloadStore.$state.countryCode!,

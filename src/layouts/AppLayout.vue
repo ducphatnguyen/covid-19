@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-import { useCountryStore, useSpinning } from "@/stores";
+import { useCountryStore } from "@/stores";
 import { AppHeader } from "@/components";
 
-const { getCountries } = useCountryStore();
-const spinningStore = useSpinning();
+const countryStore = useCountryStore();
 
-onMounted(async () => await getCountries());
+onMounted(async () => await countryStore.getCountries());
 </script>
 
 <template>
-  <a-spin :spinning="spinningStore.$state.isSpinning">
+  <a-spin :spinning="countryStore.$state.spinning">
     <a-flex vertical gap="large">
       <app-header />
       <router-view />

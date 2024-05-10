@@ -17,7 +17,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <a-config-provider :theme="ANT_CONFIGS"> </a-config-provider>
+  <a-config-provider :theme="ANT_CONFIGS" />
   <div class="container">
     <router-view />
   </div>

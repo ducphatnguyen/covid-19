@@ -59,7 +59,7 @@ const goToLocationPage = () => {
       <a-button type="primary" size="large" @click="goToLocationPage">
         <span class="gray-1">Get Started</span>
       </a-button>
-      <span class="b8 gray-6 my-2 text-center"> Version 1.0.1 </span>
+      <span class="b8 gray-6 my-2 text-center">Version 1.0.1</span>
     </a-flex>
   </a-flex>
 </template>

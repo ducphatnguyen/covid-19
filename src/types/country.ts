@@ -9,4 +9,5 @@ export type Country = {
   questionList: Question[];
   // Mapping
   dialingCode: string;
+  spinning: boolean;
 };

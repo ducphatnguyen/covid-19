@@ -1,3 +1,3 @@
 export type Spinning = {
-  isSpinning: boolean;
+  spinning: boolean;
 };

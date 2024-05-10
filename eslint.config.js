@@ -5,6 +5,9 @@ import pluginVue from "eslint-plugin-vue";
 import pluginPrettier from "eslint-plugin-prettier";
 
 export default [
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...pluginVue.configs["flat/essential"],
   {
     languageOptions: {
       globals: globals.browser,
@@ -14,19 +17,30 @@ export default [
         sourceType: "module",
       },
     },
-  },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...pluginVue.configs["flat/essential"],
-  {
     plugins: {
       prettier: pluginPrettier,
     },
-    ignores: ["./src/plugins/*/*.ts"],
     rules: {
-      "prettier/prettier": "error",
+      "@typescript-eslint/no-explicit-any": "off",
 
+      "prettier/prettier": [
+        "error",
+        {
+          endOfLine: "auto",
+          htmlWhitespaceSensitivity: "ignore",
+        },
+      ],
+      "vue/block-lang": [
+        "error",
+        {
+          script: {
+            lang: "ts",
+          },
+        },
+      ],
       "vue/multi-word-component-names": "off",
+
+      "no-unused-expressions": "error",
     },
   },
 ];

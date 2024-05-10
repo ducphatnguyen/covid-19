@@ -125,7 +125,7 @@ const onSubmit = async () => {
                     :help="errors.firstName"
                   >
                     <template #label>
-                      <span class="b7 gray-9"> First Name </span>
+                      <span class="b7 gray-9">First Name</span>
                     </template>
                     <a-input
                       v-bind="field"
@@ -145,7 +145,7 @@ const onSubmit = async () => {
                 >
                   <a-form-item class="mb-0">
                     <template #label>
-                      <span class="b7 gray-9"> First Name </span>
+                      <span class="b7 gray-9">First Name</span>
                     </template>
                     <a-input
                       v-bind="field"
@@ -175,7 +175,7 @@ const onSubmit = async () => {
                     :help="errors.lastName"
                   >
                     <template #label>
-                      <span class="b7 gray-9 p-0"> Last Name </span>
+                      <span class="b7 gray-9 p-0">Last Name</span>
                     </template>
                     <a-input v-bind="field" placeholder="Last Name" />
                   </a-form-item>
@@ -191,7 +191,7 @@ const onSubmit = async () => {
                 >
                   <a-form-item class="mb-0">
                     <template #label>
-                      <span class="b7 gray-9 p-0"> Last Name </span>
+                      <span class="b7 gray-9 p-0">Last Name</span>
                     </template>
                     <a-input v-bind="field" placeholder="Last Name" disabled />
                   </a-form-item>
@@ -200,7 +200,7 @@ const onSubmit = async () => {
 
               <a-form-item class="mb-0">
                 <template #label>
-                  <span class="b7 gray-9 p-0"> Contact Number </span>
+                  <span class="b7 gray-9 p-0">Contact Number</span>
                 </template>
 
                 <a-row :gutter="[6, 4]">
@@ -237,7 +237,7 @@ const onSubmit = async () => {
                             :key="country.dialingCode"
                           >
                             <a-flex class="py-4" align="center">
-                              <span> ({{ country.dialingCode }})</span>
+                              <span>({{ country.dialingCode }})</span>
                               <img
                                 style="
                                   width: 38px;
@@ -275,7 +275,7 @@ const onSubmit = async () => {
                             :key="country.dialingCode"
                           >
                             <a-flex class="py-4" align="center">
-                              <span> ({{ country.dialingCode }})</span>
+                              <span>({{ country.dialingCode }})</span>
                               <img
                                 style="
                                   width: 38px;

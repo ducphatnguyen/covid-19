@@ -4,6 +4,7 @@ import { computed, onMounted } from "vue";
 import { AppFooter } from "@/components";
 import { usePayload, useCountryStore } from "@/stores";
 import type { Country } from "@/types";
+import { getCountryFlagUrl } from "@/utils";
 
 // Data
 const STATUS = [
@@ -39,11 +40,7 @@ onMounted(() => {
   payloadStore.handleChange("isReviewed", false);
 });
 
-// Method
-const getCountryFlagUrl = (countryCode: string) => {
-  return `/src/assets/images/location/${countryCode}.svg`;
-};
-
+// Methods
 const onChangeCountry = (countryCode: string) => {
   payloadStore.handleChange("countryCode", countryCode);
   const selectedFacility = facilitiesByCountry.value[0];
@@ -122,7 +119,7 @@ const onChangeStatus = (statusCode: string) => {
 
       <template v-if="countries.length">
         <a-flex class="location__body-facility p-4" gap="middle" vertical>
-          <span class="b6 gray-9"> Select the facility you are entering: </span>
+          <span class="b6 gray-9">Select the facility you are entering:</span>
           <a-radio-group
             class="location__body-facility-options"
             v-model:value="payloadStore.$state.facilityId"
@@ -135,10 +132,9 @@ const onChangeStatus = (statusCode: string) => {
                   :value="facility.id"
                   @click="onChangeFacility(facility.id)"
                 >
-                  <span
-                    class="location__body-facility-content b6 gray-10 ps-2"
-                    >{{ facility.name }}</span
-                  >
+                  <span class="location__body-facility-content b6 gray-10 ps-2">
+                    {{ facility.name }}
+                  </span>
                 </a-radio>
               </template>
               <template v-else>
@@ -148,10 +144,9 @@ const onChangeStatus = (statusCode: string) => {
                   :value="facility.id"
                   disabled
                 >
-                  <span
-                    class="location__body-facility-content b6 gray-10 ps-2"
-                    >{{ facility.name }}</span
-                  >
+                  <span class="location__body-facility-content b6 gray-10 ps-2">
+                    {{ facility.name }}
+                  </span>
                 </a-radio>
               </template>
             </a-flex>
@@ -172,10 +167,9 @@ const onChangeStatus = (statusCode: string) => {
                   :value="status.code"
                   @click="onChangeStatus(status.code)"
                 >
-                  <span
-                    class="location__body-facility-content b6 gray-10 ps-2"
-                    >{{ status.label }}</span
-                  >
+                  <span class="location__body-facility-content b6 gray-10 ps-2">
+                    {{ status.label }}
+                  </span>
                 </a-radio>
               </template>
               <template v-else>
@@ -185,10 +179,9 @@ const onChangeStatus = (statusCode: string) => {
                   :value="status.code"
                   disabled
                 >
-                  <span
-                    class="location__body-facility-content b6 gray-10 ps-2"
-                    >{{ status.label }}</span
-                  >
+                  <span class="location__body-facility-content b6 gray-10 ps-2">
+                    {{ status.label }}
+                  </span>
                 </a-radio>
               </template>
             </a-flex>
