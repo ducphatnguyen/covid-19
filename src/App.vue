@@ -27,7 +27,6 @@ onMounted(() => {
 body {
   box-sizing: border-box;
 }
-
 .container {
   max-width: 376px;
   background-color: #fff;

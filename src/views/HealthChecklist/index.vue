@@ -2,15 +2,11 @@
 import { computed } from "vue";
 
 import { AppFooter, Progress } from "@/components";
+import { ANSWERS } from "@/constants";
 import { usePayload, useCountryStore } from "@/stores";
 import type { Country } from "@/types";
 
 // Data
-const ANSWERS = [
-  { code: true, label: "YES" },
-  { code: false, label: "NO" },
-];
-
 const payloadStore = usePayload();
 const countryStore = useCountryStore();
 const { checklistAnswers } = payloadStore.$state;
@@ -55,7 +51,6 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
       <a-flex class="b6 gray-9">
         <span>Select your current health information:</span>
       </a-flex>
-
       <a-flex
         v-for="(question, index) in questionsByCountry"
         :key="question.code"

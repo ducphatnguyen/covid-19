@@ -1,24 +1,20 @@
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
+import { LOCAL_STORAGE } from "@/constants";
 import { useCountryStore } from "@/stores";
 
 // Data
-const router = useRouter();
 const countryStore = useCountryStore();
+const router = useRouter();
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);
 
 // Lifecycle
 onMounted(() => {
-  localStorage.removeItem("savedCurrentStep");
-  localStorage.removeItem("lastedReachableStep");
-});
-
-onMounted(() => {
-  localStorage.removeItem("payload");
+  Object.keys(LOCAL_STORAGE).forEach((key) => localStorage.removeItem(key));
   countryStore.handlePayload(countries.value);
 });
 
@@ -29,9 +25,9 @@ const goToLocationPage = () => {
 </script>
 
 <template>
-  <a-flex class="intro px-4" justify="space-between" vertical>
+  <a-flex class="px-4" justify="space-between" vertical>
     <!-- Body -->
-    <a-flex class="intro__body" gap="44" vertical>
+    <a-flex gap="44" vertical>
       <a-flex
         class="mt-11"
         gap="middle"
@@ -55,7 +51,7 @@ const goToLocationPage = () => {
       </a-flex>
     </a-flex>
     <!-- Footer -->
-    <a-flex class="intro__footer" vertical>
+    <a-flex vertical>
       <a-button type="primary" size="large" @click="goToLocationPage">
         <span class="gray-1">Get Started</span>
       </a-button>

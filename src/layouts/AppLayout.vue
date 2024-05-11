@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-import { useCountryStore } from "@/stores";
 import { AppHeader } from "@/components";
+import { useCountryStore } from "@/stores";
 
 const countryStore = useCountryStore();
 

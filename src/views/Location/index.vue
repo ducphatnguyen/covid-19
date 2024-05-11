@@ -2,16 +2,12 @@
 import { computed, onMounted } from "vue";
 
 import { AppFooter } from "@/components";
-import { usePayload, useCountryStore } from "@/stores";
+import { STATUS } from "@/constants";
+import { useCountryStore, usePayload } from "@/stores";
 import type { Country } from "@/types";
 import { getCountryFlagUrl } from "@/utils";
 
 // Data
-const STATUS = [
-  { code: "visitor", label: "Visitor" },
-  { code: "employee", label: "Employee" },
-];
-
 const countryStore = useCountryStore();
 const payloadStore = usePayload();
 
@@ -43,10 +39,11 @@ onMounted(() => {
 // Methods
 const onChangeCountry = (countryCode: string) => {
   payloadStore.handleChange("countryCode", countryCode);
+
   const selectedFacility = facilitiesByCountry.value[0];
-  if (selectedFacility) {
+  selectedFacility &&
     payloadStore.handleChange("facilityId", selectedFacility.id);
-  }
+
   payloadStore.handleChange("statusCode", STATUS[0].code);
 };
 
@@ -67,7 +64,6 @@ const onChangeStatus = (statusCode: string) => {
         <h5 class="h5 primary-9" v-if="!payloadStore.$state.isReviewed">
           To begin, please select your country and facility location
         </h5>
-
         <template v-if="countries.length">
           <span class="b6 gray-9">Select your country:</span>
           <a-flex class="location__body-country-choice" gap="middle">

@@ -1,14 +1,13 @@
 import Antd from "ant-design-vue";
-import { createPinia } from "pinia";
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
 
-// Ant design library
 import "ant-design-vue/dist/reset.css";
-
 import "./styles/index.scss";
+
 import "@/plugins/vee-validate";
 
 const app = createApp(App);

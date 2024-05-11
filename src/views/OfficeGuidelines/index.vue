@@ -2,6 +2,7 @@
 import { computed, onMounted } from "vue";
 
 import { AppFooter, Progress } from "@/components";
+import { FILE_URLS } from "@/constants";
 import { usePayload } from "@/stores";
 
 // Data
@@ -35,29 +36,20 @@ const onClickPdf = () => {
     />
     <a-flex class="pt-16 pb-23" align="center" vertical>
       <div class="pb-4 b6 gray-9 text-center">
-        <span>
-          Read and acknowledge
-          <br />
-          the Office Guidelines
-        </span>
+        <span> Read and acknowledge<br />the Office Guidelines </span>
       </div>
       <a-flex
-        style="
-          background: #f6f6fa;
-          width: 220px;
-          height: 220px;
-          border-radius: 50%;
-        "
+        class="background--secondary"
         justify="center"
         align="center"
         vertical
       >
-        <a
-          href="https://assets.kpmg/content/dam/kpmg/ie/pdf/2020/05/6232_COVID19_Return_to_Work_PDF_May_2020.pdf"
-          target="_blank"
-        >
+        <a :href="FILE_URLS.covid_pdf" target="_blank">
           <a-space direction="vertical" align="center" @click="onClickPdf">
-            <img src="../../assets/images/office-guidelines/pdf.png" alt="" />
+            <img
+              src="../../assets/images/office-guidelines/pdf.png"
+              alt="Covid"
+            />
             <span class="b6 gray-8 mt-2">Tap to open PDF</span>
           </a-space>
         </a>
@@ -73,4 +65,11 @@ const onClickPdf = () => {
   </a-flex>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.background--secondary {
+  background: #f6f6fa;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+}
+</style>

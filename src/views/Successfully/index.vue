@@ -11,12 +11,11 @@ const router = useRouter();
 const countryStore = useCountryStore();
 const payloadStore = usePayload();
 
-const { checklistAnswers, countryCode } = payloadStore.$state;
-
 // Computed
 const countries = computed(() => countryStore.$state.countries);
 
 const questionList = computed(() => {
+  const { countryCode } = payloadStore.$state;
   const country = countries.value.find(
     (country: Country) => country.code === countryCode,
   );
@@ -24,6 +23,7 @@ const questionList = computed(() => {
 });
 
 const type = computed(() => {
+  const { checklistAnswers } = payloadStore.$state;
   if (questionList.value.length) {
     return compareResults(checklistAnswers, questionList.value)
       ? "fail"

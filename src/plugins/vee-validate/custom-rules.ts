@@ -7,11 +7,11 @@ import { LOCALES } from "@/constants";
 import { usePayload } from "@/stores";
 import { validatePhoneNumber } from "@/utils";
 
+const active_code = ref<string>("en");
 const rules = AllRules as Record<string, any>;
 Object.entries(rules).forEach(([name, rule]) => {
   defineRule(name, rule);
 });
-const active_code = ref<string>("en");
 
 (async () => {
   const dictionary: Record<string, any> = {};

@@ -18,8 +18,8 @@ const contactFormSchema = {
 const { validate } = useForm();
 const router = useRouter();
 
-const payloadStore = usePayload();
 const countryStore = useCountryStore();
+const payloadStore = usePayload();
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);

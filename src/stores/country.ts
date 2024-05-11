@@ -1,14 +1,9 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 
-import { API_URLS } from "@/constants";
+import { API_URLS, STATUS } from "@/constants";
 import { usePayload } from "@/stores";
 import type { Country, Question } from "@/types";
-
-const STATUS = [
-  { code: "visitor", label: "Visitor" },
-  { code: "employee", label: "Employee" },
-];
 
 export const useCountryStore = defineStore("countries", {
   state: () => ({
