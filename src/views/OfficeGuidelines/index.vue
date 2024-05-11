@@ -36,7 +36,11 @@ const onClickPdf = () => {
     />
     <a-flex class="pt-16 pb-23" align="center" vertical>
       <div class="pb-4 b6 gray-9 text-center">
-        <span> Read and acknowledge<br />the Office Guidelines </span>
+        <span>
+          Read and acknowledge
+          <br />
+          the Office Guidelines
+        </span>
       </div>
       <a-flex
         class="background--secondary"

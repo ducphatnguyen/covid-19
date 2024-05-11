@@ -41,7 +41,7 @@ const onChangeCountry = (countryCode: string) => {
   payloadStore.handleChange("countryCode", countryCode);
 
   const selectedFacility = facilitiesByCountry.value[0];
-  selectedFacility &&
+  if (selectedFacility)
     payloadStore.handleChange("facilityId", selectedFacility.id);
 
   payloadStore.handleChange("statusCode", STATUS[0].code);
