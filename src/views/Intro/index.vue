@@ -14,7 +14,9 @@ const countries = computed(() => countryStore.$state.countries);
 
 // Lifecycle
 onMounted(() => {
-  Object.keys(LOCAL_STORAGE).forEach((key) => localStorage.removeItem(key));
+  Object.values(LOCAL_STORAGE).forEach((value) =>
+    localStorage.removeItem(value),
+  );
   countryStore.handlePayload(countries.value);
 });
 

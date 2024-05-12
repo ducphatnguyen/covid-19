@@ -14,7 +14,7 @@ const intervalId = ref<number>(0);
 // Computed
 const countries = computed(() => countryStore.$state.countries);
 
-// Lifecycle Hook
+// Lifecycle
 onMounted(() => {
   getConvertDateTime();
   intervalId.value = setInterval(getConvertDateTime, 1000);
