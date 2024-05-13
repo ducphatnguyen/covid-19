@@ -1,0 +1,1 @@
+import{_ as o}from"./index.vue_vue_type_style_index_0_lang-6SNOnN5q.js";import"./index-DMJecOpv.js";import"./country-flag-url-BQk2iSYf.js";/* empty css                                                  */import"./AppFooter.vue_vue_type_script_setup_true_lang-CK3kgg1-.js";export{o as default};
