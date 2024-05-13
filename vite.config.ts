@@ -14,6 +14,7 @@ export default defineConfig({
   },
 
   plugins: [vue()],
+  base: "covid-19",
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
