@@ -61,7 +61,7 @@ const onChangeStatus = (statusCode: string) => {
     <!-- Body -->
     <a-flex class="location__body" gap="middle" vertical>
       <a-flex class="location__body-country px-4" gap="middle" vertical>
-        <h5 class="h5 primary-9" v-if="!payloadStore.$state.isReviewed">
+        <h5 v-if="!payloadStore.$state.isReviewed" class="h5 primary-9">
           To begin, please select your country and facility location
         </h5>
         <template v-if="countries.length">

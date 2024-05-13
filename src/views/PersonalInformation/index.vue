@@ -409,7 +409,7 @@ const onSubmit = async () => {
           v-if="showFooter"
           :backRouteName="'health-checklist'"
           :type="'submit'"
-          :canSubmit="canSubmit && Object.keys(errors).length === 0"
+          :canSubmit="canSubmit && !Object.keys(errors).length"
         />
       </a-form>
     </Form>

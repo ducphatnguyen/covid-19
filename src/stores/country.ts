@@ -28,7 +28,7 @@ export const useCountryStore = defineStore("countries", {
           return dialingCode ? { ...country, ...dialingCode } : country;
         });
 
-        // Initiate and Save when reload
+        // Initiate and save when reload
         this.handlePayload(this.countries);
       } catch (error) {
         console.error("Error when getting location:", error);

@@ -7,7 +7,7 @@ import { LOCALES } from "@/constants";
 import { usePayload } from "@/stores";
 import { validatePhoneNumber } from "@/utils";
 
-const active_code = ref<string>("en");
+const active_locale = ref<string>("en");
 const rules = AllRules as Record<string, any>;
 Object.entries(rules).forEach(([name, rule]) => {
   defineRule(name, rule);
@@ -15,15 +15,15 @@ Object.entries(rules).forEach(([name, rule]) => {
 
 (async () => {
   const dictionary: Record<string, any> = {};
-  for (const code of LOCALES) {
-    dictionary[code] = await import(
-      `../../../node_modules/@vee-validate/i18n/dist/locale/${code}.json`
+  for (const locale of LOCALES) {
+    dictionary[locale] = await import(
+      `../../../node_modules/@vee-validate/i18n/dist/locale/${locale}.json`
     );
   }
   configure({
     generateMessage: localize(dictionary),
   });
-  setLocale(active_code.value);
+  setLocale(active_locale.value);
 })();
 
 defineRule("contactNumber", (value: string) => {

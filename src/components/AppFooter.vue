@@ -52,7 +52,7 @@ const goNext = () => {
         <span class="b6 gray-8">Back</span>
       </a-button>
     </a-col>
-    <a-col v-if="props.type != 'submit'" :span="12">
+    <a-col v-if="props.type !== 'submit'" :span="12">
       <a-button
         class="button-100"
         type="primary"
