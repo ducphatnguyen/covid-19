@@ -20,11 +20,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <Location />
-  <OfficeGuidelines />
-  <HealthChecklist />
-  <PersonalInformation />
-  <Successfully />
+  <location />
+  <office-guidelines />
+  <health-checklist />
+  <personal-information />
+  <successfully />
 </template>
 
 <style lang="scss"></style>
