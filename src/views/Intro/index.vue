@@ -32,9 +32,9 @@ const goToLocationPage = () => {
     <a-flex gap="44" vertical>
       <a-flex
         class="mt-11"
-        gap="middle"
         justify="center"
         align="center"
+        gap="middle"
         vertical
       >
         <img src="/src/assets/logo.svg" alt="Logo" />

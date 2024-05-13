@@ -110,10 +110,10 @@ const onSubmit = async () => {
               <template v-if="!payloadStore.$state.isReviewed">
                 <Field
                   v-slot="{ field, value }"
-                  label="First Name"
-                  name="firstName"
-                  id="firstName"
                   v-model="payloadStore.$state.firstName"
+                  label="First Name"
+                  id="firstName"
+                  name="firstName"
                   @change="onChangeFirstName"
                 >
                   <a-form-item
@@ -138,10 +138,10 @@ const onSubmit = async () => {
               <template v-else>
                 <Field
                   v-slot="{ field }"
-                  label="First Name"
-                  name="firstName"
-                  id="firstName"
                   v-model="payloadStore.$state.firstName"
+                  label="First Name"
+                  id="firstName"
+                  name="firstName"
                 >
                   <a-form-item class="mb-0">
                     <template #label>
@@ -160,10 +160,10 @@ const onSubmit = async () => {
               <template v-if="!payloadStore.$state.isReviewed">
                 <Field
                   v-slot="{ field, value }"
-                  label="Last Name"
-                  name="lastName"
-                  id="lastName"
                   v-model="payloadStore.$state.lastName"
+                  label="Last Name"
+                  id="lastName"
+                  name="lastName"
                   @change="onChangeLastName"
                 >
                   <a-form-item
@@ -184,10 +184,10 @@ const onSubmit = async () => {
               <template v-else>
                 <Field
                   v-slot="{ field }"
-                  label="Last Name"
-                  name="lastName"
-                  id="lastName"
                   v-model="payloadStore.$state.lastName"
+                  label="Last Name"
+                  id="lastName"
+                  name="lastName"
                 >
                   <a-form-item class="mb-0">
                     <template #label>
@@ -208,10 +208,10 @@ const onSubmit = async () => {
                     <template v-if="!payloadStore.$state.isReviewed">
                       <Field
                         v-slot="{ field, value }"
-                        label="Dialing Code"
-                        name="dialingCode"
-                        id="dialingCode"
                         v-model="payloadStore.$state.dialingCode"
+                        label="Dialing Code"
+                        id="dialingCode"
+                        name="dialingCode"
                         @change="
                           onChangeDialingCode(payloadStore.$state.dialingCode!)
                         "
@@ -257,10 +257,10 @@ const onSubmit = async () => {
                     <template v-else>
                       <Field
                         v-slot="{ field }"
-                        label="Dialing Code"
-                        name="dialingCode"
-                        id="dialingCode"
                         v-model="payloadStore.$state.dialingCode"
+                        label="Dialing Code"
+                        id="dialingCode"
+                        name="dialingCode"
                       >
                         <a-select
                           v-bind="field"
@@ -298,10 +298,10 @@ const onSubmit = async () => {
                     <template v-if="!payloadStore.$state.isReviewed">
                       <Field
                         v-slot="{ field, value }"
-                        label="Contact Number"
-                        name="contactNumber"
-                        id="contactNumber"
                         v-model="payloadStore.$state.contactNumber"
+                        label="Contact Number"
+                        id="contactNumber"
+                        name="contactNumber"
                         @change="onChangeContactNumber"
                       >
                         <a-form-item
@@ -326,10 +326,10 @@ const onSubmit = async () => {
                     <template v-else>
                       <Field
                         v-slot="{ field }"
-                        label="Contact Number"
-                        name="contactNumber"
-                        id="contactNumber"
                         v-model="payloadStore.$state.contactNumber"
+                        label="Contact Number"
+                        id="contactNumber"
+                        name="contactNumber"
                       >
                         <a-form-item class="mb-0">
                           <a-input
@@ -351,8 +351,8 @@ const onSubmit = async () => {
                 <Field
                   v-slot="{ field }"
                   label="Inforconfirm"
-                  name="isInfoConfirmed"
                   id="isInfoConfirmed"
+                  name="isInfoConfirmed"
                   @change="
                     onChangeIsInfoConfirmed(
                       payloadStore.$state.isInfoConfirmed!,
@@ -380,8 +380,8 @@ const onSubmit = async () => {
                 <Field
                   v-slot="{ field }"
                   label="Inforconfirm"
-                  name="isInfoConfirmed"
                   id="isInfoConfirmed"
+                  name="isInfoConfirmed"
                 >
                   <a-form-item class="pt-6 mb-0" name="remember">
                     <a-flex>

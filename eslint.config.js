@@ -30,6 +30,7 @@ export default [
           htmlWhitespaceSensitivity: "ignore",
         },
       ],
+
       "vue/block-lang": [
         "error",
         {
@@ -38,9 +39,40 @@ export default [
           },
         },
       ],
-      "vue/multi-word-component-names": "off",
 
-      "no-unused-expressions": "error",
+      "vue/multi-word-component-names": "off",
+      // "vue/component-name-in-template-casing": ["error", "kebab-case"],
+      "vue/custom-event-name-casing": ["error", "kebab-case"],
+      "vue/html-self-closing": "off",
+
+      "vue/multiline-html-element-content-newline": "off",
+      "vue/order-in-components": [
+        "error",
+        {
+          order: [
+            "name",
+            "inheritAttrs",
+            "extends",
+            "directives",
+            "mixins",
+            "components",
+            "emits",
+            "inject",
+            "ROUTER_GUARDS",
+            "props",
+            "provide",
+            "data",
+            "computed",
+            "watch",
+            "LIFE_CYCLE_HOOKS",
+            "methods",
+            ["template", "render"],
+            "renderError",
+          ],
+        },
+      ],
+      "vue/padding-line-between-blocks": "error",
+      "vue/single-html-element-content-newLine": "off",
     },
   },
 ];

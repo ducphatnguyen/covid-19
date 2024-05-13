@@ -3,12 +3,12 @@ import { computed } from "vue";
 
 import { AppFooter, Progress } from "@/components";
 import { ANSWERS } from "@/constants";
-import { usePayload, useCountryStore } from "@/stores";
+import { useCountryStore, usePayload } from "@/stores";
 import type { Country } from "@/types";
 
 // Data
-const payloadStore = usePayload();
 const countryStore = useCountryStore();
+const payloadStore = usePayload();
 const { checklistAnswers } = payloadStore.$state;
 
 // Computed

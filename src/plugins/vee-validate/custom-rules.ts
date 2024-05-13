@@ -1,7 +1,7 @@
-import { ref } from "vue";
 import * as AllRules from "@vee-validate/rules";
 import { defineRule, configure } from "vee-validate";
 import { localize, setLocale } from "@vee-validate/i18n";
+import { ref } from "vue";
 
 import { LOCALES } from "@/constants";
 import { usePayload } from "@/stores";
@@ -28,7 +28,7 @@ Object.entries(rules).forEach(([name, rule]) => {
 
 defineRule("contactNumber", (value: string) => {
   const payloadStore = usePayload();
-  const dialingCode = payloadStore.$state.dialingCode;
+  const { dialingCode } = payloadStore.$state;
   return validatePhoneNumber(value, dialingCode) ?? true;
 });
 

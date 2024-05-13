@@ -42,7 +42,7 @@ export const useCountryStore = defineStore("countries", {
       const payloadItem = localStorage.getItem("payload");
       const payload = JSON.parse(payloadItem!);
 
-      if (payload != null && payload.isStep2Navigated) {
+      if (payload !== null && payload.isStep2Navigated) {
         payloadStore.$patch(payload);
       } else {
         const { checklistAnswers } = payloadStore.$state;

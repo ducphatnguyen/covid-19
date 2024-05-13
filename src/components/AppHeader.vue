@@ -30,14 +30,16 @@ const getConvertDateTime = () => {
 };
 
 const getFacilityName = (countryCode: string, facilityId: number) => {
-  const country = countries.value.find((c) => c.code === countryCode);
+  const country = countries.value.find(
+    (country) => country.code === countryCode,
+  );
   const facility = country?.facilityList.find((f) => f.id === facilityId);
   return facility?.name || "";
 };
 </script>
 
 <template>
-  <a-flex class="header p-4" gap="small" justify="space-between" align="center">
+  <a-flex class="header p-4" justify="space-between" align="center" gap="small">
     <img class="header__img" src="/src/assets/logo.svg" alt="Logo" />
     <a-flex class="text-right" justify="center" vertical>
       <span class="b8">

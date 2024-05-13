@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { computed, onMounted } from "vue";
 
 import { useCountryStore } from "@/stores";
 import { ANT_CONFIGS } from "@/constants";

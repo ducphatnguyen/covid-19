@@ -72,11 +72,11 @@ const onChangeStatus = (statusCode: string) => {
                 v-for="country in countries"
                 :key="country.id"
                 class="location__body-country-item px-4 pt-4 pb-2"
-                @click="onChangeCountry(country.code)"
                 :class="{
                   'location__body-country-item--active':
                     country.code === payloadStore.$state.countryCode,
                 }"
+                @click="onChangeCountry(country.code)"
               >
                 <div class="country-item__wrap">
                   <img
@@ -117,8 +117,8 @@ const onChangeStatus = (statusCode: string) => {
         <a-flex class="location__body-facility p-4" gap="middle" vertical>
           <span class="b6 gray-9">Select the facility you are entering:</span>
           <a-radio-group
-            class="location__body-facility-options"
             v-model:value="payloadStore.$state.facilityId"
+            class="location__body-facility-options"
           >
             <a-flex gap="middle" vertical>
               <template v-if="!payloadStore.$state.isReviewed">
@@ -152,8 +152,8 @@ const onChangeStatus = (statusCode: string) => {
         <a-flex class="location__body-status p-4" gap="middle" vertical>
           <span class="b6 gray-9">Select the status:</span>
           <a-radio-group
-            class="location__body-status-options"
             v-model:value="payloadStore.$state.statusCode"
+            class="location__body-status-options"
           >
             <a-flex gap="middle" vertical>
               <template v-if="!payloadStore.$state.isReviewed">

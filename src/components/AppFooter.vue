@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
+import { Modal } from "ant-design-vue";
 import { createVNode } from "vue";
 import { useRouter } from "vue-router";
-import { Modal } from "ant-design-vue";
 
 import { usePayload } from "@/stores";
 
@@ -16,8 +16,8 @@ const props = defineProps<{
   type?: string;
 }>();
 
-const router = useRouter();
 const payloadStore = usePayload();
+const router = useRouter();
 
 // Methods
 const goBack = () => {
@@ -48,24 +48,24 @@ const goNext = () => {
 <template>
   <a-row style="margin: 0" class="footer p-4" :gutter="[16]">
     <a-col :span="12">
-      <a-button style="width: 100%" @click="goBack" size="large">
+      <a-button class="button-100" size="large" @click="goBack">
         <span class="b6 gray-8">Back</span>
       </a-button>
     </a-col>
     <a-col v-if="props.type != 'submit'" :span="12">
       <a-button
-        style="width: 100%"
-        :disabled="!canNext"
+        class="button-100"
         type="primary"
-        @click="goNext"
         size="large"
+        :disabled="!canNext"
+        @click="goNext"
       >
         <span class="b6 gray-1" :class="{ 'gray-6': !canNext }">Next</span>
       </a-button>
     </a-col>
     <a-col v-else :span="12">
       <a-button
-        style="width: 100%"
+        class="button-100"
         type="primary"
         size="large"
         html-type="submit"

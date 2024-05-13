@@ -2,7 +2,7 @@
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
-import { usePayload, useCountryStore } from "@/stores";
+import { useCountryStore, usePayload } from "@/stores";
 import type { Country, Payload, Question } from "@/types";
 
 // Data
@@ -78,7 +78,7 @@ const goToReviewPage = () => {
     <a-flex v-else-if="type === 'fail'" class="result px-9" vertical>
       <a-flex class="pb-5" align="center" vertical>
         <img
-          class="pb-8 result__img--fail"
+          class="result__img--fail pb-8"
           src="/src/assets/images/successfully/fail.svg"
           alt="Result"
         />
@@ -96,21 +96,21 @@ const goToReviewPage = () => {
     </a-flex>
 
     <a-flex
+      class="mb-24"
+      :class="type === 'success' ? 'px-15' : 'px-9'"
       wrap="wrap"
       align="center"
       justify="center"
       gap="small"
-      class="mb-24"
-      :class="type === 'success' ? 'px-15' : 'px-9'"
     >
       <a-button style="min-width: 120px" size="large" @click="goBackHome">
-        <span class="b6 gray-8" style="width: 1">Back Home</span>
+        <span class="b6 gray-8">Back Home</span>
       </a-button>
       <a-button
+        v-if="!payloadStore.$state.isReviewed"
         style="min-width: 120px"
         size="large"
         @click="goToReviewPage"
-        v-if="!payloadStore.$state.isReviewed"
       >
         <span class="b6 gray-8">Review</span>
       </a-button>
