@@ -7,7 +7,7 @@ import pluginPrettier from "eslint-plugin-prettier";
 export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
-  ...pluginVue.configs["flat/essential"],
+  ...pluginVue.configs["flat/recommended"],
   {
     languageOptions: {
       globals: globals.browser,
@@ -72,7 +72,7 @@ export default [
         },
       ],
       "vue/padding-line-between-blocks": "error",
-      "vue/single-html-element-content-newLine": "off",
+      "vue/singleline-html-element-content-newline": "off",
     },
   },
 ];

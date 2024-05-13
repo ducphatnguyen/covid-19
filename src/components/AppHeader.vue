@@ -39,9 +39,22 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
 </script>
 
 <template>
-  <a-flex class="header p-4" justify="space-between" align="center" gap="small">
-    <img class="header__img" src="/src/assets/logo.svg" alt="Logo" />
-    <a-flex class="text-right" justify="center" vertical>
+  <a-flex
+    class="header p-4"
+    justify="space-between"
+    align="center"
+    gap="small"
+  >
+    <img
+      class="header__img"
+      src="/src/assets/logo.svg"
+      alt="Logo"
+    />
+    <a-flex
+      class="text-right"
+      justify="center"
+      vertical
+    >
       <span class="b8">
         {{ payloadStore.$state.countryCode }} -
         {{

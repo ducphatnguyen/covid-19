@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { Form, Field, useForm } from "vee-validate";
+import { Form as VForm, Field as VField, useForm } from "vee-validate";
 
-import { AppFooter, Progress } from "@/components";
+import { AppFooter, ProgressStepper } from "@/components";
 import { usePayload, useCountryStore } from "@/stores";
 import { getCountryFlagUrl } from "@/utils";
 
@@ -82,20 +82,27 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <a-flex class="office-guidelines" vertical>
-    <Progress
+  <a-flex
+    class="office-guidelines"
+    vertical
+  >
+    <progress-stepper
       :title="'3. Contact Information'"
       :description="'Final Step'"
-      :currentStep="3"
+      :current-step="3"
       :total-steps="3"
     />
 
-    <Form
-      :validation-schema="contactFormSchema"
+    <v-form
       v-slot="{ errors, handleSubmit }"
+      :validation-schema="contactFormSchema"
     >
       <a-form @submit="handleSubmit(onSubmit)">
-        <a-flex class="px-4 py-6" gap="middle" vertical>
+        <a-flex
+          class="px-4 py-6"
+          gap="middle"
+          vertical
+        >
           <a-flex class="b6 gray-9">
             <span>Please fill in your contact details:</span>
           </a-flex>
@@ -106,13 +113,16 @@ const onSubmit = async () => {
             :label-col="{ span: 24 }"
           >
             <!-- General Information -->
-            <a-flex gap="middle" vertical>
+            <a-flex
+              gap="middle"
+              vertical
+            >
               <template v-if="!payloadStore.$state.isReviewed">
-                <Field
+                <v-field
+                  id="firstName"
                   v-slot="{ field, value }"
                   v-model="payloadStore.$state.firstName"
                   label="First Name"
-                  id="firstName"
                   name="firstName"
                   @change="onChangeFirstName"
                 >
@@ -133,14 +143,14 @@ const onSubmit = async () => {
                       autocomplete="off"
                     />
                   </a-form-item>
-                </Field>
+                </v-field>
               </template>
               <template v-else>
-                <Field
+                <v-field
+                  id="firstName"
                   v-slot="{ field }"
                   v-model="payloadStore.$state.firstName"
                   label="First Name"
-                  id="firstName"
                   name="firstName"
                 >
                   <a-form-item class="mb-0">
@@ -154,15 +164,15 @@ const onSubmit = async () => {
                       disabled
                     />
                   </a-form-item>
-                </Field>
+                </v-field>
               </template>
 
               <template v-if="!payloadStore.$state.isReviewed">
-                <Field
+                <v-field
+                  id="lastName"
                   v-slot="{ field, value }"
                   v-model="payloadStore.$state.lastName"
                   label="Last Name"
-                  id="lastName"
                   name="lastName"
                   @change="onChangeLastName"
                 >
@@ -177,25 +187,32 @@ const onSubmit = async () => {
                     <template #label>
                       <span class="b7 gray-9 p-0">Last Name</span>
                     </template>
-                    <a-input v-bind="field" placeholder="Last Name" />
+                    <a-input
+                      v-bind="field"
+                      placeholder="Last Name"
+                    />
                   </a-form-item>
-                </Field>
+                </v-field>
               </template>
               <template v-else>
-                <Field
+                <v-field
+                  id="lastName"
                   v-slot="{ field }"
                   v-model="payloadStore.$state.lastName"
                   label="Last Name"
-                  id="lastName"
                   name="lastName"
                 >
                   <a-form-item class="mb-0">
                     <template #label>
                       <span class="b7 gray-9 p-0">Last Name</span>
                     </template>
-                    <a-input v-bind="field" placeholder="Last Name" disabled />
+                    <a-input
+                      v-bind="field"
+                      placeholder="Last Name"
+                      disabled
+                    />
                   </a-form-item>
-                </Field>
+                </v-field>
               </template>
 
               <a-form-item class="mb-0">
@@ -206,11 +223,11 @@ const onSubmit = async () => {
                 <a-row :gutter="[6, 4]">
                   <a-col>
                     <template v-if="!payloadStore.$state.isReviewed">
-                      <Field
+                      <v-field
+                        id="dialingCode"
                         v-slot="{ field, value }"
                         v-model="payloadStore.$state.dialingCode"
                         label="Dialing Code"
-                        id="dialingCode"
                         name="dialingCode"
                         @change="
                           onChangeDialingCode(payloadStore.$state.dialingCode!)
@@ -232,11 +249,14 @@ const onSubmit = async () => {
                         >
                           <a-select-option
                             v-for="country in countries"
+                            :key="country.dialingCode"
                             :value="country.dialingCode"
                             :label="country.dialingCode"
-                            :key="country.dialingCode"
                           >
-                            <a-flex class="py-4" align="center">
+                            <a-flex
+                              class="py-4"
+                              align="center"
+                            >
                               <span>({{ country.dialingCode }})</span>
                               <img
                                 style="
@@ -252,14 +272,14 @@ const onSubmit = async () => {
                             </a-flex>
                           </a-select-option>
                         </a-select>
-                      </Field>
+                      </v-field>
                     </template>
                     <template v-else>
-                      <Field
+                      <v-field
+                        id="dialingCode"
                         v-slot="{ field }"
                         v-model="payloadStore.$state.dialingCode"
                         label="Dialing Code"
-                        id="dialingCode"
                         name="dialingCode"
                       >
                         <a-select
@@ -270,11 +290,14 @@ const onSubmit = async () => {
                         >
                           <a-select-option
                             v-for="country in countries"
+                            :key="country.dialingCode"
                             :value="country.dialingCode"
                             :label="country.dialingCode"
-                            :key="country.dialingCode"
                           >
-                            <a-flex class="py-4" align="center">
+                            <a-flex
+                              class="py-4"
+                              align="center"
+                            >
                               <span>({{ country.dialingCode }})</span>
                               <img
                                 style="
@@ -290,17 +313,17 @@ const onSubmit = async () => {
                             </a-flex>
                           </a-select-option>
                         </a-select>
-                      </Field>
+                      </v-field>
                     </template>
                   </a-col>
 
                   <a-col flex="1 1 150px">
                     <template v-if="!payloadStore.$state.isReviewed">
-                      <Field
+                      <v-field
+                        id="contactNumber"
                         v-slot="{ field, value }"
                         v-model="payloadStore.$state.contactNumber"
                         label="Contact Number"
-                        id="contactNumber"
                         name="contactNumber"
                         @change="onChangeContactNumber"
                       >
@@ -321,14 +344,14 @@ const onSubmit = async () => {
                             placeholder="Contact Number"
                           />
                         </a-form-item>
-                      </Field>
+                      </v-field>
                     </template>
                     <template v-else>
-                      <Field
+                      <v-field
+                        id="contactNumber"
                         v-slot="{ field }"
                         v-model="payloadStore.$state.contactNumber"
                         label="Contact Number"
-                        id="contactNumber"
                         name="contactNumber"
                       >
                         <a-form-item class="mb-0">
@@ -338,7 +361,7 @@ const onSubmit = async () => {
                             disabled
                           />
                         </a-form-item>
-                      </Field>
+                      </v-field>
                     </template>
                   </a-col>
                 </a-row>
@@ -348,10 +371,10 @@ const onSubmit = async () => {
             <!-- Regulations -->
             <a-flex vertical>
               <template v-if="!payloadStore.$state.isReviewed">
-                <Field
+                <v-field
+                  id="isInfoConfirmed"
                   v-slot="{ field }"
                   label="Inforconfirm"
-                  id="isInfoConfirmed"
                   name="isInfoConfirmed"
                   @change="
                     onChangeIsInfoConfirmed(
@@ -359,7 +382,10 @@ const onSubmit = async () => {
                     )
                   "
                 >
-                  <a-form-item class="pt-6 mb-0" name="remember">
+                  <a-form-item
+                    class="pt-6 mb-0"
+                    name="remember"
+                  >
                     <a-flex>
                       <a-checkbox
                         v-bind="field"
@@ -374,16 +400,19 @@ const onSubmit = async () => {
                       </a-checkbox>
                     </a-flex>
                   </a-form-item>
-                </Field>
+                </v-field>
               </template>
               <template v-else>
-                <Field
+                <v-field
+                  id="isInfoConfirmed"
                   v-slot="{ field }"
                   label="Inforconfirm"
-                  id="isInfoConfirmed"
                   name="isInfoConfirmed"
                 >
-                  <a-form-item class="pt-6 mb-0" name="remember">
+                  <a-form-item
+                    class="pt-6 mb-0"
+                    name="remember"
+                  >
                     <a-flex>
                       <a-checkbox
                         v-bind="field"
@@ -399,20 +428,20 @@ const onSubmit = async () => {
                       </a-checkbox>
                     </a-flex>
                   </a-form-item>
-                </Field>
+                </v-field>
               </template>
             </a-flex>
           </a-form>
         </a-flex>
 
-        <AppFooter
+        <app-footer
           v-if="showFooter"
-          :backRouteName="'health-checklist'"
+          :back-route-name="'health-checklist'"
           :type="'submit'"
-          :canSubmit="canSubmit && !Object.keys(errors).length"
+          :can-submit="canSubmit && !Object.keys(errors).length"
         />
       </a-form>
-    </Form>
+    </v-form>
   </a-flex>
 </template>
 

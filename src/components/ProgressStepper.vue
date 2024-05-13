@@ -15,7 +15,10 @@ const percent = (100 * props.currentStep) / props.totalSteps;
 </script>
 
 <template>
-  <a-flex class="px-4" justify="space-between">
+  <a-flex
+    class="px-4"
+    justify="space-between"
+  >
     <a-flex vertical>
       <span class="h5 primary-9">{{ props.title }}</span>
       <span class="b7 gray-8">{{ props.description }}</span>

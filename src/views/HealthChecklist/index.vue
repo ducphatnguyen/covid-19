@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { AppFooter, Progress } from "@/components";
+import { AppFooter, ProgressStepper } from "@/components";
 import { ANSWERS } from "@/constants";
 import { useCountryStore, usePayload } from "@/stores";
 import type { Country } from "@/types";
@@ -40,14 +40,21 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
 </script>
 
 <template>
-  <a-flex class="office-guidelines" vertical>
-    <Progress
+  <a-flex
+    class="office-guidelines"
+    vertical
+  >
+    <progress-stepper
       :title="'2. Health Checklist'"
       :description="'Next: Personal Information'"
-      :currentStep="2"
+      :current-step="2"
       :total-steps="3"
     />
-    <a-flex class="px-4 py-6" gap="middle" vertical>
+    <a-flex
+      class="px-4 py-6"
+      gap="middle"
+      vertical
+    >
       <a-flex class="b6 gray-9">
         <span>Select your current health information:</span>
       </a-flex>
@@ -62,7 +69,10 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
         <span class="h6 gray-10">{{ index + 1 }}. {{ question.desc }}</span>
         <a-radio-group v-model:value="checklistAnswers![question.code]">
           <template v-if="!payloadStore.$state.isReviewed">
-            <a-flex gap="middle" vertical>
+            <a-flex
+              gap="middle"
+              vertical
+            >
               <a-radio
                 v-for="answer in ANSWERS"
                 :key="answer.code"
@@ -74,7 +84,10 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
             </a-flex>
           </template>
           <template v-else>
-            <a-flex gap="middle" vertical>
+            <a-flex
+              gap="middle"
+              vertical
+            >
               <a-radio
                 v-for="answer in ANSWERS"
                 :key="answer.code"
@@ -88,11 +101,11 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
         </a-radio-group>
       </a-flex>
     </a-flex>
-    <AppFooter
+    <app-footer
       v-if="showFooter"
-      :backRouteName="'office-guidelines'"
-      :nextRouteName="'personal-information'"
-      :canNext="canNext"
+      :back-route-name="'office-guidelines'"
+      :next-route-name="'personal-information'"
+      :can-next="canNext"
     />
   </a-flex>
 </template>

@@ -57,16 +57,35 @@ const onChangeStatus = (statusCode: string) => {
 </script>
 
 <template>
-  <a-flex class="location" justify="space-between" gap="large" vertical>
+  <a-flex
+    class="location"
+    justify="space-between"
+    gap="large"
+    vertical
+  >
     <!-- Body -->
-    <a-flex class="location__body" gap="middle" vertical>
-      <a-flex class="location__body-country px-4" gap="middle" vertical>
-        <h5 v-if="!payloadStore.$state.isReviewed" class="h5 primary-9">
+    <a-flex
+      class="location__body"
+      gap="middle"
+      vertical
+    >
+      <a-flex
+        class="location__body-country px-4"
+        gap="middle"
+        vertical
+      >
+        <h5
+          v-if="!payloadStore.$state.isReviewed"
+          class="h5 primary-9"
+        >
           To begin, please select your country and facility location
         </h5>
         <template v-if="countries.length">
           <span class="b6 gray-9">Select your country:</span>
-          <a-flex class="location__body-country-choice" gap="middle">
+          <a-flex
+            class="location__body-country-choice"
+            gap="middle"
+          >
             <template v-if="!payloadStore.$state.isReviewed">
               <div
                 v-for="country in countries"
@@ -84,7 +103,9 @@ const onChangeStatus = (statusCode: string) => {
                     :src="getCountryFlagUrl(country.code)"
                     alt="Country Flag"
                   />
-                  <div class="b8 pt-1 text-center">{{ country.name }}</div>
+                  <div class="b8 pt-1 text-center">
+                    {{ country.name }}
+                  </div>
                 </div>
               </div>
             </template>
@@ -104,23 +125,35 @@ const onChangeStatus = (statusCode: string) => {
                     :src="getCountryFlagUrl(country.code)"
                     alt="Country Flag"
                   />
-                  <div class="b8 pt-1 text-center">{{ country.name }}</div>
+                  <div class="b8 pt-1 text-center">
+                    {{ country.name }}
+                  </div>
                 </div>
               </div>
             </template>
           </a-flex>
         </template>
-        <a-empty v-else description="No countries found!" />
+        <a-empty
+          v-else
+          description="No countries found!"
+        />
       </a-flex>
 
       <template v-if="countries.length">
-        <a-flex class="location__body-facility p-4" gap="middle" vertical>
+        <a-flex
+          class="location__body-facility p-4"
+          gap="middle"
+          vertical
+        >
           <span class="b6 gray-9">Select the facility you are entering:</span>
           <a-radio-group
             v-model:value="payloadStore.$state.facilityId"
             class="location__body-facility-options"
           >
-            <a-flex gap="middle" vertical>
+            <a-flex
+              gap="middle"
+              vertical
+            >
               <template v-if="!payloadStore.$state.isReviewed">
                 <a-radio
                   v-for="facility in facilitiesByCountry"
@@ -149,13 +182,20 @@ const onChangeStatus = (statusCode: string) => {
           </a-radio-group>
         </a-flex>
 
-        <a-flex class="location__body-status p-4" gap="middle" vertical>
+        <a-flex
+          class="location__body-status p-4"
+          gap="middle"
+          vertical
+        >
           <span class="b6 gray-9">Select the status:</span>
           <a-radio-group
             v-model:value="payloadStore.$state.statusCode"
             class="location__body-status-options"
           >
-            <a-flex gap="middle" vertical>
+            <a-flex
+              gap="middle"
+              vertical
+            >
               <template v-if="!payloadStore.$state.isReviewed">
                 <a-radio
                   v-for="status in STATUS"
@@ -185,11 +225,11 @@ const onChangeStatus = (statusCode: string) => {
         </a-flex>
       </template>
     </a-flex>
-    <AppFooter
+    <app-footer
       v-if="showFooter"
-      :backRouteName="'intro'"
-      :nextRouteName="'office-guidelines'"
-      :canNext
+      :back-route-name="'intro'"
+      :next-route-name="'office-guidelines'"
+      :can-next
     />
   </a-flex>
 </template>

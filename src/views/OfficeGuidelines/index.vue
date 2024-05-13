@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 
-import { AppFooter, Progress } from "@/components";
+import { AppFooter, ProgressStepper } from "@/components";
 import { FILE_URLS } from "@/constants";
 import { usePayload } from "@/stores";
 
@@ -27,14 +27,21 @@ const onClickPdf = () => {
 </script>
 
 <template>
-  <a-flex class="office-guidelines" vertical>
-    <Progress
+  <a-flex
+    class="office-guidelines"
+    vertical
+  >
+    <progress-stepper
       :title="'1. Office-guidelines'"
       :description="'Next: Health Checklist'"
-      :currentStep="1"
+      :current-step="1"
       :total-steps="3"
     />
-    <a-flex class="pt-16 pb-23" align="center" vertical>
+    <a-flex
+      class="pt-16 pb-23"
+      align="center"
+      vertical
+    >
       <div class="pb-4 b6 gray-9 text-center">
         <span>
           Read and acknowledge
@@ -48,8 +55,15 @@ const onClickPdf = () => {
         align="center"
         vertical
       >
-        <a :href="FILE_URLS.covid_pdf" target="_blank">
-          <a-space direction="vertical" align="center" @click="onClickPdf">
+        <a
+          :href="FILE_URLS.covid_pdf"
+          target="_blank"
+        >
+          <a-space
+            direction="vertical"
+            align="center"
+            @click="onClickPdf"
+          >
             <img
               src="../../assets/images/office-guidelines/pdf.png"
               alt="Covid"
@@ -59,12 +73,12 @@ const onClickPdf = () => {
         </a>
       </a-flex>
     </a-flex>
-    <AppFooter
+    <app-footer
       v-if="showFooter"
-      :backRouteName="'location'"
-      :nextRouteName="'health-checklist'"
-      :isStep2Navigated="true"
-      :canNext
+      :back-route-name="'location'"
+      :next-route-name="'health-checklist'"
+      :is-step2-navigated="true"
+      :can-next
     />
   </a-flex>
 </template>

@@ -60,9 +60,20 @@ const goToReviewPage = () => {
 </script>
 
 <template>
-  <a-flex class="successfully" vertical>
-    <a-flex v-if="type === 'success'" class="result px-15 pt-2" vertical>
-      <a-flex class="pb-8" align="center" vertical>
+  <a-flex
+    class="successfully"
+    vertical
+  >
+    <a-flex
+      v-if="type === 'success'"
+      class="result px-15 pt-2"
+      vertical
+    >
+      <a-flex
+        class="pb-8"
+        align="center"
+        vertical
+      >
         <img
           class="pb-8 result__img--sucess"
           src="/src/assets/images/successfully/success.svg"
@@ -75,8 +86,16 @@ const goToReviewPage = () => {
         </span>
       </a-flex>
     </a-flex>
-    <a-flex v-else-if="type === 'fail'" class="result px-9" vertical>
-      <a-flex class="pb-5" align="center" vertical>
+    <a-flex
+      v-else-if="type === 'fail'"
+      class="result px-9"
+      vertical
+    >
+      <a-flex
+        class="pb-5"
+        align="center"
+        vertical
+      >
         <img
           class="result__img--fail pb-8"
           src="/src/assets/images/successfully/fail.svg"
@@ -103,7 +122,11 @@ const goToReviewPage = () => {
       justify="center"
       gap="small"
     >
-      <a-button style="min-width: 120px" size="large" @click="goBackHome">
+      <a-button
+        style="min-width: 120px"
+        size="large"
+        @click="goBackHome"
+      >
         <span class="b6 gray-8">Back Home</span>
       </a-button>
       <a-button

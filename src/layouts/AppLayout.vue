@@ -11,7 +11,10 @@ onMounted(async () => await countryStore.getCountries());
 
 <template>
   <a-spin :spinning="countryStore.$state.spinning">
-    <a-flex gap="large" vertical>
+    <a-flex
+      gap="large"
+      vertical
+    >
       <app-header />
       <router-view />
     </a-flex>

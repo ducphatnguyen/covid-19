@@ -46,13 +46,24 @@ const goNext = () => {
 </script>
 
 <template>
-  <a-row style="margin: 0" class="footer p-4" :gutter="[16]">
+  <a-row
+    style="margin: 0"
+    class="footer p-4"
+    :gutter="[16]"
+  >
     <a-col :span="12">
-      <a-button class="button-100" size="large" @click="goBack">
+      <a-button
+        class="button-100"
+        size="large"
+        @click="goBack"
+      >
         <span class="b6 gray-8">Back</span>
       </a-button>
     </a-col>
-    <a-col v-if="props.type !== 'submit'" :span="12">
+    <a-col
+      v-if="props.type !== 'submit'"
+      :span="12"
+    >
       <a-button
         class="button-100"
         type="primary"
@@ -60,10 +71,18 @@ const goNext = () => {
         :disabled="!canNext"
         @click="goNext"
       >
-        <span class="b6 gray-1" :class="{ 'gray-6': !canNext }">Next</span>
+        <span
+          class="b6 gray-1"
+          :class="{ 'gray-6': !canNext }"
+        >
+          Next
+        </span>
       </a-button>
     </a-col>
-    <a-col v-else :span="12">
+    <a-col
+      v-else
+      :span="12"
+    >
       <a-button
         class="button-100"
         type="primary"
@@ -71,7 +90,12 @@ const goNext = () => {
         html-type="submit"
         :disabled="!canSubmit"
       >
-        <span class="b6 gray-1" :class="{ 'gray-6': !canSubmit }">Submit</span>
+        <span
+          class="b6 gray-1"
+          :class="{ 'gray-6': !canSubmit }"
+        >
+          Submit
+        </span>
       </a-button>
     </a-col>
   </a-row>

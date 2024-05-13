@@ -1,3 +1,5 @@
 {
-  
+  "singleAttributePerLine": true,
+  "endOfLine": "auto",
+  "htmlWhitespaceSensitivity": "ignore"
 }
