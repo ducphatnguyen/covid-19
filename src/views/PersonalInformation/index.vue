@@ -374,7 +374,7 @@ const onSubmit = async () => {
                 <v-field
                   id="isInfoConfirmed"
                   v-slot="{ field }"
-                  label="Inforconfirm"
+                  label="Info Confirmation"
                   name="isInfoConfirmed"
                   @change="
                     onChangeIsInfoConfirmed(
@@ -406,7 +406,7 @@ const onSubmit = async () => {
                 <v-field
                   id="isInfoConfirmed"
                   v-slot="{ field }"
-                  label="Inforconfirm"
+                  label="Info Confirmation"
                   name="isInfoConfirmed"
                 >
                   <a-form-item
