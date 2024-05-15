@@ -113,7 +113,7 @@ const onChangeStatus = (statusCode: string) => {
               <div
                 v-for="country in countries"
                 :key="country.id"
-                class="location__body-country-item px-4 pt-4 pb-2 location__body-country-item--deactive"
+                class="location__body-country-item px-4 pt-4 pb-2 location__body-country-item--deactivate"
                 :class="{
                   'location__body-country-item--active':
                     country.code === payloadStore.$state.countryCode,
@@ -257,7 +257,7 @@ const onChangeStatus = (statusCode: string) => {
           color: #ffffff;
         }
 
-        &--deactive {
+        &--deactivate {
           cursor: not-allowed;
         }
 
