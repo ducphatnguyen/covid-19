@@ -6,21 +6,18 @@ import {
 
 import { APP_STEPS, LOCAL_STORAGE } from "@/constants";
 import { usePayload } from "@/stores";
-
-// Lazy Loading
-const Intro = () => import("@/views/Intro/index.vue");
-const Location = () => import("@/views/Location/index.vue");
-const OfficeGuidelines = () => import("@/views/OfficeGuidelines/index.vue");
+import {
+  Intro,
+  Location,
+  OfficeGuidelines,
+  HealthChecklist,
+  PersonalInformation,
+  Successfully,
+  Review,
+  Error404,
+} from "@/views";
 
 const AppLayout = () => import("@/layouts/AppLayout.vue");
-
-const HealthChecklist = () => import("@/views/HealthChecklist/index.vue");
-const PersonalInformation = () =>
-  import("@/views/PersonalInformation/index.vue");
-const Successfully = () => import("@/views/Successfully/index.vue");
-const Review = () => import("@/views/Review/index.vue");
-
-const Error404 = () => import("@/views/404/index.vue");
 
 const routes: Array<RouteRecordRaw> = [
   {

@@ -48,7 +48,7 @@ const goNext = () => {
 <template>
   <a-row
     style="margin: 0"
-    class="footer p-4"
+    class="border-top p-4"
     :gutter="[16]"
   >
     <a-col :span="12">
@@ -57,7 +57,7 @@ const goNext = () => {
         size="large"
         @click="goBack"
       >
-        <span class="b6 gray-8">Back</span>
+        <span class="b6">Back</span>
       </a-button>
     </a-col>
     <a-col
@@ -72,7 +72,7 @@ const goNext = () => {
         @click="goNext"
       >
         <span
-          class="b6 gray-1"
+          class="b6"
           :class="{ 'gray-6': !canNext }"
         >
           Next
@@ -91,7 +91,7 @@ const goNext = () => {
         :disabled="!canSubmit"
       >
         <span
-          class="b6 gray-1"
+          class="b6"
           :class="{ 'gray-6': !canSubmit }"
         >
           Submit
@@ -101,8 +101,4 @@ const goNext = () => {
   </a-row>
 </template>
 
-<style lang="scss">
-.footer {
-  border-top: 1px solid #eaedf0;
-}
-</style>
+<style lang="scss"></style>

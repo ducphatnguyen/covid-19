@@ -1,4 +1,4 @@
-export { default as Page404 } from "./404/index.vue";
+export { default as Error404 } from "./404/index.vue";
 export { default as HealthChecklist } from "./HealthChecklist/index.vue";
 export { default as Intro } from "./Intro/index.vue";
 export { default as Location } from "./Location/index.vue";

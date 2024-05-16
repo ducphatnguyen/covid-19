@@ -108,8 +108,7 @@ const onSubmit = async () => {
           </a-flex>
 
           <a-form
-            style="background: #f6f6fa"
-            class="p-4"
+            class="p-4 bg-layout"
             :label-col="{ span: 24 }"
           >
             <!-- General Information -->

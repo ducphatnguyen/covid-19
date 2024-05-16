@@ -57,7 +57,7 @@ const goToLocationPage = () => {
         class="pb-3"
         vertical
       >
-        <h5 class="h5">
+        <h5 class="h5 gray-10">
           Welcome and thanks for checking in with Silicon Stack!
         </h5>
         <p class="b7 gray-8">
@@ -75,7 +75,7 @@ const goToLocationPage = () => {
         size="large"
         @click="goToLocationPage"
       >
-        <span class="gray-1">Get Started</span>
+        <span>Get Started</span>
       </a-button>
       <span class="b8 gray-6 my-2 text-center">Version 1.0.1</span>
     </a-flex>

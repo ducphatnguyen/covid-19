@@ -1,15 +1,17 @@
-@mixin create-colors($colors) {
+@mixin create-colors($type, $colors) {
   @each $key, $color in $colors {
-    .#{$key} {
+    // Colors
+    .#{$type}-#{$key} {
       color: $color;
     }
-  }
-}
-
-@mixin create-backgroundColors($backgroundColors) {
-  @each $key, $backgroundColor in $backgroundColors {
-    .bg-#{$key} {
-      color: $backgroundColor;
+    @if $type == "gray" {
+      .dark .#{$type}-#{ 11 - $key} {
+        color: $color;
+      }
+    }
+    // Background colors
+    .bg-#{$type}-#{$key} {
+      background-color: $color;
     }
   }
 }

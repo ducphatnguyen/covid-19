@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 
-import { useCountryStore } from "@/stores";
+import { useCountryStore, useDarkMode } from "@/stores";
 import { ANT_CONFIGS } from "@/constants";
 
 // Data
 const countryStore = useCountryStore();
+const darkMode = useDarkMode();
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);
@@ -18,18 +19,14 @@ onMounted(() => {
 
 <template>
   <a-config-provider :theme="ANT_CONFIGS" />
-  <div class="container">
+  <div
+    class="container"
+    :class="{
+      dark: darkMode.$state.isDarkMode,
+    }"
+  >
     <router-view />
   </div>
 </template>
 
-<style lang="scss">
-body {
-  box-sizing: border-box;
-}
-.container {
-  max-width: 376px;
-  background-color: #fff;
-  margin: 0 auto;
-}
-</style>
+<style lang="scss"></style>

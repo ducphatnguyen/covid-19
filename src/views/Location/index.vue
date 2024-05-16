@@ -90,7 +90,7 @@ const onChangeStatus = (statusCode: string) => {
               <div
                 v-for="country in countries"
                 :key="country.id"
-                class="location__body-country-item px-4 pt-4 pb-2"
+                class="location__body-country-item px-4 pt-4 pb-2 bg-layout"
                 :class="{
                   'location__body-country-item--active':
                     country.code === payloadStore.$state.countryCode,
@@ -104,7 +104,7 @@ const onChangeStatus = (statusCode: string) => {
                     alt="Country Flag"
                   />
                   <div class="b8 pt-1 text-center">
-                    {{ country.name }}
+                    <span class="gray-10">{{ country.name }}</span>
                   </div>
                 </div>
               </div>
@@ -126,7 +126,7 @@ const onChangeStatus = (statusCode: string) => {
                     alt="Country Flag"
                   />
                   <div class="b8 pt-1 text-center">
-                    {{ country.name }}
+                    <span class="gray-10">{{ country.name }}</span>
                   </div>
                 </div>
               </div>
@@ -141,15 +141,12 @@ const onChangeStatus = (statusCode: string) => {
 
       <template v-if="countries.length">
         <a-flex
-          class="location__body-facility p-4"
+          class="location__body-facility p-4 bg-layout"
           gap="middle"
           vertical
         >
           <span class="b6 gray-9">Select the facility you are entering:</span>
-          <a-radio-group
-            v-model:value="payloadStore.$state.facilityId"
-            class="location__body-facility-options"
-          >
+          <a-radio-group v-model:value="payloadStore.$state.facilityId">
             <a-flex
               gap="middle"
               vertical
@@ -181,17 +178,13 @@ const onChangeStatus = (statusCode: string) => {
             </a-flex>
           </a-radio-group>
         </a-flex>
-
         <a-flex
-          class="location__body-status p-4"
+          class="location__body-status p-4 bg-layout"
           gap="middle"
           vertical
         >
           <span class="b6 gray-9">Select the status:</span>
-          <a-radio-group
-            v-model:value="payloadStore.$state.statusCode"
-            class="location__body-status-options"
-          >
+          <a-radio-group v-model:value="payloadStore.$state.statusCode">
             <a-flex
               gap="middle"
               vertical
@@ -237,30 +230,22 @@ const onChangeStatus = (statusCode: string) => {
 <style lang="scss">
 .location {
   &__body {
-    // 1. Country
     &-country {
       &-choice {
         overflow-x: scroll;
-
         &::-webkit-scrollbar {
           display: none;
         }
       }
-
       &-item {
-        background-color: #f6f6fa;
         border-radius: 4px;
         cursor: pointer;
-
         &--active {
-          background-color: #0062ff;
-          color: #ffffff;
+          background-color: $color-primary-3-alpha-50 !important;
         }
-
         &--deactivate {
           cursor: not-allowed;
         }
-
         .country-item {
           &__wrap {
             &:hover {
@@ -275,17 +260,6 @@ const onChangeStatus = (statusCode: string) => {
             border-radius: 4px;
           }
         }
-      }
-    }
-
-    // 2. Facility + Status
-    &-facility,
-    &-status {
-      background-color: #f5f6fa;
-
-      &-options {
-        display: flex;
-        flex-direction: column;
       }
     }
   }

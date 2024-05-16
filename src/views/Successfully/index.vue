@@ -127,7 +127,7 @@ const goToReviewPage = () => {
         size="large"
         @click="goBackHome"
       >
-        <span class="b6 gray-8">Back Home</span>
+        <span class="b6">Back Home</span>
       </a-button>
       <a-button
         v-if="!payloadStore.$state.isReviewed"
@@ -135,7 +135,7 @@ const goToReviewPage = () => {
         size="large"
         @click="goToReviewPage"
       >
-        <span class="b6 gray-8">Review</span>
+        <span class="b6">Review</span>
       </a-button>
     </a-flex>
   </a-flex>

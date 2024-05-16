@@ -1,5 +1,27 @@
+body {
+  box-sizing: border-box;
+}
+.container {
+  max-width: 376px;
+  margin: 0 auto;
+  background-color: $color-gray-1;
+}
+
+/* ===================================================================== */
 .button-100 {
   width: 100%;
+}
+
+.border-bottom {
+  border-bottom: 1px solid $color-gray-3;
+}
+
+.border-top {
+  border-top: 1px solid $color-gray-3;
+}
+
+.bg-layout {
+  background-color: $bg-layout;
 }
 
 .text-center {
@@ -9,7 +31,16 @@
 .text-right {
   text-align: right;
 }
-
-.error-feedback {
-  color: red;
+/* =============================DARK_MODE=============================== */
+.dark {
+  &.container,
+  .bg-gray-2 {
+    background-color: $color-black-2;
+  }
+  .bg-layout {
+    background-color: $color-black-3;
+  }
+  .primary-9 {
+    color: $color-primary-4;
+  }
 }

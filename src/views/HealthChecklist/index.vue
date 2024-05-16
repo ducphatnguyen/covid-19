@@ -61,8 +61,7 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
       <a-flex
         v-for="(question, index) in questionsByCountry"
         :key="question.code"
-        style="background: #f6f6fa"
-        class="p-4"
+        class="p-4 bg-layout"
         gap="middle"
         vertical
       >

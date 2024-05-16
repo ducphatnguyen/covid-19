@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 
-import { useCountryStore, usePayload } from "@/stores";
+import { useCountryStore, useDarkMode, usePayload } from "@/stores";
 import { convertDateTime } from "@/utils";
 
 // Data
 const countryStore = useCountryStore();
+const darkModeStore = useDarkMode();
 const payloadStore = usePayload();
 
 const currentDateTime = ref<string>("");
@@ -40,13 +41,13 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
 
 <template>
   <a-flex
-    class="header p-4"
+    class="bg-gray-2 border-bottom p-4"
     justify="space-between"
     align="center"
     gap="small"
   >
     <img
-      class="header__img"
+      class="logo"
       src="/src/assets/logo.svg"
       alt="Logo"
     />
@@ -55,26 +56,59 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
       justify="center"
       vertical
     >
-      <span class="b8">
-        {{ payloadStore.$state.countryCode }} -
-        {{
-          getFacilityName(
-            payloadStore.$state.countryCode!,
-            payloadStore.$state.facilityId!,
-          )
-        }}
-      </span>
-      <span class="b8">{{ currentDateTime }}</span>
+      <a-flex gap="small">
+        <a-flex vertical>
+          <span class="b8 gray-8">
+            {{ payloadStore.$state.countryCode }} -
+            {{
+              getFacilityName(
+                payloadStore.$state.countryCode!,
+                payloadStore.$state.facilityId!,
+              )
+            }}
+          </span>
+          <span class="b8 gray-8">{{ currentDateTime }}</span>
+        </a-flex>
+        <a-flex
+          vertical
+          justify="center"
+          align="center"
+        >
+          <template v-if="darkModeStore.$state.isDarkMode">
+            <img
+              class="moon-sun-icon icon-effect"
+              width="32px"
+              src="/src/assets/icons/moon-outline.svg"
+              alt="Moon"
+              @click="darkModeStore.handleChange({ isDarkMode: false })"
+            />
+          </template>
+          <template v-else>
+            <img
+              class="moon-sun-icon icon-effect"
+              width="32px"
+              src="/src/assets/icons/sunny-outline.svg"
+              alt="Sunny"
+              @click="darkModeStore.handleChange({ isDarkMode: true })"
+            />
+          </template>
+        </a-flex>
+      </a-flex>
     </a-flex>
   </a-flex>
 </template>
 
 <style lang="scss">
-.header {
-  background-color: #f9fafb;
-  border-bottom: 1px solid #eaedf0;
-  &__img {
-    width: 100px;
-  }
+.logo {
+  width: 100px;
+}
+.moon-sun-icon {
+  cursor: pointer;
+}
+.icon-effect {
+  transition: transform 0.3s ease;
+}
+.icon-effect:hover {
+  transform: scale(1.1);
 }
 </style>

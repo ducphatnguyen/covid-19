@@ -1,6 +1,6 @@
 import * as AllRules from "@vee-validate/rules";
-import { defineRule, configure } from "vee-validate";
 import { localize, setLocale } from "@vee-validate/i18n";
+import { defineRule, configure } from "vee-validate";
 import { ref } from "vue";
 
 import { LOCALES } from "@/constants";

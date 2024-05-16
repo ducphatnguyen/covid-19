@@ -50,7 +50,7 @@ const onClickPdf = () => {
         </span>
       </div>
       <a-flex
-        class="background--secondary"
+        class="pdf__background bg-layout"
         justify="center"
         align="center"
         vertical
@@ -84,8 +84,7 @@ const onClickPdf = () => {
 </template>
 
 <style lang="scss">
-.background--secondary {
-  background: #f6f6fa;
+.pdf__background {
   width: 220px;
   height: 220px;
   border-radius: 50%;

@@ -1,49 +1,56 @@
 @import "../mixins/colors";
 @import "../variables/colors";
 
-$colors: (
-  "primary-3": $color-primary-3,
-  "primary-3-alpha-50": $color-primary-3-alpha-50,
-  "primary-3-alpha-20": $color-primary-3-alpha-20,
-  "primary-4": $color-primary-4,
-  "primary-5": $color-primary-5,
-  "primary-6": $color-primary-6,
-  "primary-9": $color-primary-9,
-  "success-6": $color-success-6,
-  "success-6-alpha-20": $color-success-6-alpha-20,
-  "gray-1": $color-gray-1,
-  "gray-2": $color-gray-2,
-  "gray-3": $color-gray-3,
-  "gray-4": $color-gray-4,
-  "gray-5": $color-gray-5,
-  "gray-6": $color-gray-6,
-  "gray-7": $color-gray-7,
-  "gray-8": $color-gray-8,
-  "gray-9": $color-gray-9,
-  "gray-10": $color-gray-10,
-  "red-1": $color-red-1,
-  "red-2": $color-red-2,
-  "red-3": $color-red-3,
-  "red-4": $color-red-4,
-  "red-6": $color-red-6,
-  "red-6-alpha-20": $color-red-6-alpha-20,
+$blackColors: (
+  1: $color-black-1,
 );
 
-$backgroundColors: (
-  "white": $bg-color-white,
-  "dark-gray": $bg-color-dark-gray,
-  "bright-red": $bg-color-bright-red,
-  "light-gray": $bg-color-light-gray,
-  "black": $bg-color-black,
-  "light-gray-hint-white": $bg-color-light-gray-hint-white,
-  "dark-blue": $bg-color-dark-blue,
-  "darker-blue": $bg-color-darker-blue,
-  "even-darker-blue": $bg-color-even-darker-blue,
-  "dark-red": $bg-color-dark-red,
-  "reddish-pink": $bg-color-reddish-pink,
-  "light-gray-hint-green": $bg-color-light-gray-hint-green,
-  "light-gray-hint-purple": $bg-color-light-gray-hint-purple,
+$primaryColors: (
+  3: $color-primary-3,
+  4: $color-primary-4,
+  5: $color-primary-5,
+  6: $color-primary-6,
+  9: $color-primary-9,
 );
 
-@include create-colors($colors);
-@include create-backgroundColors($backgroundColors);
+$successColors: (
+  6: $color-success-6,
+);
+
+$grayColors: (
+  1: $color-gray-1,
+  2: $color-gray-2,
+  3: $color-gray-3,
+  4: $color-gray-4,
+  5: $color-gray-5,
+  6: $color-gray-6,
+  7: $color-gray-7,
+  8: $color-gray-8,
+  9: $color-gray-9,
+  10: $color-gray-10,
+);
+
+$redColors: (
+  1: $color-red-1,
+  2: $color-red-2,
+  3: $color-red-3,
+  4: $color-red-4,
+  6: $color-red-6,
+);
+
+$whiteColors: (
+  1: $color-white-1,
+);
+
+$colorsList: (
+  "black": $blackColors,
+  "primary": $primaryColors,
+  "success": $successColors,
+  "gray": $grayColors,
+  "red": $redColors,
+  "white": $whiteColors,
+);
+
+@each $type, $colors in $colorsList {
+  @include create-colors($type, $colors);
+}
