@@ -1,0 +1,66 @@
+{
+  "HOME": {
+    "WELCOME": "Chào mừng và cảm ơn bạn đã đăng ký với {name}!",
+    "DESCRIPTION": "Trong tình hình COVID-19, có một hệ thống Check-In bắt buộc được thiết lập, để đảm bảo an toàn tối đa cho mọi người đến tại nơi làm việc. Hệ thống check-in này là bắt buộc đối với cả khách thăm và nhân viên, và bạn sẽ phải check-in mỗi khi đến tại nơi làm việc.",
+    "VERSION": "Phiên bản 1.0.1"
+  }, 
+  "LOCATION": {
+    "REQUIREMENTS": "Để bắt đầu, vui lòng chọn quốc gia và vị trí cơ sở của bạn",
+    "COUNTRY_SELECTION_GUIDE": "Chọn quốc gia của bạn:",
+    "FACILITY_SELECTION_GUIDE": "Chọn cơ sở bạn đang vào:",
+    "STATUS_SELECTION_GUIDE": "Chọn trạng thái:"
+  },
+  "OFFICE_GUIDELINES": {
+    "REQUIREMENTS": "Đọc và xác nhận {newLine} các Hướng dẫn Văn phòng",
+    "INSTRUCTION": "Nhấn để mở PDF"
+  },
+  "HEALTH_CHECKLIST": {
+    "HEALTH_SELECTION_GUIDE": "Chọn thông tin sức khỏe hiện tại của bạn:"
+  },
+  "PERSONAL_INFORMATION": {
+    "INSTRUCTION": "Vui lòng điền chi tiết liên lạc của bạn:",
+    "FIRST_NAME": "Tên",
+    "LAST_NAME": "Họ",
+    "CONTACT_NUMBER": "Số liên lạc",
+    "INFO_CONFIRMATION": "Tôi xác nhận rằng thông tin trên là chính xác và tôi đã đọc và hiểu các yêu cầu và kỳ vọng khi vào khuôn viên của Silicon Stack."
+  },
+  "SUCCESFULLY": {
+    "SUCCESS": {
+      "MESSAGE": "Check-In thành công!",
+      "DESCRIPTION": "Cảm ơn bạn đã hoàn thành. Bạn có thể an toàn vào văn phòng ngay bây giờ. Hãy đảm bảo rằng bạn check-in mỗi khi đến văn phòng. Chúc bạn một ngày tốt lành!"
+    },
+    "FAILURE": {
+      "MESSAGE": "Check-In không thành công!",
+      "DESCRIPTION": "Cảm ơn bạn đã hoàn thành. Bạn có thể an toàn vào văn phòng ngay bây giờ. Hãy đảm bảo rằng bạn check-in mỗi khi đến văn phòng. Chúc bạn một ngày tốt lành!",
+      "INSTRUCTION": "Vui lòng gọi cho Quản lý Dòng của Silicon Stack hoặc Người tổ chức cuộc họp ngay lập tức để thông báo."
+    }
+  },
+  "BUTTON": {
+    "BACK": "Quay lại",
+    "BACK_HOME": "Quay lại Trang chủ",
+    "NEXT": "Tiếp theo",
+    "REVIEW": "Xem lại",
+    "SUBMIT": "Gửi",
+    "START": "Bắt đầu"
+
+  },
+  "CIRCLE_PROGRESS_BAR": {
+    "STEP_1": {
+      "TITLE": "1. Hướng dẫn Văn phòng",
+      "DESCRIPTION": "Tiếp theo: Danh sách Kiểm tra Sức khỏe",
+      "CURRENT_STEP": "1"
+    },
+    "STEP_2": {
+      "TITLE": "2. Danh sách Kiểm tra Sức khỏe",
+      "DESCRIPTION": "Tiếp theo: Thông tin Cá nhân",
+      "CURRENT_STEP": "2"
+    },
+    "STEP_3": {
+      "TITLE": "3. Thông tin Liên lạc",
+      "DESCRIPTION": "Bước cuối cùng",
+      "CURRENT_STEP": "3"
+    },
+    "TOTAL_STEPS": "3",
+    "OF": "trên"
+  }
+}

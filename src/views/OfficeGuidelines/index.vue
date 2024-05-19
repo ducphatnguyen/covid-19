@@ -32,10 +32,10 @@ const onClickPdf = () => {
     vertical
   >
     <progress-stepper
-      :title="'1. Office-guidelines'"
-      :description="'Next: Health Checklist'"
-      :current-step="1"
-      :total-steps="3"
+      :title="$t('CIRCLE_PROGRESS_BAR.STEP_1.TITLE')"
+      :description="$t('CIRCLE_PROGRESS_BAR.STEP_1.DESCRIPTION')"
+      :current-step="Number($t('CIRCLE_PROGRESS_BAR.STEP_1.CURRENT_STEP'))"
+      :total-steps="Number($t('CIRCLE_PROGRESS_BAR.TOTAL_STEPS'))"
     />
     <a-flex
       class="pt-16 pb-23"
@@ -43,11 +43,14 @@ const onClickPdf = () => {
       vertical
     >
       <div class="pb-4 b6 gray-9 text-center">
-        <span>
-          Read and acknowledge
-          <br />
-          the Office Guidelines
-        </span>
+        <i18n-t
+          keypath="OFFICE_GUIDELINES.REQUIREMENTS"
+          tag="span"
+        >
+          <template #newLine>
+            <br />
+          </template>
+        </i18n-t>
       </div>
       <a-flex
         class="pdf__background bg-layout"
@@ -68,7 +71,9 @@ const onClickPdf = () => {
               src="../../assets/images/office-guidelines/pdf.png"
               alt="Covid"
             />
-            <span class="b6 gray-8 mt-2">Tap to open PDF</span>
+            <span class="b6 gray-8 mt-2">
+              {{ $t("OFFICE_GUIDELINES.INSTRUCTION") }}
+            </span>
           </a-space>
         </a>
       </a-flex>

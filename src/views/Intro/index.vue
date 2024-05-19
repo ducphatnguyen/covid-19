@@ -2,7 +2,7 @@
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
-import { LOCAL_STORAGE } from "@/constants";
+import { LOCAL_STORAGE } from "@/types";
 import { useCountryStore } from "@/stores";
 
 // Data
@@ -58,13 +58,10 @@ const goToLocationPage = () => {
         vertical
       >
         <h5 class="h5 gray-10">
-          Welcome and thanks for checking in with Silicon Stack!
+          <p>{{ $t("HOME.WELCOME", { name: "Silicon Stack" }) }}</p>
         </h5>
         <p class="b7 gray-8">
-          In light of COVID-19 there is a mandatory Check-In System in place, to
-          ensure maximum safety for everyone who comes on premise. This check-in
-          system is required for both visitors and employees and you will be
-          required to check-in on each visit to the premises.
+          {{ $t("HOME.DESCRIPTION") }}
         </p>
       </a-flex>
     </a-flex>
@@ -75,9 +72,9 @@ const goToLocationPage = () => {
         size="large"
         @click="goToLocationPage"
       >
-        <span>Get Started</span>
+        <span>{{ $t("BUTTON.START") }}</span>
       </a-button>
-      <span class="b8 gray-6 my-2 text-center">Version 1.0.1</span>
+      <span class="b8 gray-6 my-2 text-center">{{ $t("HOME.VERSION") }}</span>
     </a-flex>
   </a-flex>
 </template>

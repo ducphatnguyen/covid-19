@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 
-import { LOCAL_STORAGE } from "@/constants";
-import type { Payload } from "@/types";
+import { LOCAL_STORAGE, type Payload } from "@/types";
 
 export const usePayload = defineStore("payload", {
   state: (): Payload => ({}),

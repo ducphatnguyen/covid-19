@@ -78,10 +78,12 @@ const onChangeStatus = (statusCode: string) => {
           v-if="!payloadStore.$state.isReviewed"
           class="h5 primary-9"
         >
-          To begin, please select your country and facility location
+          {{ $t("LOCATION.REQUIREMENTS") }}
         </h5>
         <template v-if="countries.length">
-          <span class="b6 gray-9">Select your country:</span>
+          <span class="b6 gray-9">
+            {{ $t("LOCATION.COUNTRY_SELECTION_GUIDE") }}
+          </span>
           <a-flex
             class="location__body-country-choice"
             gap="middle"
@@ -145,7 +147,9 @@ const onChangeStatus = (statusCode: string) => {
           gap="middle"
           vertical
         >
-          <span class="b6 gray-9">Select the facility you are entering:</span>
+          <span class="b6 gray-9">
+            {{ $t("LOCATION.FACILITY_SELECTION_GUIDE") }}
+          </span>
           <a-radio-group v-model:value="payloadStore.$state.facilityId">
             <a-flex
               gap="middle"
@@ -183,7 +187,9 @@ const onChangeStatus = (statusCode: string) => {
           gap="middle"
           vertical
         >
-          <span class="b6 gray-9">Select the status:</span>
+          <span class="b6 gray-9">
+            {{ $t("LOCATION.STATUS_SELECTION_GUIDE") }}
+          </span>
           <a-radio-group v-model:value="payloadStore.$state.statusCode">
             <a-flex
               gap="middle"

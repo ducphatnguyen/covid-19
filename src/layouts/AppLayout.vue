@@ -10,7 +10,7 @@ onMounted(async () => await countryStore.getCountries());
 </script>
 
 <template>
-  <a-spin :spinning="countryStore.$state.spinning">
+  <a-spin :spinning="countryStore.$state.loading">
     <a-flex
       gap="large"
       vertical

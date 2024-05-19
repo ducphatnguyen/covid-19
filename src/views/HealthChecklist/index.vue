@@ -45,10 +45,10 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
     vertical
   >
     <progress-stepper
-      :title="'2. Health Checklist'"
-      :description="'Next: Personal Information'"
-      :current-step="2"
-      :total-steps="3"
+      :title="$t('CIRCLE_PROGRESS_BAR.STEP_2.TITLE')"
+      :description="$t('CIRCLE_PROGRESS_BAR.STEP_2.DESCRIPTION')"
+      :current-step="Number($t('CIRCLE_PROGRESS_BAR.STEP_2.CURRENT_STEP'))"
+      :total-steps="Number($t('CIRCLE_PROGRESS_BAR.TOTAL_STEPS'))"
     />
     <a-flex
       class="px-4 py-6"
@@ -56,7 +56,7 @@ const onChangeCheckListAnswers = (questionCode: string, answer: boolean) => {
       vertical
     >
       <a-flex class="b6 gray-9">
-        <span>Select your current health information:</span>
+        <span>{{ $t("HEALTH_CHECKLIST.HEALTH_SELECTION_GUIDE") }}</span>
       </a-flex>
       <a-flex
         v-for="(question, index) in questionsByCountry"

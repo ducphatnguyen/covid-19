@@ -4,7 +4,7 @@ import {
   type RouteRecordRaw,
 } from "vue-router";
 
-import { APP_STEPS, LOCAL_STORAGE } from "@/constants";
+import { APP_STEPS, LOCAL_STORAGE } from "@/types";
 import { usePayload } from "@/stores";
 import {
   Intro,

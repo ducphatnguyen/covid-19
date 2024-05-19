@@ -79,10 +79,11 @@ const goToReviewPage = () => {
           src="/src/assets/images/successfully/success.svg"
           alt="Result"
         />
-        <span class="h5 gray-10 pb-4 text-center">Check-In Successful!</span>
+        <span class="h5 gray-10 pb-4 text-center">
+          {{ $t("SUCCESFULLY.SUCCESS.MESSAGE") }}
+        </span>
         <span class="b6 gray-8 text-center">
-          Thank you for completing. You can now safely enter the office. Please
-          be sure to check-in on each office visit. Have a great day!
+          {{ $t("SUCCESFULLY.SUCCESS.DESCRIPTION") }}
         </span>
       </a-flex>
     </a-flex>
@@ -101,15 +102,14 @@ const goToReviewPage = () => {
           src="/src/assets/images/successfully/fail.svg"
           alt="Result"
         />
-        <span class="h5 gray-10 pb-1 text-center">Check-In Failed!</span>
+        <span class="h5 gray-10 pb-1 text-center">
+          {{ $t("SUCCESFULLY.FAILURE.MESSAGE") }}
+        </span>
         <span class="b6 gray-8 text-center">
-          To prevent the possible spread of COVID and ensure the safety of you
-          and your colleagues, you’re not eligible to enter our Silicon Stack
-          site at this time.
+          {{ $t("SUCCESFULLY.FAILURE.DESCRIPTION") }}
         </span>
         <span class="b6 gray-9 text-center pt-8">
-          Please call your Silicon Stack Line Manager or Meeting Host
-          immediately to advise.
+          {{ $t("SUCCESFULLY.FAILURE.INSTRUCTION") }}
         </span>
       </a-flex>
     </a-flex>
@@ -127,7 +127,7 @@ const goToReviewPage = () => {
         size="large"
         @click="goBackHome"
       >
-        <span class="b6">Back Home</span>
+        <span class="b6">{{ $t("BUTTON.BACK_HOME") }}</span>
       </a-button>
       <a-button
         v-if="!payloadStore.$state.isReviewed"
@@ -135,7 +135,7 @@ const goToReviewPage = () => {
         size="large"
         @click="goToReviewPage"
       >
-        <span class="b6">Review</span>
+        <span class="b6">{{ $t("BUTTON.REVIEW") }}</span>
       </a-button>
     </a-flex>
   </a-flex>

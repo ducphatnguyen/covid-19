@@ -1,16 +1,15 @@
 import * as AllRules from "@vee-validate/rules";
-import { localize, setLocale } from "@vee-validate/i18n";
+import { localize } from "@vee-validate/i18n";
 import { defineRule, configure } from "vee-validate";
-import { ref } from "vue";
 
 import { LOCALES } from "@/constants";
 import { usePayload } from "@/stores";
 import { validatePhoneNumber } from "@/utils";
 
-const active_locale = ref<string>("en");
 const rules = AllRules as Record<string, any>;
 Object.entries(rules).forEach(([name, rule]) => {
   defineRule(name, rule);
+  console.log(name, rule);
 });
 
 (async () => {
@@ -20,10 +19,17 @@ Object.entries(rules).forEach(([name, rule]) => {
       `../../../node_modules/@vee-validate/i18n/dist/locale/${locale}.json`
     );
   }
+
+  dictionary.vi.default.messages = {
+    ...dictionary.vi.default.messages,
+    noSpecialCharacters: "{field} không được chứa ký tự đặc biệt.",
+  };
+
+  console.log(dictionary.vi.default.messages);
   configure({
     generateMessage: localize(dictionary),
   });
-  setLocale(active_locale.value);
+  console.log(dictionary.vi.default.messages);
 })();
 
 defineRule("contactNumber", (value: string) => {

@@ -1,0 +1,64 @@
+{
+  "HOME": {
+    "WELCOME": "Selamat datang dan terima kasih telah check-in dengan {name}!",
+    "DESCRIPTION": "Dalam rangka COVID-19, ada Sistem Check-In wajib yang diberlakukan, untuk memastikan keselamatan maksimal bagi semua orang yang datang ke tempat tersebut. Sistem check-in ini diperlukan baik untuk pengunjung maupun karyawan, dan Anda akan diminta untuk check-in setiap kali mengunjungi tempat tersebut.",
+    "VERSION": "Versi 1.0.1"
+  },
+  "LOCATION": {
+    "REQUIREMENTS": "Untuk memulai, silakan pilih negara dan lokasi fasilitas Anda",
+    "COUNTRY_SELECTION_GUIDE": "Pilih negara Anda:",
+    "FACILITY_SELECTION_GUIDE": "Pilih fasilitas yang Anda masuki:",
+    "STATUS_SELECTION_GUIDE": "Pilih status:"
+  },
+  "OFFICE_GUIDELINES": {
+    "REQUIREMENTS": "Baca dan konfirmasi {newLine} Pedoman Kantor",
+    "INSTRUCTION": "Ketuk untuk membuka PDF"
+  },
+  "HEALTH_CHECKLIST": {
+    "HEALTH_SELECTION_GUIDE": "Pilih informasi kesehatan Anda saat ini:"
+  },
+  "PERSONAL_INFORMATION": {
+    "INSTRUCTION": "Silakan isi rincian kontak Anda:",
+    "FIRST_NAME": "Nama Depan",
+    "LAST_NAME": "Nama Belakang",
+    "CONTACT_NUMBER": "Nomor Kontak",
+    "INFO_CONFIRMATION": " Saya mengkonfirmasi bahwa informasi di atas akurat dan saya telah membaca dan memahami persyaratan dan harapan masuk ke area Silicon Stack."
+  },
+  "SUCCESFULLY": {
+    "SUCCESS": {
+      "MESSAGE": "Check-In Berhasil!",
+      "DESCRIPTION": "Terima kasih telah menyelesaikan. Anda sekarang dapat memasuki kantor dengan aman. Pastikan untuk check-in setiap kali mengunjungi kantor. Semoga hari Anda menyenangkan!"
+    },
+    "FAILURE": {
+      "MESSAGE": "Check-In Berhasil!",
+      "DESCRIPTION": "Terima kasih telah menyelesaikan. Anda sekarang dapat memasuki kantor dengan aman. Pastikan untuk check-in setiap kali mengunjungi kantor. Semoga hari Anda menyenangkan! Harap segera hubungi Manajer Jalur Silicon Stack atau Tuan Rumah Rapat Anda untuk mendapatkan saran."
+    }
+  },
+  "BUTTON": {
+    "BACK": "Kembali",
+    "BACK_HOME": "Kembali ke Beranda",
+    "NEXT": "Berikutnya",
+    "REVIEW": "Ulasan",
+    "SUBMIT": "Kirim",
+    "START": "Mulai"
+  },
+  "CIRCLE_PROGRESS_BAR": {
+    "STEP_1": {
+      "TITLE": "1. Pedoman Kantor",
+      "DESCRIPTION": "Selanjutnya: Daftar Periksa Kesehatan",
+      "CURRENT_STEP": "1"
+    },
+    "STEP_2": {
+      "TITLE": "2. Daftar Periksa Kesehatan",
+      "DESCRIPTION": "Selanjutnya: Informasi Pribadi",
+      "CURRENT_STEP": "2"
+    },
+    "STEP_3": {
+      "TITLE": "3. Informasi Kontak",
+      "DESCRIPTION": "Langkah Terakhir",
+      "CURRENT_STEP": "3"
+    },
+    "TOTAL_STEPS": "3",
+    "OF": "dari"
+  }
+}

@@ -1,16 +1,26 @@
 <script setup lang="ts">
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
+import { SettingOutlined } from "@ant-design/icons-vue";
+import type { MenuProps } from "ant-design-vue";
 
-import { useCountryStore, useDarkMode, usePayload } from "@/stores";
+import { LANGUAGES } from "@/constants";
+import {
+  useCountryStore,
+  useDarkMode,
+  usePayload,
+  useLanguageMode,
+} from "@/stores";
 import { convertDateTime } from "@/utils";
 
 // Data
 const countryStore = useCountryStore();
 const darkModeStore = useDarkMode();
 const payloadStore = usePayload();
+const languageModeStore = useLanguageMode();
 
 const currentDateTime = ref<string>("");
 const intervalId = ref<number>(0);
+const visible = ref<boolean>(false);
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);
@@ -36,6 +46,12 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
   );
   const facility = country?.facilityList.find((f) => f.id === facilityId);
   return facility?.name || "";
+};
+
+const handleMenuClick: MenuProps["onClick"] = (e) => {
+  if (e.key === "close") {
+    visible.value = false;
+  }
 };
 </script>
 
@@ -74,24 +90,60 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
           justify="center"
           align="center"
         >
-          <template v-if="darkModeStore.$state.isDarkMode">
-            <img
-              class="moon-sun-icon icon-effect"
-              width="32px"
-              src="/src/assets/icons/moon-outline.svg"
-              alt="Moon"
-              @click="darkModeStore.handleChange({ isDarkMode: false })"
-            />
-          </template>
-          <template v-else>
-            <img
-              class="moon-sun-icon icon-effect"
-              width="32px"
-              src="/src/assets/icons/sunny-outline.svg"
-              alt="Sunny"
-              @click="darkModeStore.handleChange({ isDarkMode: true })"
-            />
-          </template>
+          <a-tooltip placement="right">
+            <template #title>
+              <span>Settings</span>
+            </template>
+            <a-dropdown
+              v-model:open="visible"
+              :arrow="{ pointAtCenter: true }"
+              :placement="'bottomRight'"
+              :trigger="['click']"
+            >
+              <setting-outlined class="b4 gray-10" />
+              <template #overlay>
+                <a-menu @click="handleMenuClick">
+                  <a-menu-item>
+                    <a-switch v-model:checked="darkModeStore.$state.isDarkMode">
+                      <template #checkedChildren>
+                        <img
+                          class="moon-sun-icon icon-effect"
+                          src="/src/assets/icons/moon-outline.svg"
+                          alt="Moon"
+                        />
+                      </template>
+                      <template #unCheckedChildren>
+                        <img
+                          class="moon-sun-icon icon-effect"
+                          src="/src/assets/icons/sunny-outline.svg"
+                          alt="Sunny"
+                        />
+                      </template>
+                    </a-switch>
+                  </a-menu-item>
+
+                  <a-sub-menu
+                    key="sub1"
+                    title="Languages"
+                  >
+                    <a-menu-item
+                      v-for="language in LANGUAGES"
+                      :key="language.code"
+                      :value="language.code"
+                      @click="
+                        languageModeStore.handleChange({
+                          languageCode: language.code,
+                          languageName: language.label,
+                        })
+                      "
+                    >
+                      {{ language.label }}
+                    </a-menu-item>
+                  </a-sub-menu>
+                </a-menu>
+              </template>
+            </a-dropdown>
+          </a-tooltip>
         </a-flex>
       </a-flex>
     </a-flex>
@@ -107,8 +159,8 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
 }
 .icon-effect {
   transition: transform 0.3s ease;
-}
-.icon-effect:hover {
-  transform: scale(1.1);
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 </style>

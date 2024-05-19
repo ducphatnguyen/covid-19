@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePayload } from "@/stores";
+import { usePayload, useDarkMode } from "@/stores";
 
 // Data
 const props = defineProps<{
@@ -10,6 +10,7 @@ const props = defineProps<{
 }>();
 
 const payloadStore = usePayload();
+const darkMode = useDarkMode();
 
 const percent = (100 * props.currentStep) / props.totalSteps;
 </script>
@@ -28,13 +29,15 @@ const percent = (100 * props.currentStep) / props.totalSteps;
       v-if="!payloadStore.$state.isReviewed"
       type="circle"
       size="small"
+      status="success"
       :percent="percent"
       :stroke-width="9"
-      status="success"
+      :trail-color="darkMode.$state.isDarkMode ? '#B0B0B0' : ''"
     >
       <template #format>
         <span class="b8">
-          {{ props.currentStep }} of {{ props.totalSteps }}
+          {{ props.currentStep }} {{ $t("CIRCLE_PROGRESS_BAR.OF") }}
+          {{ props.totalSteps }}
         </span>
       </template>
     </a-progress>

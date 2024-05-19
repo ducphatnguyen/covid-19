@@ -57,7 +57,7 @@ const goNext = () => {
         size="large"
         @click="goBack"
       >
-        <span class="b6">Back</span>
+        <span class="b6">{{ $t("BUTTON.BACK") }}</span>
       </a-button>
     </a-col>
     <a-col
@@ -75,7 +75,7 @@ const goNext = () => {
           class="b6"
           :class="{ 'gray-6': !canNext }"
         >
-          Next
+          {{ $t("BUTTON.NEXT") }}
         </span>
       </a-button>
     </a-col>
@@ -94,7 +94,7 @@ const goNext = () => {
           class="b6"
           :class="{ 'gray-6': !canSubmit }"
         >
-          Submit
+          {{ $t("BUTTON.SUBMIT") }}
         </span>
       </a-button>
     </a-col>

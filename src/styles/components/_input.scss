@@ -1,3 +1,7 @@
-.ant-input {
+.ant-input-affix-wrapper {
+  height: 40px;
+}
+
+.ant-input[disabled] {
   height: 40px;
 }

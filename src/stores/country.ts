@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 
 import { API_URLS, STATUS } from "@/constants";
 import { usePayload } from "@/stores";
-import type { Country, Question } from "@/types";
+import type { Country, Payload } from "@/types";
 
 export const useCountryStore = defineStore("countries", {
   state: () => ({
@@ -13,62 +13,66 @@ export const useCountryStore = defineStore("countries", {
       { countryCode: "AUS", dialingCode: "+61" },
       { countryCode: "VNM", dialingCode: "+84" },
     ],
-    spinning: true,
+    loading: true,
   }),
   actions: {
     async getCountries() {
+      this.loading = true;
       try {
-        this.$patch({ spinning: true });
-        this.countries = (await axios.get<Country[]>(API_URLS.countries)).data;
-        // Map dialing codes into countries
-        this.countries = this.countries.map((country) => {
-          const dialingCode = this.dialingCodes.find(
-            (dc) => dc.countryCode === country.code,
-          );
-          return dialingCode ? { ...country, ...dialingCode } : country;
-        });
-
-        // Initiate and save when reload
+        const response = await axios.get<Country[]>(API_URLS.countries);
+        this.countries = response.data.map((country) => ({
+          ...country,
+          ...this.dialingCodes.find((dc) => dc.countryCode === country.code),
+        }));
         this.handlePayload(this.countries);
       } catch (error) {
         console.error("Error when getting location:", error);
       } finally {
-        this.$patch({ spinning: false });
+        this.loading = false;
       }
     },
 
     handlePayload(countries: Country[]) {
       const payloadStore = usePayload();
       const payloadItem = localStorage.getItem("payload");
-      const payload = JSON.parse(payloadItem!);
+      const payload = JSON.parse(payloadItem || "{}");
 
-      if (payload !== null && payload.isStep2Navigated) {
+      if (payload?.isStep2Navigated) {
         payloadStore.$patch(payload);
       } else {
         const { checklistAnswers } = payloadStore.$state;
-        payloadStore.handleChange("countryCode", countries?.[0]?.code);
-        payloadStore.handleChange(
-          "facilityId",
-          countries?.[0]?.facilityList?.[0]?.id,
-        );
+        const {
+          code: countryCode,
+          facilityList,
+          questionList,
+          dialingCode,
+        } = countries?.[0] || {};
+
+        payloadStore.handleChange("countryCode", countryCode);
+        payloadStore.handleChange("facilityId", facilityList?.[0]?.id);
         payloadStore.handleChange("statusCode", STATUS?.[0]?.code);
 
-        countries?.[0]?.questionList?.forEach((question: Question) => {
+        questionList?.forEach(({ code }) => {
           payloadStore.handleChange("checklistAnswers", {
             ...checklistAnswers,
-            [question.code]: null,
+            [code]: null,
           });
         });
 
-        payloadStore.handleChange("isPdfOpened", false);
-        payloadStore.handleChange("isStep2Navigated", false);
-        payloadStore.handleChange("isReviewed", false);
-        payloadStore.handleChange("dialingCode", countries?.[0]?.dialingCode);
+        const resetFields = {
+          isPdfOpened: false,
+          isStep2Navigated: false,
+          isReviewed: false,
+          dialingCode,
+          firstName: "",
+          lastName: "",
+          contactNumber: "",
+          isInfoConfirmed: false,
+        };
 
-        payloadStore.handleChange("firstName", "");
-        payloadStore.handleChange("lastName", "");
-        payloadStore.handleChange("contactNumber", "");
-        payloadStore.handleChange("isInfoConfirmed", false);
+        for (const [field, value] of Object.entries(resetFields)) {
+          payloadStore.handleChange(field as keyof Payload, value);
+        }
       }
     },
   },

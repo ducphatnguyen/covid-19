@@ -87,10 +87,10 @@ const onSubmit = async () => {
     vertical
   >
     <progress-stepper
-      :title="'3. Contact Information'"
-      :description="'Final Step'"
-      :current-step="3"
-      :total-steps="3"
+      :title="$t('CIRCLE_PROGRESS_BAR.STEP_3.TITLE')"
+      :description="$t('CIRCLE_PROGRESS_BAR.STEP_3.DESCRIPTION')"
+      :current-step="Number($t('CIRCLE_PROGRESS_BAR.STEP_3.CURRENT_STEP'))"
+      :total-steps="Number($t('CIRCLE_PROGRESS_BAR.TOTAL_STEPS'))"
     />
 
     <v-form
@@ -104,7 +104,7 @@ const onSubmit = async () => {
           vertical
         >
           <a-flex class="b6 gray-9">
-            <span>Please fill in your contact details:</span>
+            <span>{{ $t("PERSONAL_INFORMATION.INSTRUCTION") }}</span>
           </a-flex>
 
           <a-form
@@ -121,7 +121,7 @@ const onSubmit = async () => {
                   id="firstName"
                   v-slot="{ field, value }"
                   v-model="payloadStore.$state.firstName"
-                  label="First Name"
+                  :label="$t('PERSONAL_INFORMATION.FIRST_NAME')"
                   name="firstName"
                   @change="onChangeFirstName"
                 >
@@ -134,11 +134,13 @@ const onSubmit = async () => {
                     :help="errors.firstName"
                   >
                     <template #label>
-                      <span class="b7 gray-9">First Name</span>
+                      <span class="b7 gray-9">
+                        {{ $t("PERSONAL_INFORMATION.FIRST_NAME") }}
+                      </span>
                     </template>
                     <a-input
                       v-bind="field"
-                      placeholder="First Name"
+                      :placeholder="$t('PERSONAL_INFORMATION.FIRST_NAME')"
                       autocomplete="off"
                     />
                   </a-form-item>
@@ -149,16 +151,18 @@ const onSubmit = async () => {
                   id="firstName"
                   v-slot="{ field }"
                   v-model="payloadStore.$state.firstName"
-                  label="First Name"
+                  :label="$t('PERSONAL_INFORMATION.FIRST_NAME')"
                   name="firstName"
                 >
                   <a-form-item class="mb-0">
                     <template #label>
-                      <span class="b7 gray-9">First Name</span>
+                      <span class="b7 gray-9">
+                        {{ $t("PERSONAL_INFORMATION.FIRST_NAME") }}
+                      </span>
                     </template>
                     <a-input
                       v-bind="field"
-                      placeholder="First Name"
+                      :placeholder="$t('PERSONAL_INFORMATION.FIRST_NAME')"
                       autocomplete="off"
                       disabled
                     />
@@ -171,7 +175,7 @@ const onSubmit = async () => {
                   id="lastName"
                   v-slot="{ field, value }"
                   v-model="payloadStore.$state.lastName"
-                  label="Last Name"
+                  :label="$t('PERSONAL_INFORMATION.LAST_NAME')"
                   name="lastName"
                   @change="onChangeLastName"
                 >
@@ -184,11 +188,13 @@ const onSubmit = async () => {
                     :help="errors.lastName"
                   >
                     <template #label>
-                      <span class="b7 gray-9 p-0">Last Name</span>
+                      <span class="b7 gray-9 p-0">
+                        {{ $t("PERSONAL_INFORMATION.LAST_NAME") }}
+                      </span>
                     </template>
                     <a-input
                       v-bind="field"
-                      placeholder="Last Name"
+                      :placeholder="$t('PERSONAL_INFORMATION.LAST_NAME')"
                     />
                   </a-form-item>
                 </v-field>
@@ -198,16 +204,18 @@ const onSubmit = async () => {
                   id="lastName"
                   v-slot="{ field }"
                   v-model="payloadStore.$state.lastName"
-                  label="Last Name"
+                  :label="$t('PERSONAL_INFORMATION.LAST_NAME')"
                   name="lastName"
                 >
                   <a-form-item class="mb-0">
                     <template #label>
-                      <span class="b7 gray-9 p-0">Last Name</span>
+                      <span class="b7 gray-9 p-0">
+                        {{ $t("PERSONAL_INFORMATION.LAST_NAME") }}
+                      </span>
                     </template>
                     <a-input
                       v-bind="field"
-                      placeholder="Last Name"
+                      :placeholder="$t('PERSONAL_INFORMATION.LAST_NAME')"
                       disabled
                     />
                   </a-form-item>
@@ -216,7 +224,9 @@ const onSubmit = async () => {
 
               <a-form-item class="mb-0">
                 <template #label>
-                  <span class="b7 gray-9 p-0">Contact Number</span>
+                  <span class="b7 gray-9 p-0">
+                    {{ $t("PERSONAL_INFORMATION.CONTACT_NUMBER") }}
+                  </span>
                 </template>
 
                 <a-row :gutter="[6, 4]">
@@ -322,7 +332,7 @@ const onSubmit = async () => {
                         id="contactNumber"
                         v-slot="{ field, value }"
                         v-model="payloadStore.$state.contactNumber"
-                        label="Contact Number"
+                        :label="$t('PERSONAL_INFORMATION.CONTACT_NUMBER')"
                         name="contactNumber"
                         @change="onChangeContactNumber"
                       >
@@ -340,7 +350,9 @@ const onSubmit = async () => {
                         >
                           <a-input
                             v-bind="field"
-                            placeholder="Contact Number"
+                            :placeholder="
+                              $t('PERSONAL_INFORMATION.CONTACT_NUMBER')
+                            "
                           />
                         </a-form-item>
                       </v-field>
@@ -350,13 +362,15 @@ const onSubmit = async () => {
                         id="contactNumber"
                         v-slot="{ field }"
                         v-model="payloadStore.$state.contactNumber"
-                        label="Contact Number"
+                        :label="$t('PERSONAL_INFORMATION.CONTACT_NUMBER')"
                         name="contactNumber"
                       >
                         <a-form-item class="mb-0">
                           <a-input
                             v-bind="field"
-                            placeholder="Contact Number"
+                            :placeholder="
+                              $t('PERSONAL_INFORMATION.CONTACT_NUMBER')
+                            "
                             disabled
                           />
                         </a-form-item>
@@ -392,9 +406,7 @@ const onSubmit = async () => {
                         :size="[24, 24]"
                       >
                         <span class="b7 gray-8">
-                          I confirm that the above information is accurate and I
-                          have read and understood the requirements and
-                          expectations of entering the Silicon Stack premises.
+                          {{ $t("PERSONAL_INFORMATION.INFO_CONFIRMATION") }}
                         </span>
                       </a-checkbox>
                     </a-flex>
@@ -420,9 +432,7 @@ const onSubmit = async () => {
                         disabled
                       >
                         <span class="b7 gray-8">
-                          I confirm that the above information is accurate and I
-                          have read and understood the requirements and
-                          expectations of entering the Silicon Stack premises.
+                          {{ $t("PERSONAL_INFORMATION.INFO_CONFIRMATION") }}
                         </span>
                       </a-checkbox>
                     </a-flex>

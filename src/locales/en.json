@@ -1,0 +1,65 @@
+{
+  "HOME": {
+    "WELCOME": "Welcome and thanks for checking in with {name}!",
+    "DESCRIPTION": "In light of COVID-19 there is a mandatory Check-In System in place, to ensure maximum safety for everyone who comes on premise. This check-in system is required for both visitors and employees and you will be required to check-in on each visit to the premises.",
+    "VERSION": "Version 1.0.1"
+  }, 
+  "LOCATION": {
+    "REQUIREMENTS": "To begin, please select your country and facility location",
+    "COUNTRY_SELECTION_GUIDE": "Select your country:",
+    "FACILITY_SELECTION_GUIDE": "Select the facility you are entering:",
+    "STATUS_SELECTION_GUIDE": "Select the status:"
+  },
+  "OFFICE_GUIDELINES": {
+    "REQUIREMENTS": "Read and acknowledge {newLine} the Office Guidelines",
+    "INSTRUCTION": "Tap to open PDF"
+  },
+  "HEALTH_CHECKLIST": {
+    "HEALTH_SELECTION_GUIDE": "Select your current health information:"
+  },
+  "PERSONAL_INFORMATION": {
+    "INSTRUCTION": "Please fill in your contact details:",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "CONTACT_NUMBER": "Contact Number",
+    "INFO_CONFIRMATION": " I confirm that the above information is accurate and I have read and understood the requirements and expectations of entering the Silicon Stack premises."
+  },
+  "SUCCESFULLY": {
+    "SUCCESS": {
+      "MESSAGE": "Check-In Successful!",
+      "DESCRIPTION": "Thank you for completing. You can now safely enter the office. Please be sure to check-in on each office visit. Have a great day!"
+    },
+    "FAILURE": {
+      "MESSAGE": "Check-In Successful!",
+      "DESCRIPTION": "Thank you for completing. You can now safely enter the office. Please be sure to check-in on each office visit. Have a great day!",
+      "INSTRUCTION": "Please call your Silicon Stack Line Manager or Meeting Host immediately to advise."
+    }
+  },
+  "BUTTON": {
+    "BACK": "Back",
+    "BACK_HOME": "Back Home",
+    "NEXT": "Next",
+    "REVIEW": "Review",
+    "SUBMIT": "Submit",
+    "START": "Get Started"
+  },
+  "CIRCLE_PROGRESS_BAR": {
+    "STEP_1": {
+      "TITLE": "1. Office-guidelines",
+      "DESCRIPTION": "Next: Health Checklist",
+      "CURRENT_STEP": "1"
+    },
+    "STEP_2": {
+      "TITLE": "2. Health Checklist",
+      "DESCRIPTION": "Next: Personal Information",
+      "CURRENT_STEP": "2"
+    },
+    "STEP_3": {
+      "TITLE": "3. Contact Information",
+      "DESCRIPTION": "Final Step",
+      "CURRENT_STEP": "3"
+    },
+    "TOTAL_STEPS": "3",
+    "OF": "of"
+  }
+}

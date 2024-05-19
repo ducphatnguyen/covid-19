@@ -7,14 +7,14 @@ export const useDarkMode = defineStore("dark-mode", {
     isDarkMode: false,
   }),
   actions: {
-    handleChange(isDarkMode: DarkMode) {
-      this.$patch(isDarkMode);
+    handleChange(darkmode: DarkMode) {
+      this.$patch(darkmode);
     },
   },
   persist: [
     {
       key: (id) => `persisted-${id}`,
-      paths: ["isDarkMode"],
+      // paths: ["isDarkMode"],
       storage: localStorage,
     },
   ],
