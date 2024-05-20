@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { usePayload, useDarkMode } from "@/stores";
+import { computed } from "vue";
 
 // Data
 const props = defineProps<{
@@ -12,7 +13,7 @@ const props = defineProps<{
 const payloadStore = usePayload();
 const darkMode = useDarkMode();
 
-const percent = (100 * props.currentStep) / props.totalSteps;
+const percent = computed(() => (100 * props.currentStep) / props.totalSteps);
 </script>
 
 <template>

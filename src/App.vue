@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from "vue";
+import { computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { setLocale } from "@vee-validate/i18n";
 
@@ -17,11 +17,6 @@ const countries = computed(() => countryStore.$state.countries);
 const languageCode = computed(
   () => languageModeStore.$state.languageCode ?? "en",
 );
-
-watch(languageCode, (newLangCode) => {
-  locale.value = newLangCode;
-  setLocale(newLangCode);
-});
 
 // Lifecycle
 onMounted(() => {

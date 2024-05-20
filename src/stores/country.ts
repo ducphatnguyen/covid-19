@@ -1,18 +1,13 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 
-import { API_URLS, STATUS } from "@/constants";
+import { API_URLS, DIALING_CODES, STATUS } from "@/constants";
 import { usePayload } from "@/stores";
 import type { Country, Payload } from "@/types";
 
 export const useCountryStore = defineStore("countries", {
   state: () => ({
     countries: [] as Country[],
-    dialingCodes: [
-      { countryCode: "IND", dialingCode: "+91" },
-      { countryCode: "AUS", dialingCode: "+61" },
-      { countryCode: "VNM", dialingCode: "+84" },
-    ],
     loading: true,
   }),
   actions: {
@@ -22,7 +17,7 @@ export const useCountryStore = defineStore("countries", {
         const response = await axios.get<Country[]>(API_URLS.countries);
         this.countries = response.data.map((country) => ({
           ...country,
-          ...this.dialingCodes.find((dc) => dc.countryCode === country.code),
+          ...DIALING_CODES.find((dc) => dc.countryCode === country.code),
         }));
         this.handlePayload(this.countries);
       } catch (error) {

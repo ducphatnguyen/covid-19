@@ -1,26 +1,16 @@
 <script setup lang="ts">
-import { computed, onMounted, onBeforeUnmount, ref } from "vue";
-import { SettingOutlined } from "@ant-design/icons-vue";
-import type { MenuProps } from "ant-design-vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 
-import { LANGUAGES } from "@/constants";
-import {
-  useCountryStore,
-  useDarkMode,
-  usePayload,
-  useLanguageMode,
-} from "@/stores";
+import { useCountryStore, usePayload } from "@/stores";
 import { convertDateTime } from "@/utils";
+import { AppSetting } from "@/components";
 
 // Data
 const countryStore = useCountryStore();
-const darkModeStore = useDarkMode();
 const payloadStore = usePayload();
-const languageModeStore = useLanguageMode();
 
 const currentDateTime = ref<string>("");
 const intervalId = ref<number>(0);
-const visible = ref<boolean>(false);
 
 // Computed
 const countries = computed(() => countryStore.$state.countries);
@@ -44,14 +34,7 @@ const getFacilityName = (countryCode: string, facilityId: number) => {
   const country = countries.value.find(
     (country) => country.code === countryCode,
   );
-  const facility = country?.facilityList.find((f) => f.id === facilityId);
-  return facility?.name || "";
-};
-
-const handleMenuClick: MenuProps["onClick"] = (e) => {
-  if (e.key === "close") {
-    visible.value = false;
-  }
+  return country?.facilityList.find((f) => f.id === facilityId)?.name || "";
 };
 </script>
 
@@ -90,60 +73,7 @@ const handleMenuClick: MenuProps["onClick"] = (e) => {
           justify="center"
           align="center"
         >
-          <a-tooltip placement="right">
-            <template #title>
-              <span>Settings</span>
-            </template>
-            <a-dropdown
-              v-model:open="visible"
-              :arrow="{ pointAtCenter: true }"
-              :placement="'bottomRight'"
-              :trigger="['click']"
-            >
-              <setting-outlined class="b4 gray-10" />
-              <template #overlay>
-                <a-menu @click="handleMenuClick">
-                  <a-menu-item>
-                    <a-switch v-model:checked="darkModeStore.$state.isDarkMode">
-                      <template #checkedChildren>
-                        <img
-                          class="moon-sun-icon icon-effect"
-                          src="/src/assets/icons/moon-outline.svg"
-                          alt="Moon"
-                        />
-                      </template>
-                      <template #unCheckedChildren>
-                        <img
-                          class="moon-sun-icon icon-effect"
-                          src="/src/assets/icons/sunny-outline.svg"
-                          alt="Sunny"
-                        />
-                      </template>
-                    </a-switch>
-                  </a-menu-item>
-
-                  <a-sub-menu
-                    key="sub1"
-                    title="Languages"
-                  >
-                    <a-menu-item
-                      v-for="language in LANGUAGES"
-                      :key="language.code"
-                      :value="language.code"
-                      @click="
-                        languageModeStore.handleChange({
-                          languageCode: language.code,
-                          languageName: language.label,
-                        })
-                      "
-                    >
-                      {{ language.label }}
-                    </a-menu-item>
-                  </a-sub-menu>
-                </a-menu>
-              </template>
-            </a-dropdown>
-          </a-tooltip>
+          <app-setting />
         </a-flex>
       </a-flex>
     </a-flex>
@@ -153,14 +83,5 @@ const handleMenuClick: MenuProps["onClick"] = (e) => {
 <style lang="scss">
 .logo {
   width: 100px;
-}
-.moon-sun-icon {
-  cursor: pointer;
-}
-.icon-effect {
-  transition: transform 0.3s ease;
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 </style>

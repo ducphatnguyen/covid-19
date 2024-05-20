@@ -41,7 +41,7 @@ const onChangeCountry = (countryCode: string) => {
   payloadStore.handleChange("countryCode", countryCode);
 
   const selectedFacility = facilitiesByCountry.value[0];
-  if (selectedFacility)
+  selectedFacility &&
     payloadStore.handleChange("facilityId", selectedFacility.id);
 
   payloadStore.handleChange("statusCode", STATUS[0].code);
@@ -88,51 +88,31 @@ const onChangeStatus = (statusCode: string) => {
             class="location__body-country-choice"
             gap="middle"
           >
-            <template v-if="!payloadStore.$state.isReviewed">
-              <div
-                v-for="country in countries"
-                :key="country.id"
-                class="location__body-country-item px-4 pt-4 pb-2 bg-layout"
-                :class="{
-                  'location__body-country-item--active':
-                    country.code === payloadStore.$state.countryCode,
-                }"
-                @click="onChangeCountry(country.code)"
-              >
-                <div class="country-item__wrap">
-                  <img
-                    class="country-item__img"
-                    :src="getCountryFlagUrl(country.code)"
-                    alt="Country Flag"
-                  />
-                  <div class="b8 pt-1 text-center">
-                    <span class="gray-10">{{ country.name }}</span>
-                  </div>
+            <div
+              v-for="country in countries"
+              :key="country.id"
+              class="location__body-country-item px-4 pt-4 pb-2 bg-layout"
+              :class="{
+                'location__body-country-item--active':
+                  country.code === payloadStore.$state.countryCode,
+                'location__body-country-item--deactivate':
+                  payloadStore.$state.isReviewed,
+              }"
+              @click="
+                !payloadStore.$state.isReviewed && onChangeCountry(country.code)
+              "
+            >
+              <div class="country-item__wrap">
+                <img
+                  class="country-item__img"
+                  :src="getCountryFlagUrl(country.code)"
+                  alt="Country Flag"
+                />
+                <div class="b8 pt-1 text-center">
+                  <span class="gray-10">{{ country.name }}</span>
                 </div>
               </div>
-            </template>
-            <template v-else>
-              <div
-                v-for="country in countries"
-                :key="country.id"
-                class="location__body-country-item px-4 pt-4 pb-2 location__body-country-item--deactivate"
-                :class="{
-                  'location__body-country-item--active':
-                    country.code === payloadStore.$state.countryCode,
-                }"
-              >
-                <div>
-                  <img
-                    class="country-item__img"
-                    :src="getCountryFlagUrl(country.code)"
-                    alt="Country Flag"
-                  />
-                  <div class="b8 pt-1 text-center">
-                    <span class="gray-10">{{ country.name }}</span>
-                  </div>
-                </div>
-              </div>
-            </template>
+            </div>
           </a-flex>
         </template>
         <a-empty
@@ -155,30 +135,20 @@ const onChangeStatus = (statusCode: string) => {
               gap="middle"
               vertical
             >
-              <template v-if="!payloadStore.$state.isReviewed">
-                <a-radio
-                  v-for="facility in facilitiesByCountry"
-                  :key="facility.id"
-                  :value="facility.id"
-                  @click="onChangeFacility(facility.id)"
-                >
-                  <span class="location__body-facility-content b6 gray-10 ps-2">
-                    {{ facility.name }}
-                  </span>
-                </a-radio>
-              </template>
-              <template v-else>
-                <a-radio
-                  v-for="facility in facilitiesByCountry"
-                  :key="facility.id"
-                  :value="facility.id"
-                  disabled
-                >
-                  <span class="location__body-facility-content b6 gray-10 ps-2">
-                    {{ facility.name }}
-                  </span>
-                </a-radio>
-              </template>
+              <a-radio
+                v-for="facility in facilitiesByCountry"
+                :key="facility.id"
+                :value="facility.id"
+                :disabled="payloadStore.$state.isReviewed"
+                @click="
+                  !payloadStore.$state.isReviewed &&
+                    onChangeFacility(facility.id)
+                "
+              >
+                <span class="location__body-facility-content b6 gray-10 ps-2">
+                  {{ facility.name }}
+                </span>
+              </a-radio>
             </a-flex>
           </a-radio-group>
         </a-flex>
@@ -195,30 +165,19 @@ const onChangeStatus = (statusCode: string) => {
               gap="middle"
               vertical
             >
-              <template v-if="!payloadStore.$state.isReviewed">
-                <a-radio
-                  v-for="status in STATUS"
-                  :key="status.code"
-                  :value="status.code"
-                  @click="onChangeStatus(status.code)"
-                >
-                  <span class="location__body-facility-content b6 gray-10 ps-2">
-                    {{ status.label }}
-                  </span>
-                </a-radio>
-              </template>
-              <template v-else>
-                <a-radio
-                  v-for="status in STATUS"
-                  :key="status.code"
-                  :value="status.code"
-                  disabled
-                >
-                  <span class="location__body-facility-content b6 gray-10 ps-2">
-                    {{ status.label }}
-                  </span>
-                </a-radio>
-              </template>
+              <a-radio
+                v-for="status in STATUS"
+                :key="status.code"
+                :value="status.code"
+                :disabled="payloadStore.$state.isReviewed"
+                @click="
+                  !payloadStore.$state.isReviewed && onChangeStatus(status.code)
+                "
+              >
+                <span class="location__body-facility-content b6 gray-10 ps-2">
+                  {{ status.label }}
+                </span>
+              </a-radio>
             </a-flex>
           </a-radio-group>
         </a-flex>

@@ -2,34 +2,49 @@ import * as AllRules from "@vee-validate/rules";
 import { localize } from "@vee-validate/i18n";
 import { defineRule, configure } from "vee-validate";
 
-import { LOCALES } from "@/constants";
 import { usePayload } from "@/stores";
 import { validatePhoneNumber } from "@/utils";
+import { LANGUAGES } from "@/constants";
 
 const rules = AllRules as Record<string, any>;
 Object.entries(rules).forEach(([name, rule]) => {
   defineRule(name, rule);
-  console.log(name, rule);
 });
 
 (async () => {
   const dictionary: Record<string, any> = {};
-  for (const locale of LOCALES) {
-    dictionary[locale] = await import(
-      `../../../node_modules/@vee-validate/i18n/dist/locale/${locale}.json`
-    );
+
+  for (const { code: localeCode } of LANGUAGES) {
+    try {
+      const locale = await import(
+        `../../../node_modules/@vee-validate/i18n/dist/locale/${localeCode}.json`
+      );
+      dictionary[localeCode] = locale.messages;
+    } catch (error) {
+      console.error(`Error loading locale ${localeCode}:`, error);
+      dictionary[localeCode] = {};
+    }
   }
 
-  dictionary.vi.default.messages = {
-    ...dictionary.vi.default.messages,
-    noSpecialCharacters: "{field} không được chứa ký tự đặc biệt.",
-  };
+  // Configure messages with i18n
 
-  console.log(dictionary.vi.default.messages);
+  dictionary.vi.contactNumber = "{field} không hợp lệ";
+  dictionary.id.contactNumber = "{field} tidak valid";
+  dictionary.en.contactNumber = "Invalid {field}";
+
+  dictionary.vi.noSpecialCharacters = "{field} không được chứa ký tự đặc biệt.";
+  dictionary.id.noSpecialCharacters =
+    "{field} tidak boleh mengandung karakter khusus.";
+  dictionary.en.noSpecialCharacters =
+    "{field} must not contain special characters.";
+
   configure({
-    generateMessage: localize(dictionary),
+    generateMessage: localize({
+      en: { messages: dictionary.en },
+      id: { messages: dictionary.id },
+      vi: { messages: dictionary.vi },
+    }),
   });
-  console.log(dictionary.vi.default.messages);
 })();
 
 defineRule("contactNumber", (value: string) => {
@@ -40,7 +55,5 @@ defineRule("contactNumber", (value: string) => {
 
 defineRule("noSpecialCharacters", (value: string) => {
   const regex = /[!@#$%^&*(),.?":{}|<>]/;
-  return regex.test(value)
-    ? "This field cannot contain special characters."
-    : true;
+  return !regex.test(value);
 });

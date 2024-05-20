@@ -10,7 +10,5 @@ export const validatePhoneNumber = (
     "+91": [/^[789]\d{9}$/], // India
   };
   const regexes = regexMap[dialingCode];
-  return !regexes || !regexes.some((regex) => regex.test(value))
-    ? "Invalid contact number"
-    : true;
+  return regexes ? regexes.some((regex) => regex.test(value)) : true;
 };

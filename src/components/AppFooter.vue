@@ -19,25 +19,30 @@ const props = defineProps<{
 const payloadStore = usePayload();
 const router = useRouter();
 
+const confirmNavigation = (title: string, content: string) => {
+  Modal.confirm({
+    title,
+    icon: createVNode(ExclamationCircleOutlined),
+    content,
+    onOk: () => router.push({ name: props.backRouteName }),
+    onCancel: () => {},
+    width: 300,
+  });
+};
+
 // Methods
-const goBack = () => {
+const navigateBack = () => {
   if (props.backRouteName === "intro") {
-    Modal.confirm({
-      title: "Confirmation",
-      icon: createVNode(ExclamationCircleOutlined),
-      content: "The data will be cleared. Are you sure you want to back?",
-      onOk: () => {
-        router.push({ name: "intro" });
-      },
-      onCancel: () => {},
-      width: 300,
-    });
+    confirmNavigation(
+      "Confirmation",
+      "The data will be cleared. Are you sure you want to back?",
+    );
   } else {
     router.push({ name: props.backRouteName });
   }
 };
 
-const goNext = () => {
+const navigateNext = () => {
   if (props.nextRouteName === "health-checklist") {
     payloadStore.handleChange("isStep2Navigated", props.isStep2Navigated);
   }
@@ -55,7 +60,7 @@ const goNext = () => {
       <a-button
         class="button-100"
         size="large"
-        @click="goBack"
+        @click="navigateBack"
       >
         <span class="b6">{{ $t("BUTTON.BACK") }}</span>
       </a-button>
@@ -69,7 +74,7 @@ const goNext = () => {
         type="primary"
         size="large"
         :disabled="!canNext"
-        @click="goNext"
+        @click="navigateNext"
       >
         <span
           class="b6"

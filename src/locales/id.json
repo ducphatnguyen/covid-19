@@ -31,7 +31,8 @@
     },
     "FAILURE": {
       "MESSAGE": "Check-In Berhasil!",
-      "DESCRIPTION": "Terima kasih telah menyelesaikan. Anda sekarang dapat memasuki kantor dengan aman. Pastikan untuk check-in setiap kali mengunjungi kantor. Semoga hari Anda menyenangkan! Harap segera hubungi Manajer Jalur Silicon Stack atau Tuan Rumah Rapat Anda untuk mendapatkan saran."
+      "DESCRIPTION": "Terima kasih telah menyelesaikan. Anda sekarang dapat memasuki kantor dengan aman. Pastikan untuk check-in setiap kali mengunjungi kantor. Semoga hari Anda menyenangkan! Harap segera hubungi Manajer Jalur Silicon Stack atau Tuan Rumah Rapat Anda untuk mendapatkan saran.",
+      "INSTRUCTION":  "Silakan segera hubungi Manajer Linia Silicon Stack Anda atau Tuan Rumah Rapat untuk memberikan informasi."
     }
   },
   "BUTTON": {

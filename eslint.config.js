@@ -26,6 +26,7 @@ export default [
       "prettier/prettier": [
         "error",
         {
+          singleAttributePerLine: true,
           endOfLine: "auto",
           htmlWhitespaceSensitivity: "ignore",
         },
@@ -73,6 +74,7 @@ export default [
       ],
       "vue/padding-line-between-blocks": "error",
       "vue/singleline-html-element-content-newline": "off",
+      "vue/html-indent": "off",
     },
   },
 ];
