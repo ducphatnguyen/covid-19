@@ -70,9 +70,9 @@ export const useCountryStore = defineStore("countries", {
           isInfoConfirmed: false,
         };
 
-        for (const [field, value] of Object.entries(resetFields)) {
+        Object.entries(resetFields).forEach(([field, value]) => {
           payloadStore.handleChange(field as keyof Payload, value);
-        }
+        });
       }
     },
   },
